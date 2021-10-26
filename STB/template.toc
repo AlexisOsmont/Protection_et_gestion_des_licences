@@ -13,4 +13,4 @@
 \contentsline {subsection}{\numberline {4.1.3}Utilisation du logiciel avec la licence}{8}{subsection.4.1.3}%
 \contentsline {section}{\numberline {4.2}Partie Client}{8}{section.4.2}%
 \contentsline {subsection}{\numberline {4.2.1}Activation d'un compte et gestion des droits}{8}{subsection.4.2.1}%
-\contentsline {chapter}{Bibliographie}{8}{subsection.4.2.1}%
+\contentsline {chapter}{Bibliographie}{8}{figure.4.1}%
