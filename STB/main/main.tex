@@ -1,18 +1,20 @@
 \chapter{Objectifs}
 
-Le but de ce projet est de fournir une solution permettant de proteger les 
-applications du client sur Windows en évitant leur copie ou leur utilisation illégale. 
+Le but de ce projet est de fournir une solution permettant de proteger les applications
+du client sur Windows en évitant leur copie ou leur utilisation illégale. 
 Il devra également permettre au client de générer et gérer des licences d'utilisation 
 via une interface graphique. Il pourra ainsi définir des contraintes sur les licences 
 comme par exemple la durée de validité. \newline
-Cette outil vient en remplacement de solution déjà existante tel que 
-	IntellilLock ou ElecKey, a l'instar de ces outils la prise en compte des paiements sera effectué par une solution externe du client.
 
-\chapter{terminologies}
+Cette outil vient en remplacement de solution déjà existante tel que IntellilLock ou ElecKey,
+à l'instar de ces outils la prise en compte des paiements sera effectué par une solution externe
+du client.
+
+\chapter{Terminologies}
 
 \begin{itemize}
 	\item Le client est le commanditaire du projet.
-	\item Un utilisateur est un client du client. 
+	\item Un utilisateur est une personne souhaitant utiliser un logiciel du client. 
 	\item Une licence est un droit accordé pour une machine et un utilisateur d'utilisé un logiciel donné.
 \end{itemize}
 
@@ -40,8 +42,9 @@ Cette platforme devra permettre au client de donner les autorisations nécessair
 	\item Une liste des nouveaux utilisateurs en attente de validation.
 	\item La possibilité de consulter la les licences de chaque utilisateurs.
 	\item La possibilité de définir la porté d'une licence pour un utilisateur 
-				comme la durée de validité (potentiellement infini) ou des restrictions.
-\end{itemize}   
+		  comme la durée de validité (potentiellement infini) ou des restrictions.
+\end{itemize}
+\newpage
 
 \section{Exigences de Sécurité}
 Les principaux points liés aux aspects de la sécurité sont les suivants:
@@ -55,13 +58,28 @@ Les principaux points liés aux aspects de la sécurité sont les suivants:
 
 \section{Partie utilisateur}
 
-Cette section décrit 
-\subsection{inscription d'un utilisateur}
+Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. Cette interaction est décrite dans le schéma n°??.
 
-\subsection{generation de la licence}
+\subsection{Inscription d'un utilisateur}
 
-\subsection{utilisation du logiciel avec la licence}
+Un utilisateur pourra s'inscrire via une interface afin de pouvoir obtenir une licence qui lui permettra d'utiliser le logiciel souhaité. 
+
+\subsection{Génération de la licence}
+
+Une fois inscrit, si le client a validé la demande de licence (voir \textbf{4.2.1}), l'utilisateur devra télécharger un outil, depuis la
+plateforme, afin de générer la licence.
+
+\subsection{Utilisation du logiciel avec la licence}
+
+La licence obtenue, l'utilsateur pourra alors débloqué le logiciel du client qu'il souhaite utiliser en lui renseignant
+sa licence.
 
 \section{Partie Client}
 
-\subsection{activation d'un compte et gestion des droits}
+\subsection{Activation d'un compte et gestion des droits}
+
+Lorsque qu'un utilisateur se créera un compte et effectuera une demande de licence, notre client pourra, ou non, répondre
+à sa demande et lancer la génération de licence, via une interface administrateur sur la même platforme que le client.
+
+La partie paiement du logiciel ne sera pas pris en charge par notre outil, à la demande du client,
+il devra effectuer lui-même les vérifications.
