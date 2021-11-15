@@ -1,0 +1,23 @@
+Sécurisation de base de données
+
+Pourquoi sécuriser sa base de données ?
+
+Une sécurisation de base de donnée à lieu pour éviter les vol de données et les intrusions dans le systeme. L’essentiel dans notre cas est de cértifier une sécurité de leurs données autant aux utilisateurs qu’au client. Aprés de multiple recherche il ressort 3 points essentiels. Le premier et la surveillance en cas d’activité et de performance anormal, le second est l’analyse de vulnérabilité et leurs prevention aupres du client et le dernier est la chiffrement des données qui aujourd’hui est un standart de sécurtité et de confidentialité.
+
+Exemple de sécurités
+
+Surveillance des activités, on parle de plateforme de database activity monitoring (DAM) qui capture toutes activités.
+
+Recherche de vulnérabilités, des outils permettent de vérifier les reglages systeme d’exploitation de l’hôte. Cela permet d’éviter les erreuts de reglage frequentes et les failles recurentes.
+
+Chiffrement,  l’integration de systeme de chiffrement afin de proteger tout autant la structure de la base que les données qui s’y trouvent. L’appel de librairie de chiffrement est donc nécessaire. Attention à certain chiffrement, par exemple le chiffrement au niveau de la couche applicative peut reduire les performances. L’utlisation de chiffrement transparent (TDE) est le plus courrant.
+
+Technologies à utiliser :
+
+Gestionnaire de base de données dans le cas ou le client n’en posséde pas déjà, comme MYSQL, POSTGRE SQL ou microsof SQL server.
+
+La majorité des logiciel de gestion de base de données propose déjà des outils de chiffrement en fonction des besoins. Dans notre cas TDE est recommandé. (A voir : https://www.oracle.com/fr/security/chiffrement-des-donnees.html)
+
+Pour la sécurité et la surveillance il existe des logiciel genrant ces deux domaines. Datadog en est un exemple parfait, cependant il n’en existe pas d’open source ou de gratuits qui correspondent a nos attentes
+
+

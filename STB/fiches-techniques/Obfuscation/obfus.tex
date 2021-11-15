@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{fontawesome}
+\usepackage[margin=3.8cm]{geometry}
+
+\usepackage[backend=bibtex8]{biblatex}
+\addbibresource{obfus.bib}
+
+\title{
+    \Huge
+    Fiches techniques\\
+    Obfuscation de code
+}
+\author{\huge Louka Boivin}
+\date{\huge \today}
+
+\newcommand{\arrow}{$\rightarrow$ }
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Problématique}                                                                                 
+
+\subsection{Introduction}
+
+Le but de ce projet est de réaliser un outil permettant de protéger des logiciels propriétaires contre des utilisations illégales et contre la copie.
+Pour cela, le but premier est de créer un outil de gestion et de protection des licences afin d'éviter les utilisations illégales du logiciel.
+
+Dans un second temps, il faut donc protéger ce logiciel contre la copie et contre le reverse engineering. Le reverse engineering est le fait de dé-compiler ou désassembler un exécutable afin d'en retrouver le code source.
+Pour ce faire plusieurs méthodes peuvent être utilisées et combinées pour augmenter la résistance du code. Ces méthodes sont détaillées dans la section n°2.
+
+\subsection{Mots-clés}
+Propriété intellectuelle, obfuscation de code, software watermarking, code tamper-proofing.
+\vspace{1cm}
+
+\section{Méthodes}
+
+Les principales méthodes utilisées sont les suivantes :
+\begin{itemize}
+    \item Obfuscation de code
+    \item Software watermarking
+    \item Code tamper-proofing
+\end{itemize}
+\newpage
+
+\subsection{Obfuscation de code}
+Étant donné que aucun code n'est sûre à 100\% le but est de rendre le reverse-engineering plus coûteux en efforts et en temps que de produire un logiciel équivalent. Pour cela l'objectif est de rendre le code source flou, afin de le rendre difficilement lisible et compréhensible par l'humain.
+
+Il y a différents niveaux d'obfuscation \cite{obfus} :
+
+\subsubsection{Layout Obfuscation}
+La chose la plus simple et de modifier le code source pour le rendre obscure et incompréhensible à première vue. Par exemple :
+\begin{itemize}
+    \item Renommer les variables (ex: changer \verb:licenseFile: par \verb:z6zdf50klp:),
+    \item Retirer les commentaires,
+    \item Changer l'agencement du code, retirer tabulations, sauts de ligne, espaces...
+\end{itemize}
+
+\subsubsection{Control Obfuscation}
+Ensuite on peut modifier pour rendre plus flou l'exécution du programme en ajoutant différents éléments :
+\begin{itemize}
+    \item Ajouter du code ``mort" : du code jamais exécuté, mais présent pour complexifier la compréhension,
+    \item Des instructions conditionnelles inutiles : toujours vrai, juste présent pour faire croire que le test est important,
+    \item Ajouter des opérandes ou fonctions redondantes,
+    \item Paralléliser le code à plusieurs endroits,
+    \item Modifier l'étendue des boucles, itérer à l'envers etc...
+\end{itemize}
+
+\subsubsection{Data Obfuscation}
+Une autre chose importante et de pouvoir cacher les données comprises dans notre code source. Par exemple, les chaînes de caractères restent telles quelles dans le code compilé et donc il est nécessaire de les rendre complexe à décoder.
+
+Exemple: on peut chiffrer nos chaînes de caractères à l'aide d'un simple XOR.
+
+On peut également agir sur les variables : modifier leur types pour quelque chose de plus flou, les scinder en deux variables complémentaires qui permettrait par l'intermédiaire de fonctions de les ré-assembler et les modifier etc...
+
+\subsubsection{Preventive Obfuscation}
+Enfin, une dernière méthode consiste à prévenir notre code contre un logiciel de désobfuscation précis, si on sait contre qui ou quoi notre logiciel doit être protégé.
+
+\subsubsection{Influence sur les performances}
+L'obfuscation de code ne doit pas avoir d'influence significative sur les performances du programme ou de l'application à l'exécution.
+
+Pour évaluer l'efficacité de l'obfuscations et les performances plusieurs critères sont utilisés :
+\begin{itemize}
+    \item Potentielle d'obfuscation,
+    \item Résistance aux outils de désobfuscation automatique,
+    \item L'intégration du code obfusqué au reste,
+    \item Le coût.
+\end{itemize}
+
+\subsection{Software watermarking}
+Le software-watermarking \cite{james} ou ``tatouage numérique \cite{wiki}" en français, est une méthode qui permet d'ajouter des informations de copyright ou de vérification à un document numérique. Cela permet ensuite de vérifier la validité ou l'intégrité du code. Il existe plusieurs types de tatouages, visible, invisible et fragile.
+
+Pour plus de détails, voir les références.
+
+\subsection{Code tamper-prooofing}
+Le code tamper-proofing \cite{wiki2} est un autre ensemble de méthode qui ont pour but de protéger les logiciels contre les utilisateurs illégaux ou malveillants.
+
+Cela consiste par exemple, à chiffre le code source, ajouter des sommes de contrôles pour en vérifier l'intégrité etc...
+
+Le tamper-proofing est généralement utilisé dans les schémas de licence pour empêcher l'attaquant de désactiver la vérification de celle-ci \cite{tamper}.
+
+\vspace{1cm}
+
+\section{Exemples}
+
+\begin{itemize}
+    \item Outils d'obfuscation payants :
+    \begin{itemize}
+        \item Stunnix (C/C++/JavaScript/Perl/VBS) \href{http://stunnix.com/}{\faExternalLink}
+        \item Themida (C++) \href{https://www.oreans.com/themida.php}{\faExternalLink}
+    \end{itemize}
+    \item Outils gratuits :
+    \begin{itemize}
+        \item ConfuserEx \href{https://yck1509.github.io/ConfuserEx/}{\faExternalLink}.
+    \end{itemize}
+\end{itemize}
+
+\newpage
+
+\printbibliography[title=Réferences externes]
+
+\end{document}
