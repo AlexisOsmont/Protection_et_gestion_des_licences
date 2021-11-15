@@ -87,7 +87,7 @@ il devra effectuer lui-même les vérifications.
 
 \begin{figure}[hp]
 	\centering
-	\includegraphics[width=18cm]{main/STB.png}
+	\includegraphics[width=19cm]{main/STB.png}
 	\caption{Schéma décrivant le fonctionnement général de la solution}
 	\label{fig:fig1}
 \end{figure}
@@ -129,11 +129,65 @@ il devra effectuer lui-même les vérifications.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=13cm]{main/Seq.png}
+	\includegraphics[width=16cm]{main/Seq.png}
 	\caption{Schéma décrivant le fonctionnement général de la solution}
 	\label{fig:fig3}
 \end{figure}
 
+\newpage
 \section{Règles de gestion}
 
-Insérer les règles de gestion ici
+\subsection{Demande d'une licence}
+
+\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
+	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
+		\hline
+		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+		\hline
+			Demande de\newline licence & Logiciel\newline sélectionné & Message\newline informatif & Notification à l'administrateur \\
+		\hline
+			Réception d'une\newline demande de\newline licence & Identifiant utilisateur 
+			\& logiciel & Notification\newline informative\newline à l'utilisateur & Envoie d'une notification à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
+		\hline	    
+	\end{tabular}
+\end{table}
+
+\subsection{Création d'un compte utilisateur/administrateur}
+
+\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
+	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
+		\hline
+		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+		\hline
+			Création de\newline compte & Mot de passe et mail valides & Message\newline informatif & Notification à l'administrateur après l'ajout à la base de données.\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Parametrage d'une licence}
+
+\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
+	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
+		\hline
+		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+		\hline
+			Connection\newline au gestionnaire\newline de licence & Identifiant\newline \& Mot de passe administrateur & gestionnaire\newline des licences\newline utilisateurs & Parametrage et modification des licences en fonction des utilisateurs \\
+		\hline
+			Parametrage \newline des licences& Identifiants\newline utilisateur \& \newline logiciel & Notification\newline utilisateurs & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées\\
+		\hline	    
+	\end{tabular}
+\end{table}
+
+\subsection{Activation d'une licence}
+
+\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
+	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
+		\hline
+		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+		\hline
+			Connection sur \newline le logiciel \newline d'activation &  Mot de passe et mail valides & Notification\newline informative\newline à l'utilisateur & Vérifications dans sa base de donnée si il y a correspondance
+			aux entrées données. Alors active une licence et 
+			renvoie les licences en cours de validité. Sinon envoie un message de refus. \\
+		\hline		    
+	\end{tabular}
+\end{table}
