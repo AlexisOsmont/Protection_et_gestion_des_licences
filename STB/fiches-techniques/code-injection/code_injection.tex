@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage[margin=3.8cm]{geometry}
+\usepackage[french]{babel}
+
+\title{
+    \Huge
+    Fiches techniques\\
+    Injection de code dans un PE Windows
+}
+\author{\huge Kaci Hammoudi}
+\date{\huge \today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Problématique}
+
+Dans le cadre du projet, le client souhaite pouvoir greffer l'utilitaire de protection de licence directement dans l'exécutable Windows de son choix. 
+(Voir PE \url{https://fr.wikipedia.org/wiki/Portable_Executable}).
+
+Pour se faire nous allons devoir utiliser des méthodes permettant de modifier un exécutable
+et d'injecter le code souhaité; À savoir celui de la vérification d'une licence.
+
+Ainsi à chaque lancement de l'exécutable, le greffé se verra exécuté en amont permettant 
+de stopper le démarrage du programme dans le cas d'une licence non valide.
+
+\section{Méthode de réalisation}
+
+Afin de pouvoir injecter du code dans un PE, il faut en connaître sa structure. 
+Nous aurons aussi besoin d'un outil afin de manipuler les PE Windows.
+Un outil qui nous a été conseillé est PEFile, un module python concu dans ce but.\\
+
+Premièrement, il nous faudra créer un nouvel en-tête de section.
+Il faudra y définir: 
+\begin{itemize}
+    \item Le nom de la section,
+    \item La taille de la section,
+    \item Les pointeurs sur les différentes parties de la section,
+    \item Un code caractérisant la section (Voir section 'Characteristics' \url{https://docs.microsoft.com/en-us/windows/win32/api/winnt/ns-winnt-image_section_header}).
+\end{itemize}
+
+Puis, modifier la structure FileHeader afin de définir :
+\begin{itemize}
+    \item Le nouveau nombre de section,
+    \item La nouvelle taille du PE,
+    \item Le nouveau point d'entrée du PE (qui sera notre code injecté).
+\end{itemize}
+
+Finalement, écrire le shellcode souhaité, au bon endroit dans le PE, 
+qui s'exécutera avant le programme originel.\\
+
+La procédure plus détaillée est définie dans cet article conseillé par le client.
+À cette adresse : \url{https://axcheron.github.io/code-injection-with-python/}.\\
+
+La manipulation du module python PEFile est présentée ici \url{https://axcheron.github.io/pe-format-manipulation-with-pefile/}.
+
+\end{document}

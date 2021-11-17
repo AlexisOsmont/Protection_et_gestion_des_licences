@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=3.8cm]{geometry}
+\usepackage{hyperref}
+\usepackage[french]{babel}
+
+\title{
+    \Huge
+    Fiches techniques\\
+    Sécurisation des base de données
+}
+\author{\huge Alexis Osmont}
+\date{\huge \today}
+
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section{Pourquoi sécuriser sa base de données ?}                                                                                 
+Une sécurisation de base de donnée à lieu pour éviter les vols de données et les intrusions dans le système. L’essentiel dans notre cas est de certifier, autant aux utilisateurs qu’à notre client, une sécurité de leurs données.
+
+Après de multiples recherches, il ressort trois points essentiels : 
+\begin{itemize}
+    \item Le premier est la surveillance en cas d’activités et de performances anormales.
+    \item Le second est l’analyse de vulnérabilités et leurs prévention auprès du client.
+    \item Et le dernier est le chiffrement des données qui, aujourd’hui, est un standard de sécurité et de confidentialité.
+\end{itemize}
+
+\section{Exemple de sécurités à mettre en place}
+
+\begin{itemize}
+    \item Surveillance des activités : on parle de plateforme de database activity monitoring (DAM) qui capture toutes activités.
+    \item Recherche de vulnérabilités :  des outils permettent de vérifier les réglages système d’exploitation de l’hôte. Cela permet d’éviter les erreurs de réglage fréquents et les failles récurrentes de sécurité.
+    \item Chiffrement :  l’intégration de système de chiffrement afin de protéger tout autant la structure de la base que les données qui s’y trouvent. L’appel à une librairie de chiffrement est donc nécessaire. Attention à certain chiffrement, par exemple, s'il est appliqué au niveau de la couche applicative, cela peut réduire les performances. L’utilisation de chiffrement transparent (TDE) est le plus courant.
+\end{itemize}
+
+\section{Technologies à utiliser}
+
+\begin{itemize}
+    \item Gestionnaire de base de données dans le cas ou le client n’en posséde pas déjà, comme MYSQL, POSTGRE SQL ou Microsoft SQL server.
+
+    \item La majorité des logiciels de gestion de base de données propose déjà des outils de chiffrement en fonction des besoins. Dans notre cas, TDE est recommandé. (A voir : \url{https://www.oracle.com/fr/security/chiffrement-des-donnees.html})
+
+    \item Pour la sécurité et la surveillance, il existe des logiciels gérant ces deux domaines. Datadog en est un exemple parfait, cependant il n’en existe pas d’open source ou de gratuits qui correspondent a nos attentes.
+\end{itemize}
+
+\end{document}
