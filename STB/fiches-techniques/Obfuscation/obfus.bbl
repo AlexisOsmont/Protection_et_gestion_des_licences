@@ -1,0 +1,127 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{james}{online}{}
+    \name{author}{1}{}{%
+      {{hash=HDJ}{%
+         family={Hamilton},
+         familyi={H\bibinitperiod},
+         given={Dr\bibnamedelima James},
+         giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+    }
+    \keyw{software-watermarking}
+    \strng{namehash}{HDJ1}
+    \strng{fullhash}{HDJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{title}{What is software watermarking ?}
+    \verb{url}
+    \verb https://jameshamilton.eu/research/what-software-watermarking
+    \endverb
+  \endentry
+
+  \entry{obfus}{article}{}
+    \name{author}{2}{}{%
+      {{hash=PR}{%
+         family={Patel},
+         familyi={P\bibinitperiod},
+         given={Rajan},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=PN}{%
+         family={Patel},
+         familyi={P\bibinitperiod},
+         given={Nimisha},
+         giveni={N\bibinitperiod},
+      }}%
+    }
+    \keyw{obfuscation}
+    \strng{namehash}{PRPN1}
+    \strng{fullhash}{PRPN1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{title}{A way to protect software secrets from reverse engineering
+  using code obfuscation techniques}
+    \verb{url}
+    \verb https://www.researchgate.net/publication/269694315_A_WAY_TO_PROTECT_S
+    \verb OFTWARE_SECRETS_FROM_REVERSE_ENGINEERING_USING_CODE_OBFUSCATION_TECHN
+    \verb IQUES
+    \endverb
+    \field{year}{2010}
+  \endentry
+
+  \entry{tamper}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{What is software tamper-proofing ?}
+    \verb{url}
+    \verb http://www.whitehawksoftware.com/white-hawk-technology/what-is-softwa
+    \verb re-tamper-proofing/
+    \endverb
+  \endentry
+
+  \entry{wiki2}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WA}{%
+         family={Wikipédia},
+         familyi={W\bibinitperiod},
+         given={Article},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WA1}
+    \strng{fullhash}{WA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Anti-tamper software}
+    \verb{url}
+    \verb https://en.wikipedia.org/wiki/Anti-tamper_software
+    \endverb
+  \endentry
+
+  \entry{wiki}{online}{}
+    \name{author}{1}{}{%
+      {{hash=WA}{%
+         family={Wikipédia},
+         familyi={W\bibinitperiod},
+         given={Article},
+         giveni={A\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{WA1}
+    \strng{fullhash}{WA1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{W}
+    \field{sortinithash}{W}
+    \field{title}{Tatouage numérique}
+    \verb{url}
+    \verb https://fr.wikipedia.org/wiki/Tatouage_num\%C3\%A9rique
+    \endverb
+  \endentry
+\enddatalist
+\endinput
