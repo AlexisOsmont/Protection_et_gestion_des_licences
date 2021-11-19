@@ -13,8 +13,8 @@ all:
 	@echo "- Compiling $(notdir $(PWD))/generation-de-certificats.tex"
 
 clean:
-	cd Obfuscation; rm -f *.aux *.log *.out *.run.xml *.bbl *-blx.bib *.blg *.pdf
-	cd Licence; rm -f *.aux *.log *.pdf; rm -r _minted-licence 
-	cd Base-de-donnees; rm -f *.aux *.log *.out *.pdf
-	cd code-injection; rm -f *.aux *.log *.out *.pdf 
-	cd generation-de-certificats; rm -f *.aux *.log *.out *.pdf
+	@cd Obfuscation; rm -f *.aux *.log *.out *.run.xml *.bbl *-blx.bib *.blg *.pdf
+	@cd Licence; rm -f *.aux *.log *.pdf; rm -rf _minted-licence 
+	@cd Base-de-donnees; rm -f *.aux *.log *.out *.pdf
+	@cd code-injection; rm -f *.aux *.log *.out *.pdf 
+	@cd generation-de-certificats; rm -f *.aux *.log *.out *.pdf

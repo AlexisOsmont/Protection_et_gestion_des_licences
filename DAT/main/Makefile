@@ -5,4 +5,4 @@ all:
 	@pdflatex DAT.tex > /dev/null
 
 clean:
-	rm -f *.aux *.out *.log *.toc *.pdf
+	@rm -f *.aux *.out *.log *.toc *.pdf
