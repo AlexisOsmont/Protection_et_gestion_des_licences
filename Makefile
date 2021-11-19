@@ -7,7 +7,7 @@ all: $(objects)
 
 clean: 
 	@echo "Cleaning ..."
-	@rm -rf {STB,DAT}/{*.aux,*.log,*.out,*.run.xml,*.bbl,*-blx.bib,*.blg,*.pdf,*.toc}	
+	@rm -rf {STB,STB/fiches-techniques/*,DAT/main}/{*.aux,*.log,*.out,*.run.xml,*.bbl,*-blx.bib,*.blg,*.pdf,*.toc,_minted-*}	
 	@echo "Done"
 
 stb:
