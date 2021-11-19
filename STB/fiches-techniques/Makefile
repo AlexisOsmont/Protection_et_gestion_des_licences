@@ -5,9 +5,11 @@ all:
 	cd Licence; pdflatex -shell-escape licence.tex
 	cd Base-de-donnees; pdflatex bdd.tex
 	cd code-injection; pdflatex code_injection.tex
+	cd generation-de-certificats; pdflatex generation-de-certificats.tex
 
 clean:
 	cd Obfuscation; rm *.aux *.log *.out *.run.xml *.bbl *-blx.bib *.blg *.pdf
 	cd Licence; rm *.aux *.log *.pdf; rm -r _minted-licence
 	cd Base-de-donnees; rm *.aux *.log *.out *.pdf
 	cd code-injection; rm *.aux *.log *.out *.pdf
+	cd generation-de-certificats; rm *.aux *.log *.out *.pdf

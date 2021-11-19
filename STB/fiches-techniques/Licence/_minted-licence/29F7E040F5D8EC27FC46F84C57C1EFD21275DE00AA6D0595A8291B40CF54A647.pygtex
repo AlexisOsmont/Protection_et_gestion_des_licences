@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+ch}{\PYGZsh{}!/bin/bash}
+
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Generating (Private key, Public key) =====\PYGZdq{}}
+openssl genrsa \PYGZhy{}out private.pem \PYG{l+m}{1024} \PYG{c+c1}{\PYGZsh{} generate private key file}
+\PYG{c+c1}{\PYGZsh{} openssl rsa \PYGZhy{}in private.pem \PYGZhy{}text \PYGZsh{} view info in the private key file}
+\PYG{c+c1}{\PYGZsh{} extract public key to file}
+openssl rsa \PYGZhy{}in private.pem \PYGZhy{}pubout \PYGZhy{}out public.pem
+\PYG{c+c1}{\PYGZsh{} view info in the public key file}
+\PYG{c+c1}{\PYGZsh{} openssl rsa \PYGZhy{}in public.pem \PYGZhy{}pubin \PYGZhy{}text}
+cat /proc/sys/kernel/random/uuid \PYGZgt{} msg.txt
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== File to sign =====\PYGZdq{}}
+cat msg.txt
+
+openssl dgst \PYGZhy{}sha256 \PYGZhy{}sign private.pem \PYGZhy{}out sign.sha256 msg.txt
+base64 sign.sha256 \PYGZgt{} sign.txt
+
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Signature (Encoded in B64) =====\PYGZdq{}}
+cat sign.txt
+
+base64 \PYGZhy{}d sign.txt \PYGZgt{} sign.sha256
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Verification =====\PYGZdq{}}
+openssl dgst \PYGZhy{}sha256 \PYGZhy{}verify public.pem \PYGZhy{}signature sign.sha256 msg.txt
+
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Changing Content of Msg.txt =====\PYGZdq{}}
+cat /proc/sys/kernel/random/uuid \PYGZgt{} msg.txt
+cat msg.txt
+
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Verification =====\PYGZdq{}}
+openssl dgst \PYGZhy{}sha256 \PYGZhy{}verify public.pem \PYGZhy{}signature sign.sha256 msg.txt
+
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}\PYGZbs{}n===== Cleaning =====\PYGZdq{}}
+rm *.pem *.txt *.sha256
+\PYG{n+nb}{echo} \PYGZhy{}e \PYG{l+s+s2}{\PYGZdq{}done\PYGZdq{}}
+\end{Verbatim}

@@ -35,7 +35,7 @@
 %----------------------------------------------------------------------------------------
 
 \newcommand\projectName{Projet de Gestion des Licences}
-\newcommand\typeOfDoc{Spécification Technique du Besoin}
+\newcommand\typeOfDoc{Document d'Architecture Technique}
 \newcommand\titleOfDoc{\typeOfDoc \newline \newline \projectName}
 
 \newcommand\authors{Alexis Osmont \\
@@ -63,7 +63,7 @@
 \fancypagestyle{plain}{%
   \fancyhf{}% Clear header and footer
 	\lhead{\textbf{Master SSI - Conduite de Projet} \\ \projectName \\ \typeOfDoc}
-	\rhead{\includegraphics[width=3.5cm]{title/logo.png}}
+	\rhead{\includegraphics[width=3.5cm]{logo.png}}
 	\fancyfoot[C]{\thepage}
 	% Set the head width to be almost the full page width
 	\fancyhfoffset[LO,RE]{\oddmarginwidth}
@@ -85,7 +85,7 @@
 \author{\authors}
 
 \begin{document}
-\input{title/title.tex}
+\input{title.tex}
 
 % Revision Table
 \chapter*{Revision}
@@ -94,15 +94,7 @@
 		\hline
 		\textbf{Version} & \textbf{Date} & \textbf{Commentaires} \\
 		\hline
-			0.1 & 20/10/2021 & Création du document\\
-		\hline
-			0.2 & 26/10/2021 & Ajout des exigences et spécifications fonctionnelles \\
-		\hline
-			0.3 & 04/11/2021 & Diagramme des cas d'utilisations\newline
-			    Tableau des cas d'utilisations\newline
-			    Diagramme de séquences \\
-		\hline
-			1.0 & 18/11/2021 & Première version finale \\
+			0.1 & 18/11/2021 & Création du document\\
 		\hline
 	\end{tabular}
 \end{table}
@@ -110,7 +102,7 @@
 \tableofcontents
 \newpage
 
-\input{main/main.tex}
+\input{main.tex}
 
 \bibliographystyle{unsrt}
 \bibliography{bibs/sample}
