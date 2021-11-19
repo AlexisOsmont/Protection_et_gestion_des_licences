@@ -1,8 +1,9 @@
 #!/bin/bash
 
 all:
-	pdflatex template.tex
-	pdflatex template.tex
+	@echo "- Compiling $(notdir $(PWD))/STB.tex"
+	@pdflatex STB.tex > /dev/null
+	@pdflatex STB.tex > /dev/null
 
 clean:
-	rm template.aux template.log template.out template.toc
+	@rm -f STB.pdf STB.aux STB.log STB.out STB.toc 
