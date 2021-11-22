@@ -18,7 +18,7 @@ du client.
 	\item Une licence est un droit accordé pour une machine et un utilisateur d'utilisé un logiciel donné.
 \end{itemize}
 
-\chapter{Exigences}
+\chapter{Exigences fonctionnelles}
 
 \section{Plateforme d'enregistrement}
 Nous devrons fournir une platforme d'enregistrement pour les utilisateurs, avec une interface simple, facile d'accès et lisible notamment pour des personnes sans compétences en informatiques. Il faudra donc que l'outil dispose :
@@ -46,40 +46,45 @@ Pour cela il pourra accéder à un panneau de contrôle avec les options suivant
 \end{itemize}
 \newpage
 
+\chapter{Exigences techniques}
+
 \section{Exigences de Sécurité}
 Les principaux points liés aux aspects de la sécurité sont les suivants:
 \begin{itemize}
-	\item Se protéger du reverse engineering via l'obfuscation du code de l'application.
+	\item Se protéger du reverse engineering via l'obfuscation du code de l'application (cf. Fiches Techniques - Obfuscation de code).
 	\item Les échanges de données sur le réseau seront chiffrés.
-	\item Le stockage des données persistantes sera lui aussi protégé.
-\end{itemize}   
+	\item Le stockage des données persistantes sera lui aussi protégé (cf. Fiches techniques - Sécurisations des bases de données).
+\end{itemize}
+
+\section{Exigences opérationnelles}
+
+L'outil développé dans le cadre de ce projet devra être utilisable sous Windows, et aura pour but de protéger des logiciels conçus pour Windows également.
+
+Il devra être compatible avec les dernières versions de Windows (Windows 8, 10 et 11).
 
 \chapter{Spécifications fonctionnelles de l'outil}
 
 \section{Partie utilisateur}
 
-Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. Cette interaction est décrite dans le schéma n°\textbf{\ref{fig:fig1}}.
+Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. Cette interaction est décrite dans le schéma n°\ref{fig:fig1}.
 
-\subsection{Inscription d'un utilisateur (étape I)}
+\subsection{Inscription d'un utilisateur}
 
-Un utilisateur pourra s'inscrire via une interface afin de pouvoir obtenir une licence qui lui permettra d'utiliser le logiciel souhaité. 
+Un utilisateur pourra s'inscrire via une interface afin de pouvoir obtenir une licence qui lui permettra d'utiliser le logiciel souhaité. (étape I)
 
-\subsection{Génération de la licence (étape III)}
+\subsection{Génération de la licence}
 
-Une fois inscrit, si le client a validé la demande de licence (voir \textbf{4.2.1}), l'utilisateur devra télécharger un outil, depuis la
-plateforme, afin de générer la licence.
+Une fois inscrit, si le client a validé la demande de licence (voir 5.2.1), l'utilisateur devra télécharger un outil, depuis la plateforme, afin de générer la licence. (étape III)
 
-\subsection{Utilisation du logiciel avec la licence (étape IV)}
+\subsection{Utilisation du logiciel avec la licence}
 
-La licence obtenue, l'utilsateur pourra alors débloqué le logiciel du client qu'il souhaite utiliser en lui renseignant
-sa licence.
+La licence obtenue, l'utilsateur pourra alors débloqué le logiciel du client qu'il souhaite utiliser en lui renseignant sa licence. (étape IV)
 
 \section{Partie Client}
 
-\subsection{Activation d'un compte et gestion des droits (étape II)}
+\subsection{Activation d'un compte et gestion des droits}
 
-Lorsque qu'un utilisateur se créera un compte et effectuera une demande de licence, notre client pourra, ou non, répondre
-à sa demande et lancer la génération de licence, via une interface administrateur sur la même platforme que le client.
+Lorsque qu'un utilisateur se créera un compte et effectuera une demande de licence, notre client pourra, ou non, répondre à sa demande et lancer la génération de licence, via une interface administrateur sur la même platforme que le client. (étape II)
 
 La partie paiement du logiciel ne sera pas pris en charge par notre outil, à la demande du client,
 il devra effectuer lui-même les vérifications.
@@ -96,9 +101,10 @@ il devra effectuer lui-même les vérifications.
 
 \section{Diagramme des cas d'utilisations}
 
-\begin{figure}[hp]
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=11cm]{main/Util.png}
+	\includegraphics[width=13.5cm]{main/Util.png}
+	\vspace{-3.2cm}
 	\caption{Diagramme des cas d'utilisations}
 	\label{fig:fig2}
 \end{figure}
@@ -130,7 +136,7 @@ il devra effectuer lui-même les vérifications.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=16cm]{main/Seq.png}
-	\caption{Schéma décrivant le fonctionnement général de la solution}
+	\caption{Schémas décrivant les interactions entre les utilisateurs et la solution selon les cas d'utilisations}
 	\label{fig:fig3}
 \end{figure}
 
@@ -144,11 +150,10 @@ il devra effectuer lui-même les vérifications.
 		\hline
 		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 		\hline
-			Demande de\newline licence & Logiciel\newline sélectionné & Message\newline de confirmation \newline d'envoie & Notification à l'administrateur aprés récéptions de la demande dans la table correspondance de la base de données \\
+			Demande de\newline licence & Logiciel\newline sélectionné & Message\newline de confirmation \newline d'envoi & Notification à l'administrateur après réception de la demande dans la table correspondante de la base de données \\
 		\hline
-			Réception d'une\newline demande de\newline licence & Identifiant utilisateur 
-			\& logiciel & Notification\newline informative\newline à l'utilisateur \newline confirmants ou \newline non la demande \newline précédente & Envoie d'une notification sur la plateform à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
-		\hline	    
+			Réception d'une\newline demande de\newline licence & Identifiant utilisateur\& logiciel & Notification\newline informative\newline à l'utilisateur \newline confirmant ou \newline non la demande \newline précédente & Envoi d'une notification sur la plateforme à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
+		\hline
 	\end{tabular}
 \end{table}
 
@@ -159,24 +164,24 @@ il devra effectuer lui-même les vérifications.
 		\hline
 		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 		\hline
-			Création de\newline compte sur la \newline plateform & Mot de passe (contenant au moins 6 caractères et un Spécial) et mail valides & Message\newline informatif de création de compte, accés à la plateform de demande de licence& Ajout à la tables de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification.\\
+			Création de\newline compte sur la \newline plateforme & Mot de passe (contenant au moins 6 caractères et un spécial) et mail valides & Message\newline informatif de création de compte, accès à la plateforme de demande de licence& Ajout à la table de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification.\\
 		\hline
-			Vérifications des\newline informatiions de \newline compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de pass et mail renseignés pour la création de compte& Notification à la création de compte en cas de succé de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur.\\
+			Vérification des\newline informations de \newline compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de passe et mail renseignés pour la création de compte& Notification à la création de compte en cas de succès de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur.\\
 		\hline
 	\end{tabular}
 \end{table}
 
 \newpage
-\subsection{Parametrage d'une licence}
+\subsection{Paramétrage d'une licence}
 
 \begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
 	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
 		\hline
 		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 		\hline
-			Connection\newline au gestionnaire\newline de licence & Identifiant\newline \& Mot de passe administrateur & Plateforme de gestion\newline des demande de licences\newline utilisateurs & La plateforme permet un parametrage et des modifications des licences en fonction des licences accordées à l'utilisateurs contenue dans la base de données\\
+			Connexion\newline au gestionnaire\newline de licence & Identifiant\newline \& Mot de passe administrateur & Plateforme de gestion  des demande de licences\newline utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
 		\hline
-			Parametrage \newline des licences& Identifiants\newline utilisateur \& \newline logiciel demandé & Notification\newline utilisateurs après le parametrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées apres la mise à jour de la base de données grâce au parametrage\\
+			Paramétrage \newline des licences& Identifiants\newline utilisateur \& \newline logiciel demandé & Notification\newline utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
 		\hline	    
 	\end{tabular}
 \end{table}
@@ -188,13 +193,9 @@ il devra effectuer lui-même les vérifications.
 		\hline
 		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 		\hline
-			Gestion des licences sur \newline la plateforme & sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérifications dans sa base de donnée si il y a correspondance
-			aux licences. Alors le logiciel renvoie les licences 
-			cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
+			Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
 		\hline
-			Connection sur \newline le logiciel \newline d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platforme de gestion de ses licence et à leurs logiciels d'activation & Vérifications dans sa base de donnée si il y a correspondance
-			aux entrées données. Alors active une licence et 
-			renvoie les licences en cours de validité. Sinon envoie un message de refus. \\ 
-		\hline		    
+			Connexion sur \newline le logiciel \newline d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platforme de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus. \\ 
+		\hline
 	\end{tabular}
 \end{table}
