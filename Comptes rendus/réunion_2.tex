@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{fontawesome}
+\usepackage[margin=3.8cm]{geometry}
+\usepackage[french]{babel}
+\usepackage[backend=bibtex8]{biblatex}
+
+\title{
+    \Huge
+    Compte-rendu\\
+    Réunion numéro 2\\
+}
+\date{\huge 23 Novembre 2021}
+\author{\huge Alexis Osmont\\}
+
+\newcommand{\arrow}{$\rightarrow$ }
+
+\begin{document}
+
+\maketitle
+\vspace{5cm}
+    Présent à la réunion :
+    \begin{description}
+        \item Alexis Osmont
+        \item Kaci Hammoudi
+        \item Louka  Boivin
+        \item Sami Babigeon
+    \end{description}
+\newpage
+
+\section{Sujet de réunion}                                                                                 
+
+Le but de cette réunion était de présenter puis d'avoir un retour sur le document de spécification technique des besoins (STB) au client pour attester de la bonne direction du projet.\\
+
+Nous avons aussi aborder le sujet du document d'architecture technique (DAT), ainsi qu'une présentation de schémas et des discussions quant à la gestion de projet.
+\vspace{0.5cm}
+
+\section{Retour sur compte rendu}
+\subsection{STB}
+
+\begin{itemize}
+    \item Attention aux standards de rédaction de documents techniques.
+    \item Révision de l'orthographe et des formulations.
+    \item Réorganisation des sections (section 5).
+    \item Epuration de certaines sections du document.
+    \item Ajout de l'exigence "code maintenable et réutilisable".
+    \item Revoir les règles de gestion.
+\end{itemize}
+
+\subsection{DAT}
+\begin{itemize}
+    \item Modification du schéma système.
+    \item Attention aux flèches et leurs directions.
+    \item Définition d'une priorité : Greffe de code
+
+\end{itemize}
+\section{Discussions d'aspects technique}
+
+Certains points techniques ont été abordé durant cette réunion, tel que la greffe de code et sa priorité, l'importance de
+multiples vérifications de licence dans le code et la prise en compte de certains moyens de contournement de notre projet.\\
+
+Un element essentiel est la maintenabilité du projet et de ses extensions afin que le code soit réutilisable au cours de 
+futur projet ou puisse subir une maintenance en cas de panne.\\
+
+L'obfuscation est un des autres élements abordé comme une contre-mesure face au reverse engineering, le fait d'encoder les chaines constantes,
+ou encore de modifier les noms de variables et les commentaires sont importants.\\
+
+Plusieurs cas de génération de licences ou de modification de code ont été proposé comme cas particuliers de tentatives de casse. Par exemple 
+la modification de la date de la machine pour obtenir une licence infinie, le changement de serveur pour obtenir des licences, 
+le faux formatage de machine pour obtenir le logiciel gratuitement sur une autre machine qui pourrait être évité avec des fonctions 
+de suppression de logiciel ou d'invalidation de licence. 
+
+\newpage
+
+
+\end{document}
