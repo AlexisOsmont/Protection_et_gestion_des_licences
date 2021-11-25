@@ -17,4 +17,4 @@ clean:
 	@cd Licence; rm -f *.aux *.log *.pdf; rm -rf _minted-licence 
 	@cd Base-de-donnees; rm -f *.aux *.log *.out *.pdf
 	@cd code-injection; rm -f *.aux *.log *.out *.pdf 
-	@cd generation-de-certificats; rm -f *.aux *.log *.out *.pdf
+	@cd generation-de-certificats; rm -f *.aux *.log *.out *.pdf *.pyg

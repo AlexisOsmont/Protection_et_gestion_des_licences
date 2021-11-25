@@ -7,19 +7,10 @@
 \usepackage[french]{babel}
 \usepackage[T1]{fontenc}
 
-
-\usepackage{fancyhdr}
-\usepackage{graphicx}
-\usepackage{hyphsubst}
-\usepackage{minted}
-\usepackage[utf8]{inputenc}
-\usepackage[cyr]{aeguill}
-\usepackage[french]{babel}
-
 \title{
     \Huge
     Fiches techniques\\
-    Génération de certificats
+    Génération de certificatsS
 }
 \author{\huge Noé Dallet}
 \date{\huge \today}
@@ -103,8 +94,8 @@ Ici pour certifier l'authenticité de l'utilisateur le même principe est mis en
 Quésako ?\\
 C'est simple, à la première connexion sur le site avec le PC utilisateur qui fait tourner les programmes sous licence, l'utilisateur effectues l'étape 1, 2, 3, 4 et 5.  Tant que le message se décrypte par le fournisseur du service sans nouvelle clef, le PC de l'utilisateur n'as pas changé (ou alors sa clef privée a fuité). Si l'utilisateur change de machine ses données d'authentification sont redemandés, si elles sont correctes, c'est la bonne personne (ou alors elles ont fuité), alors on ajoute le PC à la liste de confiance du fournisseur et on re-fait tourner les étapes 1 à 5.
 
-\\
-
 De cette façon on s'assure que si l'utilisateur fait attention à ne pas faire fuiter ses données, alors il est protégé.
 
 \end{document}
+
+
