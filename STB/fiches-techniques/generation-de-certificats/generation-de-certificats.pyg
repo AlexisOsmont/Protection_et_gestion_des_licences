@@ -1,2 +1,0 @@
-    openssl req -x509 -newkey rsa:4096 -keyout pk.key -out cert.pem \
-        -sha256 -subj '/CN=DOMAINE' -days NOMBRE
