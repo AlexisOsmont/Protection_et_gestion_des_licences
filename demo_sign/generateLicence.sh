@@ -22,6 +22,7 @@ signature=$(echo $toSign | openssl dgst -sha256 -sign private.pem | openssl base
 echo $signature
 
 echo -e "\n===== Creating Licence File ====="
+# echo -e "$signature\n $(echo $rights | openssl base64)"
 echo -e "$signature\n$rights"
 
 echo -e "\n===== Cleaning ====="

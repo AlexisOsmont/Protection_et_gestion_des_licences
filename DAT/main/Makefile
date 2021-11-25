@@ -1,7 +1,9 @@
 # Makefile création DAT
 
 all:
-	pdflatex DAT.tex
+	@echo "- Compiling $(notdir $(PWD))/DAT.tex"
+	@pdflatex DAT.tex > /dev/null
+	@pdflatex DAT.tex > /dev/null
 
 clean:
-	rm *.aux *.out *.log *.toc *.pdf
+	@rm -f *.aux *.out *.log *.toc *.pdf

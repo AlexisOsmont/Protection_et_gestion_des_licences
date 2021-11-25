@@ -22,7 +22,7 @@
 Dans le cadre du projet, le client souhaite pouvoir greffer l'utilitaire de protection de licence directement dans l'exécutable Windows de son choix. 
 (Voir PE \url{https://fr.wikipedia.org/wiki/Portable_Executable}).
 
-Pour se faire nous allons devoir utiliser des méthodes permettant de modifier un exécutable
+Pour ce faire nous allons devoir utiliser des méthodes permettant de modifier un exécutable
 et d'injecter le code souhaité; À savoir celui de la vérification d'une licence.
 
 Ainsi à chaque lancement de l'exécutable, le greffé se verra exécuté en amont permettant 
@@ -45,7 +45,7 @@ Il faudra y définir:
 
 Puis, modifier la structure FileHeader afin de définir :
 \begin{itemize}
-    \item Le nouveau nombre de section,
+    \item Le nouveau nombre de sections,
     \item La nouvelle taille du PE,
     \item Le nouveau point d'entrée du PE (qui sera notre code injecté).
 \end{itemize}
