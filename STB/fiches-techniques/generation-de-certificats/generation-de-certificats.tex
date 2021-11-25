@@ -1,7 +1,19 @@
 \documentclass{article}
+
 \usepackage[utf8]{inputenc}
 \usepackage[margin=3.8cm]{geometry}
 \usepackage{hyperref}
+\usepackage{minted}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyphsubst}
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage[cyr]{aeguill}
 \usepackage[french]{babel}
 
 \title{
@@ -18,6 +30,18 @@
 \maketitle
 \newpage
 
+\section{Personnes}
+
+Dans la suite de ce document, quelques "personnes" entrent en jeu, et peuvent nécessiter une clarification préalable:
+
+\begin{itemize}
+    \item \textbf{l'autorité} : c'est un agent de confiance externe qui s'assure que les communications en interne se font comme il faut, et de manière sécurisé.
+    \item \textbf{l'utilisateur} : c'est la personne qui souhaites se procurer le logiciel de gestion des licences, un logiciel protégé et sa licence. 
+    \item \textbf{le fournisseur du service} : c'est la "personne" (c'est plutôt un PC/serveur) qui fournit à l'utilisateur le logiciel de gestion des licences, un logiciel protégé et qui génère la licence de l'utilisateur.
+    \item \textbf{le pirate} : il intervient lorsqu'il trouve une faille, son but est d'abuser le système.
+\end{itemize}
+
+
 \section{Problématique}
 
 Dans le cadre de ce projet, le client demande d'avoir une autorité capable de délivrer des licences, et un utilisateur qui exécute un programme qui communique des informations sensibles avec cette autorité.
@@ -27,16 +51,36 @@ Il faut être en mesure de certifier que chacun des deux partis est bien la pers
 Dans le cas contraire plusieurs attaques peuvent être faite à l'encontre du système :
 
 \begin{itemize}
-    \item L'utilisateur demande une clef à l'autorité, par un moyen ou un autre, un pirate s'empare de la connexion de l'utilisateur et se fait passer pour lui puisque la connexion n'est pas protégée. Alors le serveur pense parler à l'utilisateur, et le pirate envois alors son certificat matériel pour générer la licence. La licence est alors dépendante du matériel du pirate, et pas de l'utilisateur qui en a fait la demande, le pirate a volé une licence gratuitement.
-    \item L'utilisateur télécharge son programme mais en réalitée un pirate se fait passer pour l'autorité, qui est aussi en charge de fournir les programmes notamment et au minimum celui qui gère les licences. Alors l'autorité est en mesure de fournir à l'utilisateur un programme modifié, et donc sûrement malveillant.
+    \item L'utilisateur demande une clef à l'autorité, et, par un moyen ou un autre, un pirate s'empare de la connexion de l'utilisateur et se fait passer pour lui (vu que la connexion n'est pas protégée). Alors le serveur pense parler à l'utilisateur, et le pirate envois alors ses "informations matériel" pour générer sa licence. La licence est alors dépendante du matériel du pirate, et pas de l'utilisateur qui en a fait la demande, le pirate a donc volé une licence.
+    \item L'utilisateur télécharge son programme, mais en réalité, un pirate se fait passer pour l'autorité, qui est aussi en charge de fournir les programmes. Par exemple celui qui gère les licences. Alors le pirate est en mesure de fournir à l'utilisateur un programme de gestion des licences modifié, et donc sûrement malveillant (il pourrait par exemple voler ses licences comme dans l'attaque précédente.
 \end{itemize}
 
-Une deuxième problématique entre en jeu, l'utilisateur lui même peut essayer de dupliquer sa license, la license doit donc être dépendante du matériel.
-
+Une deuxième problématique entre en jeu : l'utilisateur lui même, peut essayer de dupliquer sa licence pour la donner à un ami; ici on supposera que cette attaque est impossible car les licences sont censés être dépendantes du matériel.\\
+De plus elle ne rentre pas dans le cadre de cette fiche technique ci.
 
 \section{Solution}
 
-Pour être en mesure de certifier l'authenticité des deux partis, on utiliseras des certificats de type "x.509" qui repose sur un chiffrement asynchrone. Dans ce système pour certifier l'authenticité d'un parti, une autorité de confiance doit donner son avis sur ce parti. Dans notre cas, il faut avoir un certificat SSL (certificat "x.509" classique, mais souvent utilisé pour se connecter sur un serveur web), délivré par une autorité de certification dite "racine" (que tout le monde connaît, et à qui tout le monde fait confiance, elle est obligatoirement authentique). 
+Pour être en mesure de certifier l'authenticité des deux partis, on utiliseras des certificats de type "x.509" qui repose sur un chiffrement asynchrone, on a donc besoin d'un couple de certificats à chaque fois (un publique et un privé). Dans ce système pour certifier l'authenticité d'un parti, une autorité de confiance doit "donner son avis" sur ce parti, plus précisément : l'autorité génères un certificat à partir de son certificat privé. Tout certificat publique pouvant être décrypté avec le certificat publique de l'autorité est donc de confiance. \\
+Dans notre cas on a besoin : 
+\begin{enumerate}
+    \item d'un couple de certificats SSL, au moins pour distribuer le logiciel de gestion des licences sur un serveur web via https (un certificat SSL est un certificat x.509, qui est fait exprès pour se connecter sur un serveur https), délivré par une autorité de certification dite "racine" (que tout le monde connaît, et à qui tout le monde fait confiance, car on sait qu'elle est obligatoirement authentique).\\ . Quelques-unes de ces autorités sont gratuites (comme "letsencrypt").
+    \item il faut un couple de certificats x.509 pour les échanges entre l'application de gestion des licences et le fournisseur du service. Ce couple de certificat peut être certifié par le fournisseur du service directement. Puisque le certifier par une autorité de certification n'apporterais ici aucun gain en sécurité.
+\end{enumerate}
+
+Pour ce faire :
+
+\begin{enumerate}
+    \item \begin{minted}{bash}
+    openssl req -newkey rsa:4096 -keyout pk.key -out CSR.csr \
+        -subj '/CN=DOMAINE'
+    \end{minted}
+    génère une demande de certification à envoyer à une autorité racine (CSR : Certificate signing request) celle ci se chargeras de signer le certificat publique contenu dans le CSR. (pk.key est la clef privée)
+    \item \begin{minted}{bash}
+    openssl req -x509 -newkey rsa:4096 -keyout pk.key -out cert.pem \
+        -sha256 -subj '/CN=DOMAINE' -days NOMBRE
+    \end{minted}
+    génère un couple de certificats (cert.pem est publique et pk.key privé) sur le domaine DOMAINE valable NOMBRE jours et auto-certifié.
+\end{enumerate}
 
 \subsection{Certifier le fournisseur du service}
 
@@ -55,21 +99,12 @@ Si le message est correctement déchiffré l'émetteur est assuré d'être celui
 
 \subsection{Certifier l'utilisateur du service}
 
-Ici pour certifier l'authenticité de l'utilisateur le même principe est mis en place mais un roulement est fait : le rôle de autorité racine est joué par le fournisseur du service, le rôle du fournisseur du service par l'utilisateur qui cherche à être vérifié par l'utilisateur, et le rôle de l'utilisateur par le fournisseur de service également.\\
+Ici pour certifier l'authenticité de l'utilisateur le même principe est mis en place mais un roulement est fait : le rôle de autorité racine est joué par le fournisseur du service, le rôle du fournisseur du service par l'utilisateur qui cherche à être vérifié, et le rôle de l'utilisateur par le fournisseur du service également.\\
 Quésako ?\\
-C'est simple, à la première connexion sur le site avec le bon PC qui fait tourner les programmes sous licence, l'utilisateur effectues l'étape 1, 2, 3, 4 et 5.  Tant que le message se décrypte par le fournisseur de service sans nouvelle clef, le PC de l'utilisateur n'as pas changé ou sa clef privée a fuité. Si l'utilisateur change de machine ses données d'authentification sont redemandés, si il est correct, soit il a fuité, soit c'est la bonne personne, alors on ajoute le PC à la liste de confiance du fournisseur et on retourne les étapes 1 à 5.
+C'est simple, à la première connexion sur le site avec le PC utilisateur qui fait tourner les programmes sous licence, l'utilisateur effectues l'étape 1, 2, 3, 4 et 5.  Tant que le message se décrypte par le fournisseur du service sans nouvelle clef, le PC de l'utilisateur n'as pas changé (ou alors sa clef privée a fuité). Si l'utilisateur change de machine ses données d'authentification sont redemandés, si elles sont correctes, c'est la bonne personne (ou alors elles ont fuité), alors on ajoute le PC à la liste de confiance du fournisseur et on re-fait tourner les étapes 1 à 5.
 
-\section{certifier le matériel de l'utilisateur}
+\\
 
-Pour certifier que l'utilisateur utilise bien la bonne machine pour exécuter les programmes, on doit utiliser une variable qui diffère d'une machine à une autre : les "adresses" ( récupérable avec : "" wmic csproduct get UUID "" ) des différents périphériques du système que l'on autorise pas à être changés : (ici juste la carte mère mais on pourrait autoriser l'installation sur un périphérique usb qui se déplacerais de machines en machines à volonté ( ici : "" wmic DISKDRIVE get SerialNumber "" )  ) j'appelerais cela le WMIC dans le reste du document.
-
-Cette information est sensible et ne doit pas être partagée, elle sera brouillée en effectuant un chiffrement symétrique avec elle même comme clef par exemple lors de la communication avec le serveur pour l'associer à une licence.
-
-A chaque besoin de la licence il faudra extraire ces informations WMIC et déchiffrer la licence puis l'utiliser pour lancer le programme sans laisser de traces de la licence.
-
----> problème : comment le fournisseur du service s'assure qu'une même licence ne s'utilise qu'a un endroit de manière sûre ?
-
-L'utilisateur pourra toujours récupérer ou générer les informations intermédiaires (licence déchiffrée par exemple) pour les utiliser manuellement sur un autre ordinateur comme licence valable hors connexion avec le fournisseur du service, ce procédé le rends plus compliqué mais pas impossible de plus rien n'empêche l'utilisateur de faire tourner son programme.
+De cette façon on s'assure que si l'utilisateur fait attention à ne pas faire fuiter ses données, alors il est protégé.
 
 \end{document}
-
