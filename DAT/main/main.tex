@@ -59,7 +59,7 @@ L'architecture générale de ce projet peut être représenter via le schéma n�
 \end{figure}
 \newpage
 
-\section{Constituant 'Serveur'}
+\section{Constituant `Serveur Applicatif'}
 \subsection{Description}
 \begin{itemize}
 	\item Le but du serveur est de fournir l'interface principale, programmé 
@@ -67,30 +67,57 @@ L'architecture générale de ce projet peut être représenter via le schéma n�
 				les informations nécessaires à la génération de licence et enfin de générer 
 				les licences.
 	\item Propriétés et attributs de caractérisation
-	\item Services offerts: API Rest permettant à au client d'envoyer les inforamtions
-				necessaires à la génération de la licence 
-	\item Dépendances avec d’autres constituants (services utilisés, composants 'étagère' utilisés)
-	\item HTML, CSS, JS, PHP, SQL, Bash 
+	\item Services offerts: API Rest permettant à au client d'envoyer les informations
+				nécéssaires à la génération de la licence 
+	\item	Dépendances: Dépend du module de Base de données.
+	\item Languages: HTML, CSS, JS, PHP, SQL, Bash 
 	\item Architecture MVC (Model Vue Controler)
 	\item Taille importante et complexité élévé.
 \end{itemize}
 \subsection{Justifications techniques.}
+Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
+support et de documentation (https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04)\newline
+Possibilité d'automatiser l'installation va un script bash.
 
-\section{Constituant 'Logiciel d'Activation'}
+\section{Constituant `Base de données'}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\textwidth]{../png/SQL_table.png}
+	\caption{Diagramme UML des Tables de la BDD}
+	\label{fig:fig2}
+\end{figure}
+
+\subsection{Description}
+\begin{itemize}
+	\item Le but de ce module est de permettre de stocker les informations relatives aux
+				clients, administrateurs et aux licences. 
+	\item Propriétés et attributs de caractérisation
+	\item Fonctions SQL permettant de creer / modifier / supprimer / consulter les 
+				informations relatives aux clients, administrateurs et licences.
+	\item Pas de dépendances.	
+	\item MySQL 
+	\item Porter une attention partculière à la sécurisation des données, via
+				du chiffrement et à se proteger des attaques du type 'injections SQL'. 
+	\item Taille faible et complexité faible. 
+\end{itemize}
+\subsection{Justifications techniques.}
+
+\section{Constituant `Logiciel d'Activation'}
 \subsection{Description}
 \begin{itemize}
 	\item Récuperer les informations matériels sur la machine d'un utilisateur, puis 
 				se connecter au serveur afin de générer le fichier de licence.
 	\item Propriétés et attributs de caractérisation
 	\item Services offerts (interfaces)
-	\item Dépendances avec d’autres constituants (services utilisés, composants 'étagère' utilisés)
+	\item Dépendances: Serveur. 
 	\item C\# ?
-	\item Procédé de développement (techniques, méthodes et/ou outils )
+	\item Respect d'une charte de code. 
 	\item Taille faible et complexité faible. 
 \end{itemize}
 \subsection{Justifications techniques.}
 
-\section{Constituant 'Système de véfication - Librairie'}
+\section{Constituant `Système de véfication - Librairie'}
 \subsection{Description}
 \begin{itemize}
 	\item Fournir une API pour des programmes en C\# afin de 
@@ -104,7 +131,7 @@ L'architecture générale de ce projet peut être représenter via le schéma n�
 \end{itemize}
 \subsection{Justifications techniques.}
 
-\section{Constituant 'Système de véfication - Greffe'}
+\section{Constituant `Système de véfication - Greffe'}
 \subsection{Description}
 \begin{itemize}
 	\item Outil permettant d'ajouter les fonctions de vérification directement à un
