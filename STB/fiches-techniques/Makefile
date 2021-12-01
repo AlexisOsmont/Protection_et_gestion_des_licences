@@ -1,4 +1,4 @@
-# Latex Makefile
+SHELL=/bin/bash
 
 all:
 	@cd Obfuscation; pdflatex obfus.tex > /dev/null && bibtex obfus > /dev/null && pdflatex obfus.tex > /dev/null && pdflatex obfus.tex > /dev/null

@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 MAKEFLAGS += --no-print-directory
 
 objects = stb fiches dat

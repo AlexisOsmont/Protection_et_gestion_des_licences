@@ -1,5 +1,5 @@
 # Makefile création DAT
-
+SHELL=/bin/bash
 TARGET=DAT
 
 all:

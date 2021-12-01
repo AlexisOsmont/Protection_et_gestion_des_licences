@@ -1,4 +1,4 @@
-#!/bin/bash
+SHELL=/bin/bash
 
 all:
 	@echo "- Compiling $(notdir $(PWD))/STB.tex"
