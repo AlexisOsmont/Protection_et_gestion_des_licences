@@ -27,6 +27,7 @@ Nous devrons fournir une platefrome d'enregistrement pour les utilisateurs, avec
 	\item Une page de contact pour demander de l'aide.
 	\item Une charte graphique épurée en suivant les recommandations matérial design.
 \end{itemize}
+Cette plateforme sera également utilisé par la suite pour effectuer la demande d'une licence pour un logiciel au client.
 
 \section{Vérification d'une licence}
 Un programme devra permettre de vérifier la validité et l'authenticité d'une licence pour un logiciel. \newline
@@ -153,13 +154,15 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h]
 	\centering
-	\begin{tabular}{| m{5cm} | m{10cm} |}
+	\begin{tabular}{| m{4cm} | m{12cm} |}
 		\hline
-		    Acteurs concernés & à remplir \\
+		    \textbf{Acteurs concernés} & Un utilisateur et un administrateur. \\
 		\hline
-		    Description & à remplir \\
+		    \textbf{Description} & Un utilisateur effectue, via la plateforme, une demande pour obtenir une licence pour un logiciel souhaité. Cela provoque une notification pour l'administrateur, qui peut ensuite accorder ou non à l'utilisateur la licence, via la plateforme également, selon qu'il ait reçu ou non le paiement. \\
 		\hline
-		    \multicolumn{2}{|c|}{Schéma de séquence :} \\
+		    \textbf{Pré-conditions} & L'utilisateur doit s'être enregistré sur la plateforme.\\
+		\hline
+		    \multicolumn{2}{|c|}{\textbf{Schéma de séquence :}} \\
 		\hline
 		    \multicolumn{2}{|c|}{}\\
 		    \multicolumn{2}{|c|}{\includegraphics[width=15cm]{main/png/seq_demande.png}} \\
@@ -173,13 +176,16 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h]
         \centering
-        \begin{tabular}{| m{5cm} | m{10cm} |}
+        \begin{tabular}{| m{4cm} | m{12cm} |}
                 \hline
-                    Acteurs concernés & à remplir \\
+		    \textbf{Acteurs concernés} & Utilisateur. \\
                 \hline
-                    Description & à remplir \\
+		    \textbf{Description} & L'utilisateur souhaite activer le logiciel du client après avoir obtenu une licence. Pour ce faire il télécharge le logiciel d'activation sur la plateforme, puis s'y connecte afin de pouvoir récupérer les licences souhaitées.\newline
+		    L'utilisateur devra procéder de la même manière dans le cas d'une extension ou d'une autre modification de sa licence.\\
                 \hline
-                    \multicolumn{2}{|c|}{Schéma de séquence :} \\
+		    \textbf{Pré-conditions} & L'utilisateur est enregistré sur la plateforme, et pour récupérer ses licences elles doivent avoir été accordées par l'administrateur.\\
+		\hline
+		    \multicolumn{2}{|c|}{\textbf{Schéma de séquence :}} \\
                 \hline
                     \multicolumn{2}{|c|}{}\\
                     \multicolumn{2}{|c|}{\includegraphics[width=15cm]{main/png/seq_activation.png}} \\
@@ -193,13 +199,15 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h]
         \centering
-        \begin{tabular}{| m{5cm} | m{10cm} |}
+        \begin{tabular}{| m{4cm} | m{12cm} |}
                 \hline
-                    Acteurs concernés & à remplir \\
+		    \textbf{Acteurs concernés} & Utilisateur. \\
                 \hline
-                    Description & à remplir \\
+		    \textbf{Description} & Un utilisateur souhaite créer un compte sur notre plateforme dans le but d'obtenir une licence. \\
                 \hline
-                    \multicolumn{2}{|c|}{Schéma de séquence :} \\
+		    \textbf{Pré-conditions} & L'identifiant et le mot de passe de l'utilisateur doivent respecter certaines conditions (voir \textbf{RG\#2.1}).\\
+		\hline
+		    \multicolumn{2}{|c|}{\textbf{Schéma de séquence :}} \\
                 \hline
                     \multicolumn{2}{|c|}{}\\
                     \multicolumn{2}{|c|}{\includegraphics[width=15cm]{main/png/seq_creation.png}} \\
@@ -213,13 +221,15 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h]
         \centering
-        \begin{tabular}{| m{5cm} | m{10cm} |}
+        \begin{tabular}{| m{4cm} | m{12cm} |}
                 \hline
-                    Acteurs concernés & à remplir \\
+		    \textbf{Acteurs concernés} & Administrateur. \\
                 \hline
-                    Description & à remplir \\
+		    \textbf{Description} & Un administrateur souhaite modifier les paramètres de la licence d'un des ces client, par exemple étendre la validité d'une licence d'un an. Pour cela il se connecte sur la plateforme et peut modifier cela sur le profil de l'utilisateur. L'utilisateur est ensuite notifié de ces changements afin d'actualiser sa licence.\\
                 \hline
-                    \multicolumn{2}{|c|}{Schéma de séquence :} \\
+		    \textbf{Pré-conditions} & L'utilisateur possède déjà une licence.\\
+		\hline
+		    \multicolumn{2}{|c|}{\textbf{Schéma de séquence :}} \\
                 \hline
                     \multicolumn{2}{|c|}{}\\
                     \multicolumn{2}{|c|}{\includegraphics[width=15cm]{main/png/seq_parametrage.png}} \\
@@ -233,61 +243,61 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \subsection{Demande d'une licence}
 	
-	\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
-		\small
-		\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
-			\hline
-			\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-			\hline
-			Demande de licence & Logiciel sélectionné & Message de confirmation  d'envoi & Notification à l'administrateur après réception de la demande dans la table correspondante de la base de données \\
-			\hline
-			Réception d'une  demande de  licence & Identifiant utilisateur\& logiciel & Notification informative à l'utilisateur  confirmant ou  non la demande  précédente & Envoi d'une notification sur la plateforme à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
-			\hline
-		\end{tabular}
-	\end{table} 
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|}
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#1.1} & Demande de licence & Logiciel sélectionné & Message de confirmation  d'envoi & Notification à l'administrateur après réception de la demande dans la table correspondante de la base de données \\
+	\hline
+	    \textbf{RG\#1.2} & Réception d'une  demande de  licence & Identifiant utilisateur \& logiciel & Notification informative à l'utilisateur  confirmant ou  non la demande  précédente & Envoi d'une notification sur la plateforme à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
+	\hline
+    \end{tabular}
+\end{table} 
 	
 \subsection{Création d'un compte utilisateur/administrateur}
 
-\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
-	\small
-	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
-		\hline
-		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-		\hline
-			Création de compte sur la  plateforme & Mot de passe (contenant au moins 6 caractères et un spécial) et mail valides & Message informatif de création de compte, accès à la plateforme de demande de licence& Ajout à la table de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification\\
-		\hline
-			Vérification des informations de  compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de passe et mail renseignés pour la création de compte& Notification à la création de compte en cas de succès de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur\\
-		\hline
-	\end{tabular}
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#2.1} & Création de compte sur la  plateforme & Mot de passe (contenant au moins 6 caractères et un spécial) et mail valides & Message informatif de création de compte, accès à la plateforme de demande de licence& Ajout à la table de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification\\
+	\hline
+	    \textbf{RG\#2.2} & Vérification des informations de  compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de passe et mail renseignés pour la création de compte& Notification à la création de compte en cas de succès de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur\\
+	\hline
+    \end{tabular}
 \end{table}
 
 \newpage
 \subsection{Paramétrage d'une licence}
 
-\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
-	\small
-	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
-		\hline
-		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-		\hline
-			Connexion\newline au gestionnaire\newline de licence & Identifiant\newline \& Mot de passe administrateur & Plateforme de gestion  des demande de licences\newline utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
-		\hline
-			Paramétrage \newline des licences& Identifiants\newline utilisateur \& \newline logiciel demandé & Notification\newline utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
-		\hline	    
-	\end{tabular}
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#3.1} & Connexion au gestionnaire de licence & Identifiant \& Mot de passe administrateur & Plateforme de gestion  des demande de licences utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
+	\hline
+	    \textbf{RG\#3.2} & Paramétrage  des licences& Identifiants utilisateur \&  logiciel demandé & Notification utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
+	\hline	    
+    \end{tabular}
 \end{table}
 
 \subsection{Activation d'une licence}
 
-\begin{table}[!ht] % <-- Super important in order to anchor at the top of the document
-	\small
-	\begin{tabular}{ | m{3cm} | m{3cm} | m{3cm} | m{6cm} | } 
-		\hline
-		\textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-		\hline
-			Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
-		\hline
-			Connexion sur \newline le logiciel \newline d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platefrome de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus \\ 
-		\hline
-	\end{tabular}
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#4.1} & Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
+	\hline
+	    \textbf{RG\#4.2} & Connexion sur  le logiciel  d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platefrome de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus \\ 
+	\hline
+    \end{tabular}
 \end{table}
