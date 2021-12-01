@@ -1,0 +1,118 @@
+\definecolor{getColor}{rgb}{0.28, 0.8, 0.56}
+\definecolor{postColor}{rgb}{0.38, 0.68, 0.99}
+
+\usemintedstyle{monokai}
+\definecolor{bg}{HTML}{282828} % from https://github.com/kevinsawicki/monokai
+
+\begin{tcolorbox}[title=RestFull API]
+
+	\begin{tcbitemize}[%
+    raster columns=7, 
+    raster rows=2, 
+    raster equal height=rows,
+    ]
+
+		% Row I
+		\tcbitem[myhbox={}{},
+			colback=getColor,colupper=white, 
+			fontupper=\sffamily\bfseries\normalsize]	GET
+		\tcbitem[raster multicolumn=6, myhbox={}{},
+						 fontupper=\ttfamily\bfseries\normalsize] /api/v1/Software/getSoftwareList
+
+		% Row II
+		\tcbitem[raster multicolumn=5, myhbox={}{}, 
+						 frame hidden, interior hidden] \textbf{Parameters:} 
+
+		\tcbitem[raster multicolumn=2, colback=white, 
+						 colupper=black, myhbox={}{}] No parameters 
+
+		% Row III
+		\tcbitem[raster multicolumn=3, myhbox={}{}, 
+						 frame hidden, interior hidden] \textbf{Response:} 
+
+		\tcbitem[raster multicolumn=2, myhbox={}{}, 
+						 frame hidden, interior hidden] \emph{content type}
+
+		\tcbitem[raster multicolumn=2, colback=white, 
+						 colupper=black, myhbox={}{}] application/json
+
+		% Row IV
+		\tcbitem[raster multicolumn=7, myhbox={}{}]
+		\begin{tcbitemize}[raster columns=7, 
+											 raster rows=2]
+				
+			\tcbitem[raster multirow=1, myhbox={}{},
+							 fontupper=\sffamily\bfseries\normalsize,
+							 frame hidden, interior hidden] 200
+
+			\tcbitem[raster multirow=1, raster multicolumn=6, myhbox={}{}, colback=bg] 
+					\begin{minted}[bgcolor=bg, breaklines, breakautoindent=true]{json}
+[{
+	"SoftwareId" : 0,
+	"SoftwareName" : "Logiciel de Gestion de Paye",
+	"SoftwareDesc" : "Permet de gérer les payes de vos employés"
+}]
+				\end{minted}
+			
+			\tcbitem[raster multirow=1, myhbox={}{},
+							 fontupper=\sffamily\bfseries\normalsize,
+							 frame hidden, interior hidden] 404
+
+			\tcbitem[raster multirow=1, raster multicolumn=6, myhbox={}{}] Not Found
+
+		\end{tcbitemize}
+
+		% Row V			
+		\tcbitem[myhbox={}{},
+			colback=postColor,colupper=white, 
+			fontupper=\sffamily\bfseries\normalsize]	POST
+		\tcbitem[raster multicolumn=6, myhbox={}{},
+						 fontupper=\ttfamily\bfseries\normalsize] /api/v1/Licence/requestLicence
+
+	% Row III
+	\tcbitem[raster multicolumn=3, myhbox={}{}, 
+					 frame hidden, interior hidden] \textbf{Parameters:} 
+
+	\tcbitem[raster multicolumn=2, myhbox={}{}, 
+					 frame hidden, interior hidden] \emph{content type}
+
+	\tcbitem[raster multicolumn=2, colback=white, 
+					 colupper=black, myhbox={}{}] application/json
+
+	\tcbitem[raster multicolumn=7, myhbox={}{}, colback=bg] 
+					\begin{minted}[bgcolor=bg, breaklines, breakautoindent=true]{json}
+[{
+	"UserMail" : "prenom.nom@mail.com",
+	"UserPassword" : "123456seven",
+	"SoftwareId" : 0,
+	"HardwareHash" : "2e41d4a7-8be7-40ef-8b29-e77aadee37cb"
+}]
+				\end{minted}
+		
+	% Row II
+	\tcbitem[raster multicolumn=7, myhbox={}{}, 
+					 frame hidden, interior hidden] \textbf{Response:} 
+
+	% Row IV
+	\tcbitem[raster multicolumn=7, myhbox={}{}]
+	\begin{tcbitemize}[raster columns=7, 
+										 raster rows=2]
+			
+		\tcbitem[raster multirow=1, myhbox={}{},
+						 fontupper=\sffamily\bfseries\normalsize,
+						 frame hidden, interior hidden] 200
+
+		\tcbitem[raster multirow=1, raster multicolumn=6, myhbox={}{}] LicenceFile.key 
+
+		\tcbitem[raster multirow=1, myhbox={}{},
+						 fontupper=\sffamily\bfseries\normalsize,
+						 frame hidden, interior hidden] 404
+
+		\tcbitem[raster multirow=1, raster multicolumn=6, myhbox={}{}] Not Found
+
+		\end{tcbitemize}
+
+	\end{tcbitemize}
+\end{tcolorbox}		
+
+

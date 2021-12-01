@@ -36,13 +36,18 @@
 \usepackage{multirow}
 \usepackage{array}
 
-
 % Sets page size and margins
 \usepackage[a4paper,top=4cm,bottom=2cm,left=2cm,
 	right=2cm,marginparwidth=1.75cm,headheight=2cm]{geometry}
 
 % for the bar with date on top of each page
 \usepackage{fancyhdr}
+
+% Displaying code
+% \usepackage{tcolorbox}
+\usepackage{minted}
+\usepackage{lmodern} 
+\usepackage[most]{tcolorbox}   
 
 %----------------------------------------------------------------------------------------
 %	Variables
@@ -90,6 +95,59 @@
 \definecolor{gray75}{gray}{0.75}
 \newcommand{\hsp}{\hspace{20pt}}
 \titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+% tColorBox Placement
+\makeatletter
+\tcbset{
+    myhbox/.style 2 args={%
+        enhanced, 
+        breakable,
+        colback=white,
+        colframe=blue!30!black,
+        attach boxed title to top left={yshift*=-\tcboxedtitleheight}, 
+        title={#2},
+        boxed title size=title,
+        boxed title style={%
+            sharp corners, 
+            rounded corners=northwest, 
+            colback=tcbcolframe, 
+            boxrule=0pt,
+        },
+        underlay boxed title={%
+            \path[fill=tcbcolframe] (title.south west)--(title.south east) 
+                to[out=0, in=180] ([xshift=5mm]title.east)--
+                (title.center-|frame.east)
+                [rounded corners=\kvtcb@arc] |- 
+                (frame.north) -| cycle; 
+        },
+        #1
+    },
+    myvbox/.style 2 args={%
+        enhanced, 
+        colback=white,
+        colframe=blue!30!black,
+        left=8mm,
+        overlay={
+            \node[rotate=90, anchor=north west, inner sep=2mm, text=white] (title@aux) at (frame.south west) {#2};
+            \path[fill=tcbcolframe] (title@aux.south west)--(title@aux.south east) 
+                to[out=90, in=270] ([yshift=5mm]title@aux.east)--
+                (title@aux.center|-frame.north)
+                [rounded corners=\kvtcb@arc] -| 
+                (frame.west) |- (title@aux.west)[sharp corners] -- cycle;   
+            \node[rotate=90, inner sep=2mm, text=white] at (title@aux) {#2};
+        },
+        #1
+    },  
+}   
+\makeatother
+
+\newtcolorbox{myhbox}[2][]{%
+    myhbox={#1}{#2}
+}
+
+\newtcolorbox{myvbox}[2][]{%
+    myvbox={#1}{#2}
+}
 
 %----------------------------------------------------------------------------------------
 %	Start of document

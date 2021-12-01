@@ -79,7 +79,7 @@ le schéma n°\ref{fig:fig1}\newline
 	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
 				API Rest permettant à au client d'envoyer les informations
-				nécéssaires à la génération de la licence 
+				nécéssaires à la génération de la licence (voir \ref{fig:fig2} 				
 	\item[\textbf{Dépendances}:]
 				Dépend du module de Base de données.
 	\item[\textbf{Languages}:]
@@ -95,10 +95,16 @@ Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de
 support et de documentation (https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04)\newline
 Possibilité d'automatiser l'installation va un script bash.
 
+\begin{figure}[hp!]
+	\caption{API rest}
+	\input{rest-api.tex}
+	\label{fig:fig2}
+\end{figure}
 \newpage
+
 \section{Constituant `Base de données'}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=\textwidth]{../png/SQL_table.png}
 	\caption{Diagramme UML des Tables de la BDD}
@@ -153,8 +159,61 @@ Possibilité d'automatiser l'installation va un script bash.
 		Fournir une API pour des programmes en C\# afin de 
 		permettre à un developpeur de vérifier une licence dans son code.
 	\item[\textbf{Propriétés et attributs de caractérisation}:]
+
+	\newpage
+
 	\item[\textbf{Services offerts}:]
-		Listes des fonctions de l'API (a faire)
+		Listes des fonctions de l'API:
+		\begin{minted}{csharp}
+/*
+ * Récupère l'identifiant de la carte réseau.
+ */
+public String getNetworkAdapterNo();
+
+/*
+ * Récupère le numéro de série du BIOS.
+ */
+public String getBIOSSerialNo();
+
+/*
+ * Récupère le numéro de série du disque.
+ */
+public String getDiskSerialNo();
+
+/*
+ * Récupère les droits d'une licence à partir d'un fichier de
+ * licence, renseigné par son chemin.
+ */
+public String getRights(String pathToLicenseFile);
+
+/*
+ * Vérifie la signature à partir des informations du système,
+ * de l'identifiant du logiciel, situé dans le programme, et des
+ * droits, obtenus à partir du fichier de licence.
+ */
+public int verifySignature(String pathToLicenseFile);
+
+/*
+ * Génère un hashé à partir d'une chaîne de caractères donné
+ * en entrée, en utilisant l'algorithme SHA-256.
+ */
+public String hashWithSHA256(String s);
+
+/*
+ * Décode une chaîne de caractères encodée en base64.
+ */
+public String decodeBase64(String s);
+			\end{minted}
+
+			\textbf{Contraintes:}\newline
+			Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes
+			comme par exemple pour les informations hardware la classe \verb:System.Management:, ou bien la classe
+			\verb:System.Security.Cryptography: pour le hash avec SHA-256.\\
+
+			Dans un second temps, nous devrons implanter au maximum les fonctions nous-mêmes et les optimisés dans le but
+			de pouvoir intégrer ces fonctions directement dans un exécutable (greffe dans un PE) sans pour autant alourdir
+			ou ralentir l'éxécution de l'application.
+
 	\item[\textbf{Dépendances}:]
 	\item[\textbf{Languages}:]
 		C, C++, C\#
