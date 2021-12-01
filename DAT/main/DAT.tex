@@ -5,7 +5,7 @@
 %----------------------------------------------------------------------------------------
 
 \usepackage[french]{babel}
-\usepackage[utf8x]{inputenc}
+\usepackage[utf8]{inputenc}
 \usepackage{titlesec, blindtext, color}
 \usepackage[T1]{fontenc}
 \usepackage{listings}
@@ -17,6 +17,20 @@
 \usepackage{lipsum}
 % make links clickable
 \usepackage[hidelinks]{hyperref}
+
+% bibliography 
+\usepackage[backend=bibtex8]{biblatex}
+\addbibresource{DAT.bib}
+
+% for the description 
+\usepackage{enumitem}
+\setlist[description]{
+	style=nextline,
+	labelwidth=0pt,
+	leftmargin=30pt,
+	parsep=3pt,
+	itemindent=\dimexpr-20pt-\labelsep\relax
+} % Optional Global Setup
 
 % for the table
 \usepackage{multirow}
@@ -106,8 +120,6 @@
 
 \input{main.tex}
 
-\bibliographystyle{unsrt}
-\bibliography{bibs/sample}
-\addcontentsline{toc}{chapter}{Bibliographie}
+\printbibliography[title=Réferences externes]
 
 \end{document}

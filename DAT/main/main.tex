@@ -30,27 +30,34 @@ Les éléments matériels nécessaire au développement de cet outil sont :
 
 \chapter{Architecture statique}
 Afin de réaliser ce projet nous avons choisit de mettre en place l'infrastructure suivante:
-\begin{itemize}
-	\item Un serveur web qui permettra
-	\begin{itemize}
-		\item a un client de se créer un compte, demander et télécharger l'outil de generation
-					de licence.
-		\item a un administrateur d'accorder et de gérer les licences. 
-	\end{itemize}
-	\item Un logiciel d'activation qui sera executé sur la machine de l'utilisateur
+
+\begin{description}
+	\item[\textbf{Un serveur web}:]
+				C'est ce serveur qui présentera l'interface aux utilisateur et  
+				\begin{itemize}
+					\item permettra à un client de se créer un compte, demander et 
+								télécharger l'outil de generation de licence.
+					\item permettra à un administrateur d'accorder et de gérer les licences. 
+				\end{itemize}
+	\item[\textbf{Un logiciel d'activation}:] 
+				sera executé sur la machine de l'utilisateur
 				afin de lui permettre de générer une licence. Pour cela il échangera avec
 				le serveur des informations sur le matériel physique de la machine, ce 
 				qui permettra à ce dernier de générer le fichier de licence.
-	\item Un outil permettant de vérifier la validité d'une licence, cette outil
+	\item[\textbf{Outil de Validation}:]
+				Outil permettant de vérifier la validité d'une licence, cette outil
 				pourra prendre les formes suivantes: 
-	\begin{itemize}
-	\item Une bibilothèque de fonction qui permettra à un developpeur d'inclure
-				dans son code les fonctions de vérification de licence. 
-	\item Un programme permettant de greffer directement les fonctions de vérification
-				sur un exécutable. 
-	\end{itemize}
-\end{itemize}
-L'architecture générale de ce projet peut être représenter via le schéma n°\ref{fig:fig1}\newline
+				\begin{itemize}
+				\item Une bibilothèque de fonction qui permettra à un developpeur d'inclure
+							dans son code les fonctions de vérification de licence. 
+				\item Un programme permettant de greffer directement les fonctions de vérification
+							sur un exécutable. 
+				\end{itemize}
+\end{description}
+
+L'architecture générale de ce projet peut être représenter via 
+le schéma n°\ref{fig:fig1}\newline
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics{../png/DAT_general.png}
@@ -60,28 +67,38 @@ L'architecture générale de ce projet peut être représenter via le schéma n�
 \newpage
 
 \section{Constituant `Serveur Applicatif'}
+
 \subsection{Description}
-\begin{itemize}
-	\item Le but du serveur est de fournir l'interface principale, programmé 
+
+\begin{description}
+	\item[\textbf{Rôle}:]
+				Le but du serveur est de fournir l'interface principale, programmé 
 				en HTML, CSS et JS aux utilisateurs, de stocker dans sa base de donnée
 				les informations nécessaires à la génération de licence et enfin de générer 
 				les licences.
-	\item Propriétés et attributs de caractérisation
-	\item Services offerts: API Rest permettant à au client d'envoyer les informations
+	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	\item[\textbf{Services offerts}:]
+				API Rest permettant à au client d'envoyer les informations
 				nécéssaires à la génération de la licence 
-	\item	Dépendances: Dépend du module de Base de données.
-	\item Languages: HTML, CSS, JS, PHP, SQL, Bash 
-	\item Architecture MVC (Model Vue Controler)
-	\item Taille importante et complexité élévé.
-\end{itemize}
+	\item[\textbf{Dépendances}:]
+				Dépend du module de Base de données.
+	\item[\textbf{Languages}:]
+				HTML, CSS, JS, PHP, SQL, Bash 
+	\item[\textbf{Procédé de développement}:]
+				Architecture MVC (Model Vue Controler)
+	\item[\textbf{Taille et complexité}:]
+				Taille importante et complexité élévé.
+\end{description}
+
 \subsection{Justifications techniques.}
 Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
 support et de documentation (https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04)\newline
 Possibilité d'automatiser l'installation va un script bash.
 
+\newpage
 \section{Constituant `Base de données'}
 
-\begin{figure}[h!]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{../png/SQL_table.png}
 	\caption{Diagramme UML des Tables de la BDD}
@@ -89,60 +106,87 @@ Possibilité d'automatiser l'installation va un script bash.
 \end{figure}
 
 \subsection{Description}
-\begin{itemize}
-	\item Le but de ce module est de permettre de stocker les informations relatives aux
-				clients, administrateurs et aux licences. 
-	\item Propriétés et attributs de caractérisation
-	\item Fonctions SQL permettant de creer / modifier / supprimer / consulter les 
-				informations relatives aux clients, administrateurs et licences.
-	\item Pas de dépendances.	
-	\item MySQL 
-	\item Porter une attention partculière à la sécurisation des données, via
-				du chiffrement et à se proteger des attaques du type 'injections SQL'. 
-	\item Taille faible et complexité faible. 
-\end{itemize}
+\begin{description}
+	\item[\textbf{Rôle}:]
+		Le but de ce module est de permettre de stocker les informations relatives aux
+		clients, administrateurs et aux licences. 
+	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	\item[\textbf{Services offerts}:]
+		Fonctions SQL permettant de creer / modifier / supprimer / consulter les 
+	  informations relatives aux clients, administrateurs et licences.
+	\item[\textbf{Dépendances}:]
+		Pas de dépendances.		
+	\item[\textbf{Languages}:]
+		MySQL.
+	\item[\textbf{Procédé de développement}:]
+	  Porter une attention partculière à la sécurisation des données, via
+	  du chiffrement et à se proteger des attaques du type 'injections SQL'. 
+	\item[\textbf{Taille et complexité}:]
+		Taille faible et complexité faible. 
+\end{description}
 \subsection{Justifications techniques.}
 
 \section{Constituant `Logiciel d'Activation'}
 \subsection{Description}
-\begin{itemize}
-	\item Récuperer les informations matériels sur la machine d'un utilisateur, puis 
-				se connecter au serveur afin de générer le fichier de licence.
-	\item Propriétés et attributs de caractérisation
-	\item Services offerts (interfaces)
-	\item Dépendances: Serveur. 
-	\item C\# ?
-	\item Respect d'une charte de code. 
-	\item Taille faible et complexité faible. 
-\end{itemize}
+\begin{description}
+	\item[\textbf{Rôle}:]
+		Récuperer les informations matériels sur la machine d'un utilisateur, puis 
+		se connecter au serveur afin de générer le fichier de licence.
+	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	\item[\textbf{Services offerts}:]
+	\item[\textbf{Dépendances}:]
+		Module Serveur.
+	\item[\textbf{Languages}:]
+		C\#.
+	\item[\textbf{Procédé de développement}:]
+		Respect d'une charte de code. 
+	\item[\textbf{Taille et complexité}:]
+		Taille faible et complexité faible. 
+\end{description}
+
 \subsection{Justifications techniques.}
 
 \section{Constituant `Système de véfication - Librairie'}
 \subsection{Description}
-\begin{itemize}
-	\item Fournir une API pour des programmes en C\# afin de 
-				permettre à un developpeur de vérifier une licence dans son code.
-	\item Propriétés et attributs de caractérisation
-	\item Listes des fonctions de l'API (a faire)
-	\item Dépendances avec d’autres constituants (services utilisés, composants 'étagère' utilisés)
-	\item C, C++, C\#
-	\item Procédé de développement (techniques, méthodes et/ou outils )
-	\item Taille et complexité.
-\end{itemize}
+\begin{description}
+	\item[\textbf{Rôle}:]
+		Fournir une API pour des programmes en C\# afin de 
+		permettre à un developpeur de vérifier une licence dans son code.
+	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	\item[\textbf{Services offerts}:]
+		Listes des fonctions de l'API (a faire)
+	\item[\textbf{Dépendances}:]
+	\item[\textbf{Languages}:]
+		C, C++, C\#
+	\item[\textbf{Procédé de développement}:]
+		Respect d'un charte de code. 
+	\item[\textbf{Taille et complexité}:]
+		Taille importante et complexité relative.
+\end{description}
+
 \subsection{Justifications techniques.}
+Afin de fournir un module le plus indépendant possible afin d'éviter de dépendre d'autres 
+librairies externe (et de devoir les monter en mémoire au moment de l'éxécution ce qui 
+ralentira le programme) mais aussi dans un but pédagogique nous avons choisit d'implémenter nous même le système cryptographique de signature, le schéma de signature retenu est 
+ElGamal \cite{ElGamal}.
 
 \section{Constituant `Système de véfication - Greffe'}
 \subsection{Description}
-\begin{itemize}
-	\item Outil permettant d'ajouter les fonctions de vérification directement à un
-				executable, afin de décharger le developpeur de la necessité de vérifier 
-				la licence dans son code.
-	\item Propriétés et attributs de caractérisation
-	\item Services offerts (interfaces)
-	\item Dépendances avec d’autres constituants (services utilisés, composants 'étagère' utilisés)
-	\item C, C\#, Python, Bash 
-	\item Procédé de développement (techniques, méthodes et/ou outils )
-	\item Taille et complexité.
-\end{itemize}
+\begin{description}
+	\item[\textbf{Rôle}:]
+			Outil permettant d'ajouter les fonctions de vérification directement à un
+			executable, afin de décharger le developpeur de la necessité de vérifier 
+			la licence dans son code.
+	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	\item[\textbf{Services offerts}:]
+	\item[\textbf{Dépendances}:]
+	\item[\textbf{Languages}:]
+		C, C\#, Python, Bash 
+	\item[\textbf{Procédé de développement}:]
+		Respect d'un charte de code. 
+	\item[\textbf{Taille et complexité}:]
+		Taille faible et complexité élevé.
+\end{description}
+
 \subsection{Justifications techniques.}
 
