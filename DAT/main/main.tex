@@ -76,14 +76,14 @@ le schéma n°\ref{fig:fig1}\newline
 				en HTML, CSS et JS aux utilisateurs, de stocker dans sa base de donnée
 				les informations nécessaires à la génération de licence et enfin de générer 
 				les licences.
-	\item[\textbf{Propriétés et attributs de caractérisation}:]
+	%\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
 				API Rest \cite{REST} permettant à au client d'envoyer les informations
 				nécéssaires à la génération de la licence (voir \ref{fig:fig2})				
 	\item[\textbf{Dépendances}:]
 				Dépend du module de Base de données.
 	\item[\textbf{Languages}:]
-				HTML, CSS, JS, PHP, SQL, Bash 
+				HTML, CSS, JS, PHP, SQL, Bash, C 
 	\item[\textbf{Procédé de développement}:]
 				Utilisation du pattern design MVC (Model Vue Controler) et respect des
                 conventions Material Design \cite{Material}.
@@ -95,7 +95,26 @@ le schéma n°\ref{fig:fig1}\newline
 \subsection{Justifications techniques.}
 Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
 support et de documentation \cite{LAMP}, Il y a possibilité d'automatiser 
-le deploiement de la solution via un script d'installation.
+le deploiement de la solution via un script d'installation. \newline
+Le serveur utilisera un script permettant de générer une licence pour un 
+utilisateur en prenant en paramètre l'id du logiciel pour lequelle on doit 
+générer la licence, un hash des informations hardware du client, et les
+attributs de la licence (nombre d'essais, période de validité) et renverra
+le fichier de licence. Le script utilisera les fonctions suivantes:
+\begin{minted}{c}
+
+// Récupère les droits d'une licence à partir d'un fichier de
+// licence, renseigné par son chemin.
+char *hashWithSHA256(const char *string);
+
+// Génère une signature de dataToSign à partir de la clé privé asymétrique 
+//  privateKey. 
+char *generateSignature(const char *dataToSign, const char *privateKey);
+  
+// Encode une chaîne de caractères en base64
+char *encodeBase64(const char *string);
+
+\end{minted}
 
 \begin{figure}[hp!]
 	\caption{API rest}
@@ -118,7 +137,7 @@ le deploiement de la solution via un script d'installation.
 	\item[\textbf{Rôle}:]
 		Le but de ce module est de permettre de stocker les informations relatives aux
 		clients, administrateurs et aux licences. 
-	\item[\textbf{Propriétés et attributs de caractérisation}:]
+%	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
 		Fonctions SQL permettant de creer / modifier / supprimer / consulter les 
 	  informations relatives aux clients, administrateurs et licences.
@@ -140,7 +159,7 @@ le deploiement de la solution via un script d'installation.
 	\item[\textbf{Rôle}:]
 		Récuperer les informations matériels sur la machine d'un utilisateur, puis 
 		se connecter au serveur afin de générer le fichier de licence.
-	\item[\textbf{Propriétés et attributs de caractérisation}:]
+%	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:] 
 		n'offre aucun service.
 	\item[\textbf{Dépendances}:]
@@ -161,7 +180,9 @@ le deploiement de la solution via un script d'installation.
 	\item[\textbf{Rôle}:]
 		Fournir une API pour des programmes en C\# afin de 
 		permettre à un developpeur de vérifier une licence dans son code.
-	\item[\textbf{Propriétés et attributs de caractérisation}:]
+        Cependant le code de la bibliothèque ne sera pas en C\# mais en 
+        C car celui-ci est plus facile à obfusquer. 
+%	\item[\textbf{Propriétés et attributs de caractérisation}:]
 
 	\newpage
 
@@ -191,7 +212,7 @@ public String getRights(String pathToLicenseFile);
 
 /*
  * Vérifie la signature à partir des informations du système,
- * de l'identifiant du logiciel, situé dans le programme, et des
+ * de l'identifiant du logiciel, situé dans le programme, des
  * droits, obtenus à partir du fichier de licence.
  */
 public int verifySignature(String pathToLicenseFile);
@@ -237,7 +258,7 @@ C'est aussi dans un but pédagogique nous avons choisit d'implémenter nous mêm
 			Outil permettant d'ajouter les fonctions de vérification directement à un
 			executable, afin de décharger le developpeur de la necessité de vérifier 
 			la licence dans son code.
-	\item[\textbf{Propriétés et attributs de caractérisation}:]
+%	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
 		n'offre auxun service.
 	\item[\textbf{Dépendances}:]
