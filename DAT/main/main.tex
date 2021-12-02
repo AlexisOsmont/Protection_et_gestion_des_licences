@@ -78,8 +78,8 @@ le schéma n°\ref{fig:fig1}\newline
 				les licences.
 	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
-				API Rest permettant à au client d'envoyer les informations
-				nécéssaires à la génération de la licence (voir \ref{fig:fig2} 				
+				API Rest \cite{REST} permettant à au client d'envoyer les informations
+				nécéssaires à la génération de la licence (voir \ref{fig:fig2})				
 	\item[\textbf{Dépendances}:]
 				Dépend du module de Base de données.
 	\item[\textbf{Languages}:]
@@ -92,8 +92,8 @@ le schéma n°\ref{fig:fig1}\newline
 
 \subsection{Justifications techniques.}
 Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
-support et de documentation (https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-ubuntu-18-04)\newline
-Possibilité d'automatiser l'installation va un script bash.
+support et de documentation \cite{LAMP} \newline
+Possibilité d'automatiser le deploiement de la solution via un script d'installation.
 
 \begin{figure}[hp!]
 	\caption{API rest}
@@ -130,7 +130,7 @@ Possibilité d'automatiser l'installation va un script bash.
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
-\subsection{Justifications techniques.}
+% \subsection{Justifications techniques.}
 
 \section{Constituant `Logiciel d'Activation'}
 \subsection{Description}
@@ -139,13 +139,14 @@ Possibilité d'automatiser l'installation va un script bash.
 		Récuperer les informations matériels sur la machine d'un utilisateur, puis 
 		se connecter au serveur afin de générer le fichier de licence.
 	\item[\textbf{Propriétés et attributs de caractérisation}:]
-	\item[\textbf{Services offerts}:]
+	\item[\textbf{Services offerts}:] 
+		n'offre aucun service.
 	\item[\textbf{Dépendances}:]
-		Module Serveur.
+		Dépend du Module Serveur.
 	\item[\textbf{Languages}:]
 		C\#.
 	\item[\textbf{Procédé de développement}:]
-		Respect d'une charte de code. 
+		Respect d'une charte de code. (Voir Chapitre \ref{chap:Annexe})
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
@@ -163,7 +164,7 @@ Possibilité d'automatiser l'installation va un script bash.
 	\newpage
 
 	\item[\textbf{Services offerts}:]
-		Listes des fonctions de l'API:
+		Ce module propose une API dont des fonctions sont les suivantes:
 		\begin{minted}{csharp}
 /*
  * Récupère l'identifiant de la carte réseau.
@@ -205,29 +206,27 @@ public String hashWithSHA256(String s);
 public String decodeBase64(String s);
 			\end{minted}
 
-			\textbf{Contraintes:}\newline
-			Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes
-			comme par exemple pour les informations hardware la classe \verb:System.Management:, ou bien la classe
-			\verb:System.Security.Cryptography: pour le hash avec SHA-256.\\
-
-			Dans un second temps, nous devrons implanter au maximum les fonctions nous-mêmes et les optimisés dans le but
-			de pouvoir intégrer ces fonctions directement dans un exécutable (greffe dans un PE) sans pour autant alourdir
-			ou ralentir l'éxécution de l'application.
-
 	\item[\textbf{Dépendances}:]
+		Dépend d'un fichier de licence.	
 	\item[\textbf{Languages}:]
 		C, C++, C\#
 	\item[\textbf{Procédé de développement}:]
-		Respect d'un charte de code. 
+		Respect d'un charte de code. (Voir Chapitre \ref{chap:Annexe})
 	\item[\textbf{Taille et complexité}:]
 		Taille importante et complexité relative.
 \end{description}
 
 \subsection{Justifications techniques.}
-Afin de fournir un module le plus indépendant possible afin d'éviter de dépendre d'autres 
-librairies externe (et de devoir les monter en mémoire au moment de l'éxécution ce qui 
-ralentira le programme) mais aussi dans un but pédagogique nous avons choisit d'implémenter nous même le système cryptographique de signature, le schéma de signature retenu est 
-ElGamal \cite{ElGamal}.
+Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes comme par exemple pour les informations hardware la 
+classe \verb:System.Management:, ou bien la classe \verb:System.Security.Cryptography: 
+pour le hash avec SHA-256.\newline
+
+Dans un second temps, nous devrons implanter au maximum les fonctions nous-mêmes et 
+les optimisés dans le but de pouvoir intégrer ces fonctions directement dans un 
+exécutable (greffe dans un PE) sans pour autant alourdir ou ralentir l'éxécution de 
+l'application. \newline
+
+C'est aussi dans un but pédagogique nous avons choisit d'implémenter nous même le système cryptographique de signature, le schéma de signature retenu est ElGamal \cite{ElGamal}.
 
 \section{Constituant `Système de véfication - Greffe'}
 \subsection{Description}
@@ -238,14 +237,20 @@ ElGamal \cite{ElGamal}.
 			la licence dans son code.
 	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
+		n'offre auxun service.
 	\item[\textbf{Dépendances}:]
+		Dépend de la bibliothèque de vérification.
 	\item[\textbf{Languages}:]
 		C, C\#, Python, Bash 
 	\item[\textbf{Procédé de développement}:]
-		Respect d'un charte de code. 
+		Respect d'un charte de code. (Voir Chapitre \ref{chap:Annexe}) 
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité élevé.
 \end{description}
 
-\subsection{Justifications techniques.}
+% \subsection{Justifications techniques.}
 
+\chapter{Annexe}
+\label{chap:Annexe}
+
+\input{coding-convention.tex}
