@@ -1,0 +1,135 @@
+\chapter{Terminologies}
+
+\begin{itemize}
+	\item Le client est le commanditaire du projet.
+	\item Un utilisateur est une personne souhaitant utiliser un logiciel du client. 
+	\item Une licence est un droit accordé pour une machine et un utilisateur d'utiliser un logiciel donné.
+\end{itemize}
+
+\chapter{Liste des points durs}
+
+\begin{itemize}
+	\item \textbf{Minimisation des risques de failles d'implémentation} \newline
+	Etant donné notre non experience dans les domaines des gestionnaires de licences
+	et de la greffe de code, la minimisation des failles d'implémentation est un risque élevé.\newline
+	
+	\item \textbf{Programmation de l'algorithme de signature ElGamal} \newline
+	L'un des points les plus important est la signature, la principale difficultés ici est 
+	de créer une signature unique.	\newline
+	
+	\item \textbf{Obfuscation du code} \newline
+	L'obsfuscation de code est un element essentiel car le but de notre projet est de proteger des
+	logiciel du cracking. Le risque majeur ici est de ne pas suffisement obfusquer le code et donc de le rendre 
+	facilement accessible.\newline
+	
+	\item \textbf{Utilisation du C pour une DLL ou développement} \newline
+	L'utilisation du langage C est l'un de nos choix en remplacement du C++ et C\# même si celui-ci
+	possède moins d'utilitaires que les autres, et est par consquent plus assujetti aux failles d'implémentation.\newline
+	
+	\item \textbf{Injection de Code dans un PE} \newline
+	L'injection de code peut, si elle est mal implémentée laisser des faille facilement utilisable
+	pour des personnes mals intentionnées.\newline
+	
+	\item \textbf{Le temps} \newline
+	Nous avons pris du retard, dû à des délais de remise de travail demandé ainsi qu'aux 
+	difficultés rencontrée quant à l'organisation de réunion entre membre du projet.\newline
+\end{itemize}
+
+\chapter{Evalutaion du contexte}
+
+\section{Particularité du sujet}
+Nous possedons des logiciels de référence sur lesquels se baser.\\ \newline
+
+Plusieurs parties à réaliser, sujet pluridisciplinaire :
+\begin{itemize}
+	\item Programmation Serveur.
+	\item Interface Web.
+	\item Logiciel client Windows
+\end{itemize}
+
+\section{Définition du besoin}
+Le produit final sera utilisé par des personnes non formée à l'informatique. 
+\begin{itemize}	
+	\item Les interfaces decront être pensés pour\newline
+\end{itemize}
+
+Le produit final sera réellement utlisé par le client
+\begin{itemize}
+	\item Attente de la part du client
+\end{itemize}
+
+\section{Disponibilité des acteurs et ressources}
+Les acteurs
+\begin{itemize}
+	\item Difficulté à organiser des réunions entre les membres du groupe.
+	\item Réunion avec Professeur de gestion de projet 1x toutes les 2 semaines 
+	\item Réunion avec client 1 fois toutes les 2 semaines.\newline
+\end{itemize}
+
+Les ressources
+\begin{itemize}
+	\item Beacoup de documentation sur internet
+	\item Logiciel référence intellilock, etc..
+	\item Référent technique seulement 1x fois toutes les 2 semaines...
+	\item Professeurs de crypto disponnibles.\newline
+\end{itemize}
+
+\section{Composition de l'equipe}
+Nous nous connaissions déjà et communication facile.
+
+\section{Connaissances techniques personnelles}
+\begin{itemize}
+	\item Obfuscation : 0
+	\item Injection de code : 0
+	\item Programmation Serveur : Sami
+	\item Interface Web : Experience de la licence 
+	\item Développement logiciel : Experience de la licence
+	\item Implémentation crypto : 0
+\end{itemize}
+
+\section{La complexité des solutions techniques}
+Les solutions techniques n'étant pas encore vraiment décidées.
+\begin{itemize}
+	\item ElGamal.
+\end{itemize}
+
+\section{Perturbations engendrées par les autres activités}
+\begin{itemize}
+	\item Examens
+	\item Autres Projets
+	\item Travaux personnels (TP)
+\end{itemize}
+
+\chapter{Ordonner les points durs}
+\begin{itemize}
+	\item 1 - Injection de Code dans un PE
+	\item 2 - Minimisation des risques de failles d'implémentation
+	\item 3 - Obfuscation du code
+	\item 4 - Gestion du temps
+	\item 5 - Algorithme de signature ElGamal
+	\item 6 - Utilisation du C
+\end{itemize}
+
+\chapter{Definitions des risques associés}
+
+\chapter{Top cinq des risques (Bilan)}
+
+\begin{table}[!h]
+    \small
+    \begin{tabular}{|m{2.5cm}|m{2.5cm}|m{2.5cm}|m{1.5cm}|m{1.5cm}|m{4cm}|} 
+	\hline
+	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{freq} & \textbf{Stratégie}\\
+	\hline
+	Failles d'implémentation & Cracking du logiciel et de son injection &  Perte de controle du logicel & Critique & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	\hline
+	Injection de Code & Cracking du logiciel et de son injection &  Perte de controle du logicel & Critique & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	\hline
+	Obfuscation du code & Cracking du logiciel et de son injection &  Perte de controle du logicel d'injection de code & Important & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	\hline
+	Gestion du temps & Manque de temps pour un rendu complet &  Prise de retard par rapport aux TP de Gestion de Projet & Important & forte & S’organiser et séparer efficacement les tâches pour bien gérer le travail.\\
+	\hline
+	Signature ElGamal & Complications lors de l'accès au logicel &  Impossible d'utliser le logicel & Fort & Faible & Effectuer des testes unitaire sur les signatures pour prevenir ce risque.\\
+	\hline	    
+    \end{tabular}
+\end{table}
+
