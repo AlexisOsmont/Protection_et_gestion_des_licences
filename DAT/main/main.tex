@@ -151,6 +151,12 @@ char *encodeBase64(const char *string);
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
+
+\subsection{API PHP/SQL}
+Nous utiliserons MySQL avec PHP pour interagir avec notre base de données depuis la plateforme Web.
+
+Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref{section:php}).
+
 % \subsection{Justifications techniques.}
 
 \section{Constituant `Logiciel d'Activation'}
@@ -277,3 +283,7 @@ C'est aussi dans un but pédagogique nous avons choisit d'implémenter nous mêm
 \label{chap:Annexe}
 
 \input{coding-convention.tex}
+
+\section{API PHP}
+\label{section:php}
+\inputminted{php}{api.php}
