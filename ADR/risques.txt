@@ -1,0 +1,67 @@
+	Analyse des Risques
+	
+I - Liste des points durs (difficultés connues)
+
+- Minimisation des risques de failles d'implémentation
+- Programmation de l'algorithme de signature ElGamal
+- Obfuscation du code
+- Utilisation du C au lieu de C++ ou C# pour une DLL ou développement 
+- Injection de Code dans un PE
+
+
+II - Evaluation du contexte
+
+- Particularité du sujet
+	- Nous possedons des logiciels de référence sur lesquels se baser.
+	- Plusieurs parties à réaliser, sujet pluridisciplinaire
+		-> Programmation Serveur
+		-> Interface Web
+		-> Logiciel client Windows
+
+- Définition du besoin
+	- Le produit final sera utilisé par des personnes non formée à l'informatique.
+		-> Les interfaces decront être pensés pour.
+	- Le produit final sera réellement utlisé par le client
+		-> Attente de la part du client
+	
+- Disponiblité des acteurs et ressources
+	- Les acteurs :
+		-> Difficulté à organiser des réunions entre les membres du groupe.
+		-> Réunion avec Professeur de gestion de projet 1x toutes les 2 semaines
+		-> Réunion avec client 1 fois toutes les 2 semaines.
+	- Les ressources :
+		-> Beacoup de doc sur internet
+		-> Logiciel référence intellilock, etc..
+		-> Référent technique seulement 1x fois toutes les 2 semaines...
+		-> Professeurs de crypto disponnibles.
+		
+- Composition de l'équipe :
+	- Nous nous connaissions déjà et communication facile.
+	
+- Connaissances techniques personnelles :
+	- Obfuscation : 0
+	- Injection de code : 0
+	- Programmation Serveur : Sami
+	- Interface Web : Experience de la licence 
+	- Développement logiciel : Experience de la licence
+	- Implémentation crypto : 0
+	
+- La complexité des solutions techniques à mettre en oeuvre reste encore floue
+	Les solutions techniques n'étant pas encore vraiment décidées.
+	- ElGamal
+	
+- Perturbations engendrées par les autres activités
+	-> Examens + autres Projets
+	
+III - Ordonner les points durs
+
+IV - Définir les risques associés	
+	
+V - TOP5 des risques 
+
+Fiche sur le top 5 des risques -> 
+	- Craintes
+	- Causes de ces craintes 
+	- Gravité des problèmes engendrés
+	- Probabilité d'occurence de l'évenement
+	- Plan de résuction du risque
