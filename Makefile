@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 MAKEFLAGS += --no-print-directory
 
-objects = stb fiches dat
+objects = stb fiches dat adr
 
 all: $(objects)
 	@echo "Done"
@@ -24,3 +24,8 @@ fiches:
 dat:
 	@echo "Entering into DAT/" 	
 	@cd DAT/main/; $(MAKE)
+
+adr:
+	@echo "Entering into ADR/" 	
+	@cd ADR/; $(MAKE)
+
