@@ -11,6 +11,7 @@ clean:
 	@cd STB/; $(MAKE) clean
 	@cd STB/fiches-techniques/; $(MAKE) clean
 	@cd DAT/main/; $(MAKE) clean
+	@cd ADR/; $(MAKE) clean
 	@echo "Done"
 
 stb:
