@@ -133,5 +133,4 @@ interface SoftwareTable
     public function delete(Software $software): int;
 
     public function update(Software $software): int;
-}
-?>
+}?>
