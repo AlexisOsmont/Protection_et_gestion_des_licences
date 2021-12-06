@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-TARGET=ADR
+TARGET=PDD
 
 all:
 	@echo "- Compiling $(notdir $(PWD))/$(TARGET).tex"

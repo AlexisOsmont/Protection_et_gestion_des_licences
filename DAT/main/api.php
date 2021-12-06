@@ -1,5 +1,4 @@
 <?php
-
 // Pour chacune des tables de la base de données, une classe de modèle permet de
 // créer, consulter et modifier des objets correspondant à un élément de la
 // table, cela correspond au classe : License, Client, Admin et Software.
@@ -133,4 +132,5 @@ interface SoftwareTable
     public function delete(Software $software): int;
 
     public function update(Software $software): int;
-}?>
+}
+?>
