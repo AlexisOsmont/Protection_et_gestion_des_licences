@@ -26,16 +26,16 @@ void foo(int x)
 
 De plus les recommandations suivantes seront respectés:
 \begin{itemize}
-	\item Une seule instruction par ligne
-	\item Une seule déclaration par ligne
-	\item Une tabulation sera transformé en quatre espaces.	
+	\item Une seule instruction par ligne.
+	\item Une seule déclaration par ligne.
+	\item Une tabulation sera transformée en quatre espaces.	
 	\item La longueur maximale d'une ligne est de 80 charactères.
-        \item La définition des variables se fait au debut d'une fonction avant
+    \item La définition des variables se fait au début d'une fonction avant
               toutes autres instructions. 
 \end{itemize}
 
-Enfin les opérandes utilisés pour les opérations \mintinline{c}{&&} et \mintinline{c}{||}
-seront entourés de parenthèses afin d'éviter les ambiguités:
+Enfin les opérandes utilisées pour les opérations \mintinline{c}{&&} et \mintinline{c}{||}
+seront entourées de parenthèses afin d'éviter les ambiguïtés :
 \begin{minted}{c}
 if ((x != 0) && (isValid(y) || y == 5))
 {
@@ -47,16 +47,16 @@ if ((x != 0) && (isValid(y) || y == 5))
 
 Un seul \mintinline{c}{return} par fonction afin de
 \begin{itemize}
-	\item Faciliter la trace de la sortie
-	\item Le placement de break points lors du debug
-	\item Faciliter l’analyse de la fonction
+	\item Faciliter la trace de la sortie.
+	\item Le placement de break points lors du debug.
+	\item Faciliter l’analyse de la fonction.
 \end{itemize}
 
-Les \mintinline{c}{goto} sont interdit.
+Les \mintinline{c}{goto} sont interdits.
 
 \section{Commentaires}
-Les commentaires ne doivent pas qu’uniquement formuler en texte ce qui est traduit 
-en dans le langage de programmation (qui se doit d'être lisible) : \newline 
+Les commentaires ne doivent pas qu’uniquement formuler en texte ce qui est traduit
+dans le langage de programmation (qui se doit d'être lisible) : \newline
 Ils apportent une réelle plus-value dans la compréhension du programme ou doivent
 attirer l’attention du mainteneur sur certains choix réalisés. Les commentaires seront 
 rédigés en anglais. \newline
@@ -64,7 +64,8 @@ Un commentaire doit être sur une seule ligne (ne peut pas être sur la même li
 que du code).
  
 \section{Nommages}
-Pour la définition d'un type, d'une struct ou d'une classe la notation 'PascalCase'
+La définition des constantes seront en majuscules séparé par des underscores.\newline
+Pour la définition d'un type, d'une structure ou d'une classe la notation 'PascalCase'
 sera utilisé: 
 \begin{minted}{c}
 typedef struct 
@@ -80,14 +81,16 @@ Ils sont constitués uniquement des caractères non accentués suivants:
 [a-z], [A-Z], [0-9]\newline
 Avec les restrictions suivantes :
 \begin{itemize}
-	\item Le nom ne doit pas commencer par un chiffre
-	\item Le nom ne peut pas avoir de caractères "underscore"
-	\item Les noms doivent être en 'camelCase', en Anglais
+	\item Le nom ne doit pas commencer par un chiffre.
+	\item Le nom ne peut pas avoir de caractères "underscore".
+	\item Les noms doivent être en 'camelCase', en Anglais.
 	\item Les noms ne peuvent pas commencer par des majuscules exception faite
           des acronymes (voir plus bas).
 \end{itemize}
 Les noms doivent être homogènes pour un domaine fonctionnel donné. Par exemple, 
 toutes les fonctions relatives à la gestion de la mémoire dans une API peuvent 
 être du type: \newline 
+\begin{verbatim}
 APIMemoryOpen(), APIMemoryClose(), APIMemorySet(...)
+\end{verbatim}
 
