@@ -66,7 +66,7 @@ le schéma n°\ref{fig:fig1}\newline
 \end{figure}
 \newpage
 
-\section{Constituant `Serveur Applicatif'}
+\section{Constituant «application»}
 
 \subsection{Description}
 
@@ -82,10 +82,10 @@ le schéma n°\ref{fig:fig1}\newline
 				nécéssaires à la génération de la licence (voir \ref{fig:fig2})				
 	\item[\textbf{Dépendances}:]
 				Dépend du module de Base de données.
-	\item[\textbf{Languages}:]
+	\item[\textbf{Langages}:]
 				HTML, CSS, JS, PHP, SQL, Bash, C 
 	\item[\textbf{Procédé de développement}:]
-				Utilisation du pattern design MVC (Model Vue Controler) et respect des
+				Utilisation du pattern design MVC (Model Vue Controler) avec le framework codeIgniter et respect des
                 conventions Material Design \cite{Material}.
 
 	\item[\textbf{Taille et complexité}:]
@@ -123,7 +123,7 @@ char *encodeBase64(const char *string);
 \end{figure}
 \newpage
 
-\section{Constituant `Base de données'}
+\section{Constituant «Base de données»}
 
 \begin{figure}[h!]
 	\centering
@@ -147,19 +147,19 @@ char *encodeBase64(const char *string);
 		MySQL.
 	\item[\textbf{Procédé de développement}:]
 	  Porter une attention partculière à la sécurisation des données, via
-	  du chiffrement et à se proteger des attaques du type 'injections SQL'. 
+	  du chiffrement et à se proteger des attaques du type «injections SQL». 
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
 
 \subsection{API PHP/SQL}
-Nous utiliserons MySQL avec PHP pour interagir avec notre base de données depuis la plateforme Web.
+Nous utiliserons MySQL avec PHP pour interagir avec notre base de données (partie model) depuis la plateforme Web.
 
 Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref{section:php}).
 
 % \subsection{Justifications techniques.}
 
-\section{Constituant `Logiciel d'Activation'}
+\section{Constituant «Logiciel d'activation»}
 \subsection{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
@@ -180,7 +180,7 @@ Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref
 
 \subsection{Justifications techniques.}
 
-\section{Constituant `Système de véfication - Librairie'}
+\section{Constituant «Système de véfication - Librairie»}
 \subsection{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
@@ -257,7 +257,7 @@ l'application. \newline
 
 C'est aussi dans un but pédagogique nous avons choisit d'implémenter nous même le système cryptographique de signature, le schéma de signature retenu est ElGamal \cite{ElGamal}.
 
-\section{Constituant `Système de véfication - Greffe'}
+\section{Constituant «Système de véfication - Greffe»}
 \subsection{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
