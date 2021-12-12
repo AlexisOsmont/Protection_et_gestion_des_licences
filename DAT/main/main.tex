@@ -32,15 +32,17 @@ Documents de spécification :
 	\end{itemize}
 \end{itemize}
 
-\chapter{Terminologie}
+%\chapter{Terminologie}
 
 \chapter{Configuration requise}
 
 Les éléments matériels nécessaire au développement de cet outil sont :
-
 \begin{itemize}
-    \item Un serveur.
+    \item Un serveur sur lequel nous devrons installer tout le necéssaire à la mise en place d'un serveur Web (Apache, PHP, MySQL).
+    \item Un ordinateur sous Windows pour développer les interfaces et effectuer les tests.
 \end{itemize}
+
+De plus nous aurons besoin de différents logiciels pour effectuer des tests (protéger les logiciels) lorsque le dévellopement de l'outil sera suffisamment avancé.
 
 \chapter{Architecture statique}
 Afin de réaliser ce projet nous avons choisi de mettre en place l'infrastructure suivante:
@@ -101,7 +103,7 @@ le schéma n°\ref{fig:fig1}.\newline
 	\item[\textbf{Procédé de développement}:]
 				Utilisation du pattern design MVC (Modèle - Vue - Contrôleur) avec le framework
                 CodeIgniter \cite{igniter} et respect des conventions Material Design
-                \cite{Material}.
+                \cite{Material} (utilisation d'un framework CSS).
 	\item[\textbf{Taille et complexité}:]
 				Taille importante et complexité élévé.
 \end{description}
@@ -166,10 +168,10 @@ char *encodeBase64(const char *string);
 		Taille faible et complexité faible. 
 \end{description}
 
-\subsection{API PHP/SQL}
+\subsubsection{Modèle PHP}
 Nous utiliserons MySQL avec PHP 8 pour interagir avec notre base de données (partie modèle) depuis la plateforme Web.
 
-Une API des fonctions PHP à implémenter est disponible en annexe (voir section \ref{section:php}).
+Le modèle PHP à implémenter est disponible en annexe (voir section \ref{section:php}).
 
 \subsection{Justifications techniques.}
 PHP est le langage de script le plus utilisé pour la programmation coté serveur et également le plus simple.
@@ -184,7 +186,7 @@ compréhension, l'utilisation et la maintenabilité du code.
 		se connecter au serveur afin de générer le fichier de licence.
 %	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:] 
-		n'offre aucun service.
+		N'offre aucun service.
 	\item[\textbf{Dépendances}:]
 		Dépend du Module Serveur.
 	\item[\textbf{Languages}:]
@@ -257,11 +259,55 @@ C'est aussi dans un but pédagogique nous avons choisi d'implémenter nous même
 
 % \subsection{Justifications techniques.}
 
+\chapter{Fonctionnement dynamique}
+Cette section décrit le fonctionnement dynamique des composants selon les cas d'utilisations vu
+dans la spécification technique des besoins.
+
+\section{Schémas de séquences techniques}
+
+\subsection{CA1 et CA2 : Demande et accord d'une licence}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=\textwidth]{../png/SSD-demande-licence.png}
+    \caption{Schéma de séquence technique - Demande et accord d'une licence}
+\end{figure}
+\newpage
+
+\subsection{CA3 : Activation d'une licence}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=15cm]{../png/SSD-logiciel-activation.png}
+    \caption{Schéma de séquence technique - Activation d'une licence}
+\end{figure}
+
+\subsection{CA4 : Démarrage d'un logiciel protégé}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=15cm]{../png/SSD-demarrage-logiciel.png}
+    \caption{Schéma de séquence technique - Démarrage d'un logiciel protégé}
+\end{figure}
+\newpage
+
+\subsection{CA5 : Création d'un compte}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=15cm]{../png/SSD-creation-compte.png}
+    \caption{Schéma de séquence technique - Création d'un compte}
+\end{figure}
+
+\subsection{CA6 : Paramétrage d'une licence}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=15cm]{../png/SSD-param-licence.png}
+    \caption{Schéma de séquence technique - Paramétrage d'une licence}
+\end{figure}
+\newpage
+
 \chapter{Annexe}
 \label{chap:Annexe}
 
 \input{coding-convention.tex}
 
-\section{API PHP}
+\section{Modèle PHP}
 \label{section:php}
 \inputminted{php}{api.php}
