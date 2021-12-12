@@ -1,13 +1,27 @@
 \chapter{Objet}
 
 Ce document a pour but de présenter l'architecture technique de ce projet. Le but de ce projet est de développer un outil de protection et de gestion des licences.
+Cette outil comprendra plusieurs composants :
+\begin{itemize}
+    \item Une plateforme web d'enregistrement et de gestion des licences.
+    \item Un logiciel d'activation de licence.
+    \item Un outil permettant d'ajouter la vérification de la licence à une application.
+\end{itemize}
+Ce dernier pourra se présenter de 2 manières différentes.
+Dans un premier temps il s'agira d'une bibliothèque de fonctions permettant à un développeur d'intégrer
+la vérification de la licence à son code.
+Dans un second temps la vérification sera gréffée directement sur un éxécutable.\newline
+
+Ce document présente et détaille donc l'architecture du projet et explique le fonctionnement des compososants et leur interactions.
+Également, il a pour but de mettre en avant les solutions apportées aux besoins du client et les moyens de répondre aux exigences
+fonctionnelles et techniques.
 
 \chapter{Documents de référence}
 
 Documents de spécification :
 
 \begin{itemize}
-    \item Spécification Technique des Besoins
+    \item Spécification technique des besoins
     \item Fiches techniques :
 	\begin{itemize}
 	    \item Injection de code dans un PE
@@ -25,42 +39,42 @@ Documents de spécification :
 Les éléments matériels nécessaire au développement de cet outil sont :
 
 \begin{itemize}
-    \item Un serveur
+    \item Un serveur.
 \end{itemize}
 
 \chapter{Architecture statique}
-Afin de réaliser ce projet nous avons choisit de mettre en place l'infrastructure suivante:
+Afin de réaliser ce projet nous avons choisi de mettre en place l'infrastructure suivante:
 
 \begin{description}
 	\item[\textbf{Un serveur web}:]
-				C'est ce serveur qui présentera l'interface aux utilisateur et  
-				\begin{itemize}
-					\item Permettra à un client de se créer un compte, demander et 
-								télécharger l'outil de generation de licence.
-					\item Permettra à un administrateur d'accorder et de gérer les licences. 
-				\end{itemize}
+		C'est ce serveur qui présentera l'interface aux utilisateurs et :
+		\begin{itemize}
+			\item Permettra à un client de se créer un compte, demander une licence et 
+			télécharger l'outil de génération de licence.
+			\item Permettra à un administrateur d'accorder et de gérer les licences. 
+		\end{itemize}
 	\item[\textbf{Un logiciel d'activation}:] 
-				Sera executé sur la machine de l'utilisateur
-				afin de lui permettre de générer une licence. Pour cela il échangera avec
-				le serveur des informations sur le matériel physique de la machine, ce 
-				qui permettra à ce dernier de générer le fichier de licence.
+		Sera executé sur la machine de l'utilisateur
+		afin de lui permettre de générer une licence. Pour cela il échangera avec
+		le serveur des informations sur le matériel physique de la machine, ce 
+		qui permettra à ce dernier de générer le fichier de licence.
 	\item[\textbf{Outil de Validation}:]
-				Outil permettant de vérifier la validité d'une licence, cette outil
-				pourra prendre les formes suivantes: 
-				\begin{itemize}
-				\item Une bibilothèque de fonctions qui permettra à un developpeur d'inclure
-							dans son code les fonctions de vérification de licence. 
-				\item Un programme permettant de greffer directement les fonctions de vérification
-							sur un exécutable. 
-				\end{itemize}
+		Outil permettant de vérifier la validité d'une licence, cet outil
+		pourra prendre les formes suivantes: 
+		\begin{itemize}
+		\item Une bibilothèque de fonctions qui permettra à un developpeur d'inclure
+		dans son code les fonctions de vérification de licence. 
+		\item Un programme permettant de greffer directement les fonctions de vérification
+		sur un exécutable. 
+		\end{itemize}
 \end{description}
 
 L'architecture générale de ce projet peut être représenter via 
-le schéma n°\ref{fig:fig1}\newline
+le schéma n°\ref{fig:fig1}.\newline
 
-\begin{figure}[h!]
+\begin{figure}[hp!]
 	\centering
-	\includegraphics{../png/DAT_general.png}
+	\includegraphics[width=\textwidth]{../png/DAT_general.png}
 	\caption{Schéma d'architecture générale}
 	\label{fig:fig1}
 \end{figure}
@@ -72,37 +86,37 @@ le schéma n°\ref{fig:fig1}\newline
 
 \begin{description}
 	\item[\textbf{Rôle}:]
-				Le but du serveur est de fournir l'interface principale, programmé 
-				en HTML, CSS et JS aux utilisateurs, de stocker dans sa base de donnée
-				les informations nécessaires à la génération de licence et enfin de générer 
-				les licences.
+	    Le but du serveur est de fournir l'interface principale aux utilisateurs sous forme d'une interface Web.
+	    Elle permettra d'effectuer toutes les opérations nécéssaires à la création de compte et à la gestion des
+	    licences, de stocker dans sa base de données les informations nécessaires à la génération de licence
+        et enfin de générer les licences.
 	%\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
-				API Rest \cite{REST} permettant à au client d'envoyer les informations
-				nécéssaires à la génération de la licence (voir \ref{fig:fig2})				
+				API Rest \cite{REST} permettant au client d'envoyer les informations
+				nécéssaires à la génération de la licence (voir \ref{fig:fig2}).			
 	\item[\textbf{Dépendances}:]
-				Dépend du module de Base de données.
+				Dépend du module de base de données.
 	\item[\textbf{Langages}:]
 				HTML, CSS, JS, PHP, SQL, Bash, C 
 	\item[\textbf{Procédé de développement}:]
-				Utilisation du pattern design MVC (Model Vue Controler) avec le framework codeIgniter et respect des
-                conventions Material Design \cite{Material}.
-
+				Utilisation du pattern design MVC (Modèle - Vue - Contrôleur) avec le framework
+                CodeIgniter \cite{igniter} et respect des conventions Material Design
+                \cite{Material}.
 	\item[\textbf{Taille et complexité}:]
 				Taille importante et complexité élévé.
 \end{description}
 
 \subsection{Justifications techniques.}
 Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
-support et de documentation \cite{LAMP}, Il y a possibilité d'automatiser 
-le deploiement de la solution via un script d'installation. \newline
+support et de documentation \cite{LAMP}. Il y a possibilité d'automatiser 
+le déploiement de la solution via un script d'installation. \newline
 Le serveur utilisera un script permettant de générer une licence pour un 
-utilisateur en prenant en paramètre l'id du logiciel pour lequelle on doit 
-générer la licence, un hash des informations hardware du client, et les
+utilisateur en prenant en paramètre l'identifiant du logiciel pour lequel on doit 
+générer la licence, un hashé des informations hardware du client, et les
 attributs de la licence (nombre d'essais, période de validité) et renverra
 le fichier de licence. Le script utilisera les fonctions suivantes:
-\begin{minted}{c}
 
+\begin{minted}{c}
 // Récupère les droits d'une licence à partir d'un fichier de
 // licence, renseigné par son chemin.
 char *hashWithSHA256(const char *string);
@@ -113,19 +127,19 @@ char *generateSignature(const char *dataToSign, const char *privateKey);
   
 // Encode une chaîne de caractères en base64
 char *encodeBase64(const char *string);
-
 \end{minted}
 
 \begin{figure}[hp!]
+    \vspace{-0.5cm}
 	\caption{API rest}
 	\input{rest-api.tex}
 	\label{fig:fig2}
 \end{figure}
-\newpage
+%\newpage
 
 \section{Constituant «Base de données»}
 
-\begin{figure}[h!]
+\begin{figure}[hp!]
 	\centering
 	\includegraphics[width=\textwidth - 2cm]{../png/SQL_table.png}
 	\caption{Diagramme UML des Tables de la BDD}
@@ -136,15 +150,15 @@ char *encodeBase64(const char *string);
 \begin{description}
 	\item[\textbf{Rôle}:]
 		Le but de ce module est de permettre de stocker les informations relatives aux
-		clients, administrateurs et aux licences. 
+		clients, administrateurs et aux licences.
 %	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
-		Fonctions SQL permettant de creer / modifier / supprimer / consulter les 
-	  informations relatives aux clients, administrateurs et licences.
+		Fonctions SQL permettant de créer / modifier / supprimer / consulter les
+		informations relatives aux clients, administrateurs et licences.
 	\item[\textbf{Dépendances}:]
 		Pas de dépendances.		
 	\item[\textbf{Languages}:]
-		MySQL.
+		PHP 8, MySQL.
 	\item[\textbf{Procédé de développement}:]
 	  Porter une attention partculière à la sécurisation des données, via
 	  du chiffrement et à se proteger des attaques du type «injections SQL». 
@@ -153,17 +167,20 @@ char *encodeBase64(const char *string);
 \end{description}
 
 \subsection{API PHP/SQL}
-Nous utiliserons MySQL avec PHP pour interagir avec notre base de données (partie model) depuis la plateforme Web.
+Nous utiliserons MySQL avec PHP 8 pour interagir avec notre base de données (partie modèle) depuis la plateforme Web.
 
-Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref{section:php}).
+Une API des fonctions PHP à implémenter est disponible en annexe (voir section \ref{section:php}).
 
-% \subsection{Justifications techniques.}
+\subsection{Justifications techniques.}
+PHP est le langage de script le plus utilisé pour la programmation coté serveur et également le plus simple.
+De plus, depuis PHP 5, c'est un langage orienté-objet, ce qui permet de créer des interfaces simples, pour la
+compréhension, l'utilisation et la maintenabilité du code.
 
 \section{Constituant «Logiciel d'activation»}
 \subsection{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
-		Récuperer les informations matériels sur la machine d'un utilisateur, puis 
+		Récupérer les informations matérielles sur la machine d'un utilisateur, puis 
 		se connecter au serveur afin de générer le fichier de licence.
 %	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:] 
@@ -173,12 +190,15 @@ Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref
 	\item[\textbf{Languages}:]
 		C\#.
 	\item[\textbf{Procédé de développement}:]
-		Respect d'une charte de code. (Voir Chapitre \ref{chap:Annexe})
+		Respect d'une charte de code. (voir chapitre \ref{chap:Annexe})
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
 
-\subsection{Justifications techniques.}
+\subsection{Justifications techniques}
+Ce logiciel sera principalement constitué d'une interface graphique et fera des requêtes HTTPS sur notre serveur.
+Il devra être éxécutable sur Windows et donc, le langage C\# est le plus adapté pour cette tâche car il permet de
+réaliser facilement des interfaces Windows.
 
 \section{Constituant «Système de véfication - Librairie»}
 \subsection{Description}
@@ -187,13 +207,13 @@ Une API des fonctions PHP utilisées est disponible en annexe (voir section \ref
 		Fournir une API pour des programmes en C\# afin de 
 		permettre à un developpeur de vérifier une licence dans son code.
         Cependant le code de la bibliothèque ne sera pas en C\# mais en 
-        C car celui-ci est plus facile à obfusquer. 
+        C car celui-ci est plus facile à obfusquer et plus efficace. 
 %	\item[\textbf{Propriétés et attributs de caractérisation}:]
 
 	\newpage
 
 	\item[\textbf{Services offerts}:]
-		Ce module propose une API dont des fonctions sont les suivantes:
+		Ce module propose une API dont les fonctions sont les suivantes:
 		\begin{minted}{csharp}
 /*
  * Récupère l'identifiant de la carte réseau.
@@ -240,39 +260,37 @@ public String decodeBase64(String s);
 	\item[\textbf{Languages}:]
 		C, C++, C\#
 	\item[\textbf{Procédé de développement}:]
-		Respect d'un charte de code. (Voir Chapitre \ref{chap:Annexe})
+		Respect d'une charte de code. (voir chapitre \ref{chap:Annexe})
 	\item[\textbf{Taille et complexité}:]
 		Taille importante et complexité relative.
 \end{description}
 
 \subsection{Justifications techniques.}
-Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes comme par exemple pour les informations hardware la 
-classe \verb:System.Management:, ou bien la classe \verb:System.Security.Cryptography: 
-pour le hash avec SHA-256.\newline
+Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes comme par exemple, pour les informations hardware, la classe \verb:System.Management:, ou bien la classe \verb:System.Security.Cryptography: pour le hash avec SHA-256.\newline
 
-Dans un second temps, nous devrons implanter au maximum les fonctions nous-mêmes et 
-les optimisés dans le but de pouvoir intégrer ces fonctions directement dans un 
+Dans un second temps, nous devrons implanter au maximum ces fonctions nous-mêmes et 
+les optimisés dans le but de pouvoir les intégrer directement dans un 
 exécutable (greffe dans un PE) sans pour autant alourdir ou ralentir l'éxécution de 
 l'application. \newline
 
-C'est aussi dans un but pédagogique nous avons choisit d'implémenter nous même le système cryptographique de signature, le schéma de signature retenu est ElGamal \cite{ElGamal}.
+C'est aussi dans un but pédagogique nous avons choisi d'implémenter nous même le système cryptographique de signature. Le schéma de signature retenu est ElGamal \cite{ElGamal}.
 
 \section{Constituant «Système de véfication - Greffe»}
 \subsection{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
 			Outil permettant d'ajouter les fonctions de vérification directement à un
-			executable, afin de décharger le developpeur de la necessité de vérifier 
+			exécutable, afin de décharger le developpeur de la necessité de vérifier 
 			la licence dans son code.
 %	\item[\textbf{Propriétés et attributs de caractérisation}:]
 	\item[\textbf{Services offerts}:]
-		n'offre auxun service.
+		N'offre aucun service.
 	\item[\textbf{Dépendances}:]
 		Dépend de la bibliothèque de vérification.
 	\item[\textbf{Languages}:]
 		C, C\#, Python, Bash 
 	\item[\textbf{Procédé de développement}:]
-		Respect d'un charte de code. (Voir Chapitre \ref{chap:Annexe}) 
+		Respect d'une charte de code. (voir chapitre \ref{chap:Annexe}) 
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité élevé.
 \end{description}
