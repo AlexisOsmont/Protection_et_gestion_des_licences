@@ -121,9 +121,10 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \section{Diagramme des cas d'utilisations}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\includegraphics[width=16cm]{main/png/Util.png}
+    \vspace{-7cm}
 	\caption{Diagramme des cas d'utilisations}
 	\label{fig:fig2}
 \end{figure}
@@ -282,37 +283,6 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	    \textbf{RG\#1.2} & Réception d'une  demande de  licence & Identifiant utilisateur \& logiciel & Notification informative à l'utilisateur  confirmant ou  non la demande  précédente & Envoi d'une notification sur la plateforme à l'utilisateur quant à sa demande et ajout de la nouvelle demande à la base de données\\
 	\hline
     \end{tabular}
-\end{table} 
-	
-\subsection{Création d'un compte utilisateur/administrateur}
-
-\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
-    \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
-	\hline
-	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-	\hline
-	    \textbf{RG\#2.1} & Création de compte sur la  plateforme & Mot de passe (contenant au moins 6 caractères et un spécial) et mail valides & Message informatif de création de compte, accès à la plateforme de demande de licence& Ajout à la table de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification\\
-	\hline
-	    \textbf{RG\#2.2} & Vérification des informations de  compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de passe et mail renseignés pour la création de compte& Notification à la création de compte en cas de succès de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur\\
-	\hline
-    \end{tabular}
-\end{table}
-
-\newpage
-\subsection{Paramétrage d'une licence}
-
-\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
-    \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
-	\hline
-	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
-	\hline
-	    \textbf{RG\#3.1} & Connexion au gestionnaire de licence & Identifiant \& Mot de passe administrateur & Plateforme de gestion  des demande de licences utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
-	\hline
-	    \textbf{RG\#3.2} & Paramétrage  des licences& Identifiants utilisateur \&  logiciel demandé & Notification utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
-	\hline	    
-    \end{tabular}
 \end{table}
 
 \subsection{Activation d'une licence}
@@ -323,14 +293,13 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
-	    \textbf{RG\#4.1} & Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
+	    \textbf{RG\#2.1} & Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
 	\hline
-	    \textbf{RG\#4.2} & Connexion sur  le logiciel  d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platefrome de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus \\ 
+	    \textbf{RG\#2.2} & Connexion sur  le logiciel  d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platefrome de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus \\ 
 	\hline
     \end{tabular}
 \end{table}
 
-\newpage
 \subsection{Démarrage du logiciel protégé}
 
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
@@ -339,9 +308,38 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
-	    \textbf{RG\#5.1} & ? & ? & ? & ? \\
+	    \textbf{RG\#3.1} & Démarrage logiel protégé & Chemin valide vers un fichier & Démarrage du logiciel si la licence est valide, message d'erreur sinon & L'utilisateur tente d'ouvrir le logiciel protégé pour lequel il a demandé (ou non) une licence. Le système de vérification de licence se lance et effectue la vérification sur le fichier que l'utilisateur lui fourni \\
     \hline
-	    \textbf{RG\#5.2} & ? & ? & ? & ? \\
+    \end{tabular}
+\end{table}
+	
+\subsection{Création d'un compte utilisateur/administrateur}
+
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#4.1} & Création de compte sur la  plateforme & Mot de passe (contenant au moins 6 caractères et un spécial) et mail valides & Message informatif de création de compte, accès à la plateforme de demande de licence& Ajout à la table de comptes de la base de données et notification à l'administrateur après l'ajout à la base de données en cas de validation de la vérification\\
+	\hline
+	    \textbf{RG\#4.2} & Vérification des informations de  compte renseignées & Mot de passe et mail renseignés précédement & Retour de test des mots de passe et mail renseignés pour la création de compte& Notification à la création de compte en cas de succès de la vérification ce qui permet l'ajout à la table des comptes et l'envoie d'une notification de création de compte valide à l'utilisateur ainsi qu'a l'administrateur\\
 	\hline
     \end{tabular}
 \end{table}
+
+\subsection{Paramétrage d'une licence}
+
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#5.1} & Connexion au gestionnaire de licence & Identifiant \& Mot de passe administrateur & Plateforme de gestion  des demande de licences utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
+	\hline
+	    \textbf{RG\#5.2} & Paramétrage  des licences& Identifiants utilisateur \&  logiciel demandé & Notification utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
+	\hline	    
+    \end{tabular}
+\end{table}
+
