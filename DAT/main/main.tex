@@ -214,47 +214,7 @@ réaliser facilement des interfaces Windows.
 
 	\item[\textbf{Services offerts}:]
 		Ce module propose une API dont les fonctions sont les suivantes:
-		\begin{minted}{csharp}
-/*
- * Récupère l'identifiant de la carte réseau.
- */
-public String getNetworkAdapterNo();
-
-/*
- * Récupère le numéro de série du BIOS.
- */
-public String getBIOSSerialNo();
-
-/*
- * Récupère le numéro de série du disque.
- */
-public String getDiskSerialNo();
-
-/*
- * Récupère les droits d'une licence à partir d'un fichier de
- * licence, renseigné par son chemin.
- */
-public String getRights(String pathToLicenseFile);
-
-/*
- * Vérifie la signature à partir des informations du système,
- * de l'identifiant du logiciel, situé dans le programme, des
- * droits, obtenus à partir du fichier de licence.
- */
-public int verifySignature(String pathToLicenseFile);
-
-/*
- * Génère un hashé à partir d'une chaîne de caractères donné
- * en entrée, en utilisant l'algorithme SHA-256.
- */
-public String hashWithSHA256(String s);
-
-/*
- * Décode une chaîne de caractères encodée en base64.
- */
-public String decodeBase64(String s);
-			\end{minted}
-
+        \inputminted{csharp}{lib.cs}
 	\item[\textbf{Dépendances}:]
 		Dépend d'un fichier de licence.	
 	\item[\textbf{Languages}:]
