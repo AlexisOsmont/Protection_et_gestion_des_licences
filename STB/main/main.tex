@@ -135,16 +135,18 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	\begin{tabular}{ | m{0.6cm} | m{6cm} | m{6cm}| m{3cm} | } 
                 \hline
 		\textbf{ID} & \textbf{Intitulé} & \textbf{Acteurs} & \textbf{Priorité} \\
-                \hline
+        \hline
 			1 & Demande de licence & Utilisateur & Indispensable \\
-                \hline
+        \hline
 			2 & Accord de licence & Administrateur & Indispensable \\
-                \hline
+        \hline
 			3 & Activation d'une licence & Utilisateur & Indispensable \\
+        \hline
+			4 & Démarrage d'un logiciel protégé & Utilisateur & Indispensable \\
 		\hline
-			4 & Création d'un compte & Utilisateur et administrateur & Important \\
+			5 & Création d'un compte & Utilisateur et administrateur & Important \\
 		\hline
-			5 & Paramétrage d'une licence & Administrateur & Important \\
+			6 & Paramétrage d'une licence & Administrateur & Important \\
 		\hline
         \end{tabular}
 	\caption{Tableau des cas d'utilisations}
@@ -199,7 +201,29 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 \end{table}
 \newpage
 
-\subsection{Cas d'utilisation 4 : Création d'un compte}
+\subsection{Cas d'utilisation 4 : Démarrage d'un logiciel protégé}
+
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{| m{4cm} | m{12cm} |}
+                \hline
+		    \textbf{Acteurs concernés} & Utilisateur. \\
+                \hline
+		    \textbf{Description} & Un utilisateur souhaite démarrer un logiciel protéger par le système. \\
+                \hline
+		    \textbf{Pré-conditions} & Le chemin spécifié par l'utilisateur doit exister et désigner un fichier de licence au format correcte et au contenu valide.\\
+		\hline
+		    \multicolumn{2}{|c|}{\textbf{Schéma de séquence :}} \\
+                \hline
+                    \multicolumn{2}{|c|}{}\\
+                    \multicolumn{2}{|c|}{\includegraphics[width=15cm]{main/png/seq_demarrage.png}} \\
+                \hline
+        \end{tabular}
+        \label{tab:tab4}
+\end{table}
+\newpage
+
+\subsection{Cas d'utilisation 5 : Création d'un compte}
 
 \begin{table}[!h]
         \centering
@@ -221,7 +245,7 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 \end{table}
 \newpage
 
-\subsection{Cas d'utilisation 5 : Paramétage d'une licence}
+\subsection{Cas d'utilisation 6 : Paramétage d'une licence}
 
 \begin{table}[!h]
         \centering
@@ -302,6 +326,22 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	    \textbf{RG\#4.1} & Gestion des licences sur la plateforme & Sélection du logiciel pour l'activation & Notification à l'utilisateur du téléchargement du logiciel d'activation de sa licence & Vérification dans sa base de donnée si il y a correspondance aux licences. Si oui, alors le logiciel renvoie les licences cours de validité de l'utilisateur, pour pouvoir accéder aux logiciels \\ 
 	\hline
 	    \textbf{RG\#4.2} & Connexion sur  le logiciel  d'activation &  Mot de passe et mail administrateur dans la base de données des comptes & Accés pour l'utilisateur à sa platefrome de gestion de ses licences et à leurs logiciels d'activation & Vérification dans sa base de donnée si il y a correspondance aux entrées données. Si oui, alors active une licence et renvoie les licences en cours de validité. Sinon envoie un message de refus \\ 
+	\hline
+    \end{tabular}
+\end{table}
+
+\newpage
+\subsection{Démarrage du logiciel protégé}
+
+\begin{table}[!h] % <-- Super important in order to anchor at the top of the document
+    \small
+    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+	\hline
+	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
+	\hline
+	    \textbf{RG\#5.1} & ? & ? & ? & ? \\
+    \hline
+	    \textbf{RG\#5.2} & ? & ? & ? & ? \\
 	\hline
     \end{tabular}
 \end{table}
