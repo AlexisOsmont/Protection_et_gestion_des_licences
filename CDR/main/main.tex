@@ -1,0 +1,158 @@
+\chapter{Introduction}
+Ce document présente les tests qui seront mis en place pour vérifier le bon fonctionnement et le
+respect des exigences fonctionnelles et techniques de l'outil.
+Ce document précise :
+\begin{itemize}
+    \item les conditions à satisfaire préalablement à l’exécution des tests,
+    \item les moyens matériels requis (plate-forme de tests),
+    \item la logique de leur déroulement (étapes successives),
+    \item les conditions d’arrêt.
+\end{itemize}
+\medskip
+
+Les fonctionnalités principales du logiciel (cas d'utilisations) sont les suivantes :
+\begin{itemize}
+    \item CA1 : Demande d'une licence,
+    \item CA2 : Accord d'une licence,
+    \item CA3 : Activation d'une licence,
+    \item CA4 : Démarrage d'un logiciel protégé,
+    \item CA5 : Création d'un compte sur le site Web,
+    \item CA6 : Paramétrage d'une licence.
+\end{itemize}
+\medskip
+
+Les différents modules à tester sont les suivants :
+\begin{itemize}
+    \item La plateforme Web (partie front-end et back-end),
+    \item Le logiciel d'activation,
+    \item Le système de vérification de licence.
+\end{itemize}
+\medskip
+
+La partie interface et toute la logique lié à la plateforme sera bien évidemment à tester mais le
+principal des tests seront sûr la sécurité de cette plateforme et de notre système de vérification
+des licences.
+
+
+\chapter{Documents de référence}
+\textbf{Documents de spécification :}
+\begin{itemize}
+    \item Spécification technique des besoins
+    \item Fiches techniques :
+    \begin{itemize}
+        \item Injection de code dans un PE
+        \item Génération de licence
+        \item Signature
+        \item Obfuscation de code
+        \item Sécurisation des bases de données
+    \end{itemize}
+    \item Document d'architecture technique
+    \item Analyse des risques
+\end{itemize}
+
+\chapter{Terminologie}
+
+\chapter{Environnement de test}
+
+\section{Application Web}
+La plateforme cible pour l'application web sera une machine virtuelle sur un serveur (Debian)
+hébergé par l'université.
+
+Pour être sûr de la validité de nos tests, tous les tests qui le pourront seront effectués
+directement sur cette machine, ou un clone de la machine pour pouvoir revenir facilement à son
+état initial, pour, par exemple, un test de déploiement de l'application.
+
+L'API Rest de l'application web sera testé depuis nos machines depuis un système Linux et surtout
+depuis un Windows car ce sera la plateforme cible pour notre outil.
+
+\section{Logiciel d'activation}
+Les tests concernant le logiciel d'activation comprendront les tests de l'API Rest et également
+des tests par rapport à l'interface avec l'utilisateur. Le logiciel d'activation aura pour but
+d'être utilisé sur Windows et le développement de son interface se fera à l'aide d'un outil Windows
+(probablement en C\# avec Visual Studio).
+
+Tous les tests concernant le logiciel d'activation se
+feront donc sur Windows, de préférence sur plusieurs versions. Windows 10 et 11 pourront être
+testés facilement, et selon si l'on dispose des machines necéssaires, Windows 7 et 8 pourront être
+testés.
+
+\section{Système de vérification}
+Le système de vérification de licence devra être testé sur plusieurs systèmes. En effet, la
+génération d'une licence sera effectué côté serveur, donc sur un système Linux, mais la
+vérification, elle, sur un système Windows.
+
+Il faudra donc testés les 2 cas, encore une fois sur plusieurs machines/versions.
+
+ 
+\chapter{Responsabilités}
+Les reponsibilités des tests seront d'abord répartis selon la répartiton des tâches, chacun
+devra donc écrire des tests pour les modules qu'il dévelloppe et se créer ses propres données
+de test. Puis lors de la phase d'intégration, un journal de test sera régulierement mis à jour
+afin de répertorier les bugs et les régressions de la solution et ainsi identifier plus      
+facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la résolve.
+
+
+\chapter{Stratégie de tests}
+
+\section{Démarche général et outils} 
+Nous avons choisit d'utiliser MantisBT (Mantis Bug tracker) qui est un logiciel gratuit
+et open source afin de répertorier les bugs, celui-ci permet d'enregistrer la déclaration
+ d'un bug, et d'y affecter un quelqu'un. Ce dernier pourra alors rendre compte de
+l'avancement de sa résolution, jusqu'à sa clôture. Le déclarant de l'anomalie peut  
+s'informer à tout moment via le serveur Web de l'avancement du traitement de 
+son problème.  
+
+\section{Campagne de test}
+Les tests seront lancer après chaque modification sur un module ou plusieurs modules, sur
+le serveur de test.
+
+\section{Tests de l'application web}
+
+\subsection{Partie Frontend}
+
+Afin de tester que l'interface graphique (Vue du model MVC) fonctionne correctement, nous allons mettre en place les procédures suitantes:
+\begin{itemize}
+
+    \item vérifier la validité syntaxique des pages statiques en HTML / css via 
+          le validateur du W3C. Celui ci peut être utilisé via l'interface web ou  
+          être appelé directement via la commande curl:
+          \begin{minted}{bash}
+curl -H "Content-Type: text/html; charset=utf-8" \
+    --data-binary @FILE.html \
+    https://validator.w3.org/nu/?out=gnu
+          \end{minted}
+              
+    \item vérification manuelle du rendu visuel de l'interface.
+    \item tests sur différents navigateur (Chrome, firefox, opera)
+            
+\end{itemize}
+Attention au attaques XSS
+
+\subsection{Partie Backend}
+
+Afin de tester que le model et le controller du model MVC fonctionne correctement, 
+nous allons mettre en place les procédures suitantes:
+\begin{itemize}
+    
+    \item réalisation de tests unitaire sur le model et le controller via 
+          un script de test écrit en PHP, celui-ci pourra être lancer après 
+          chaque mise à jour. Il utilisera les informations contenue dans la  
+          base de données de test.
+        
+    \item test de l'API rest du logiciel d'activation via un script bash 
+          utilisant la commande curl avec le jeu de données de la base de test.
+        
+    \item test du programme de génération de licence via un script bash qui
+          utiilisera les données de test.
+\end{itemize}
+Attention au injections SQL
+
+
+\chapter{Gestion des anomalies}
+
+\chapter{Procédure de test}
+
+\chapter{Jeux de données de test}
+
+\chapter{Couverture de test}
+
