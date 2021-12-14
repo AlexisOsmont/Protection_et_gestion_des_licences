@@ -11,7 +11,7 @@
 
 \begin{itemize}
 	\item \textbf{Minimisation des risques de failles d'implémentations} \newline
-	Étant donnée notre manque d'expérience dans les domaines des gestionnaires de licences
+	Étant donné notre manque d'expérience dans les domaines des gestionnaires de licences
 	et de la greffe de code, notre incapacité à la minimisation des failles d'implémentation est un risque élevé.\newline
 	
 	\item \textbf{Programmation de l'algorithme de signature ElGamal} \newline
@@ -27,7 +27,7 @@
 	L'injection de code peut, si elle est mal implémentée laisser des failles facilement utilisables pour des personnes malintentionnées.\newline
 	
 	\item \textbf{Le temps} \newline
-	Nous avons pris du retard, dû à des délais de remise de travail demandé ainsi qu'aux 
+	Nous avons pris du retard dans la production de tous les documents demandés, dû à des délais de remise de travail demandé ainsi qu'aux 
 	difficultées rencontrées quant à l'organisation de réunion entre membres du projet.\newline
 \end{itemize}
 
@@ -109,6 +109,30 @@ Les solutions techniques n'étant pas encore vraiment décidées.
 \end{itemize}
 
 \chapter{Definitions des risques associés}
+
+\begin{itemize}
+	\item Injection de Code dans un PE\newline
+	Dans le cas d'un échec de l'injection de code dans un exécutable windows, nous ne pourrions pas greffer dynamiquement
+	notre code de vérification de licence dans les programmes produits par le client. Cela lui demanderait donc un travail 
+	supplémentaire sur ses logiciels, et les demandes du client ne seront donc pas totalement satisfaite.
+	À savoir que le client dans le cadre de ce projet ne demande à minima qu'une preuve de concept de l'injection de code.
+	Dans l'espoir que les étudiant reprenant ce projet ultérieurement soient déjà avancés.\newline
+	\item Minimisation des risques de failles d'implémentation\newline
+	À la fois dans un but pédagogique et parceque le client utilisera réellement le fruit de ce projet, nous devrons
+	faire au maximum afin de minimiser les risques de failles causées par de potentielles erreures d'implémentation de notre part.
+	Dans le cas contraire, la solution fournit au client se verrait alors inutile, ne pouvant pas protéger efficacement les logiciels
+	de ce dernier. 
+	Pour ce faire il nous faudra mettre en place un système de test unitaires, et de validation des ajouts et des modifications au code.
+	Afin de garantir qu'à chaque étape du projet tous les contrats initialements définits soient bien respectés.\newline
+	\item Obfuscation du code\newline
+	Les risques associés au manque d'obfuscation du code rejoignent ceux du point précédent. Le produit final finira par être trop facilement
+	détournable et le produit se verra d'efficacité limitée. Néanmoins le niveau d'expertise nécessaire à la compréhension d'un code décompilé 
+	en assembleur est suffisamment élevé pour estimer que les risques qu'un des utilisateurs y parvienne sont faibles; Étant donné que le public
+	visé par notre produit et le client, correspond à des utilisateurs non initiés à l'informatique. Ce faisant nous pouvons estimer la criticité 
+	des conséquences associées à ce risque comme non critique.\newline
+	\item  Algorithme de signature ElGamal\newline
+	\item 6 - Utilisation du C et interfaçage avec du C\#\newline
+\end{itemize}
 
 \chapter{Top cinq des risques (Bilan)}
 
