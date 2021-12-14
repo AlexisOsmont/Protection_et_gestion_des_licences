@@ -4,7 +4,6 @@
 	\item Le client est le commanditaire du projet.
 	\item Un utilisateur est une personne souhaitant utiliser un logiciel du client. 
 	\item Une licence est un droit accordé pour une machine et un utilisateur d'utiliser un logiciel donné.
-	\item Craquer un logiciel est le fait de pouvoir l'utiliser sans avoir payé pour son utilisation. Soit en modifiant le code compilé, soit en utilisant une autre méthode. 
 \end{itemize}
 
 \chapter{Contexte du projet}
@@ -81,29 +80,73 @@ rédacteur. Voici notre organigramme :\\ \newline
 \end{itemize}
 
 \chapter{Organigramme des tâches}
-\includegraphics[width=15cm]{organi2png.png}
+L'organigramme des tâches present ci-dessous n'est qu'une capture du momment. En effet celui-ci sera mis à jour en fonction 
+des possibles nouvelles tâches qui viendront le completer. \\
+
+L'organigramme est disponible en annexe pour une meilleur lisibilité.\\ \newline
+\includegraphics[width=18cm]{organi2png.png}
 
 \chapter{Evaluation du projet et dimensionnement des moyens}
-\includegraphics[width=15cm]{Gantt.png}
+\section{Charge et répartition par phase}
+Nous avons divisé la charge et la répartition par phase. La premiere phase est intitulé «Préparation». Cette premiere phase permet
+un temps de structuration du projet, de verification des répartition des tâches et des phase de test qui permettront des evaluations de temps de
+developpement plus precises tel que les testes de greffe de code ou ceux d'obfucation. Cette phase d'aprés nos estimations nécessiterait 4 semaines, 2 semaines de 
+répartition et de teste puis deux semaine de strucutre de projet qui se terminerait par une réunion avec le client pour attester de l'evaluation du temps
+et des recessources nécessaires au bon déroulement du projet.
+\\ \newline
+
+La seconde phase est celle du developpement qui nécessitera le plus de temps.En effet nous avons évalué cette phase à deux mois de travail.
+Cette phase se decompeserait en 3 parties : \newline
+
+\begin{itemize}
+	\item Phase post-préparation : 2 semaines\\ 
+	Cette phase et nécessaire pour structurer le projet et les parties de developpement avant la séparation des tâches principale, En effet apres la phase de préparation 
+	il nous faut créer une structure de projet pour que chaque personne puisse travailler sur des bases solide sans gener l'avancement sur les partes des 
+	autres membres du projet. \newline
+	\item Phase de développement : 4 semaines\\
+	La phase de développement est quant à elle la principale, elle consiste à repondre aux besoins de chaque element du projet. Cette phase permet 
+	à tous les differents élément d'être fonctionnel.
+	\item Phase d'interaction : 3 semaines\\
+	La derniere phase consiste à connecter tous ces développements, le coeur de cette partie sera donc de connecter les elements entre eux. (serveur -> adiminstrateur; téléchargement du logiciel d'activation -> client; ....)
+\end{itemize}
+\newpage
+\section{Besoin en moyen et en ressources}
+Nécessaire au développement et testes:
+\begin{itemize}
+	\item Serveur
+	\item Base de données
+	\item Logiciels du client
+	\item Dépot(s) Git \\ \newline
+\end{itemize}
+Aprés une concertation entre les membres du projet et leurs connaissances personnelles, l'estimation de temps fait est de
+  110 heures en moyenne de travail afin de remplire les exigences du client, nos exigences personnelles et de terminier les tâches defini
+	dans l'organigramme ci-dessus.\\ \newline
+
+	Remarque : Le chapitre ci-dessus «Evaluation du projet et dimensionnement des moyens» est à titre indiquatif, en effet ce chapite comme le chapitre précédent 
+	n'est qu'une évaluation. Elle sera donc amenée à changer au cours du développement du projet.
 
 \chapter{Planning général}
+Le diagramme de gantt present ci-dessous n'est qu'une capture du momment. En effet celui-ci sera mis à jour en fonction de l'avancement
+du projet, de la répartition des tâches et des possibles nouvelles tâches qui viendront le completer. \\
+
+Le diagramme de Gantt est disponible en annexe.\\ \newline
+\includegraphics[width=17cm]{Gantt.png}
 
 \chapter{Procédés de gestion}
-\subsection{Gestion de la documentation}
+\section{Gestion de la documentation}
 		Au second semestre, nous devrons fournir les documents suivants :
 		\begin{itemize}
 			\item Documentation technique : décrit le fonctionnement détaillé de l’application.
 			\item Notice d’utilisation : support explicatif du maniement de l’application.
-			\item Étude du domaine : état de l’art du domaine, des contre-mesures et des
-			réglementations de vigueur.
+			\item Des comptes rendu post-réunion aprés chaque réunions.
 			\item Des livrables pré-réunion chaque deux semaine.\\ \newline
 		\end{itemize}
 	
-		\subsection{Gestion des configurations}
-		Lors du développement, nous utiliserons le GitLab fourni par l’université ainsi que github. Chacun
-		aura une tache de développement et il y aura des réunion de travail en groupe qui donneront les versions
+		\section{Gestion des configurations}
+		Lors du développement, nous utiliserons le GitLab fourni par l’université ainsi que Github. Chacun
+		aura une tache de développement et il y aura des réunions de travail en groupe qui donneront les versions
 		stable du code (pré-réunion) et des documentations (en Latex). Chacun aura son espace pour
-		permettre a tous de fusionner sa partie à la branche principale.
+		permettre à tous de fusionner sa partie à la branche principale.
 
 
 
@@ -112,7 +155,10 @@ rédacteur. Voici notre organigramme :\\ \newline
 L'objectif dans notre cas est de faire suivre notre projet par note client,
 nous fournirons donc au client un livrable toutes les deux semaines, et nous effectuerons
 quelques jours après chaque livraison une réunion avec lui pour voir les modifications à
-apportées. Des dates prévisionnelles ont été indiquées dans le diagramme de Gantt.
+apportées. Des dates prévisionnelles ont été indiquées dans le diagramme de Gantt.\\
+
+Comme précisé dans la partie «Evaluation du projet et dimensionnement des moyens» une réunion sera organisée à chaque fin de phase pour faire 
+une revues des points clefs du projet et pour informer le client de l'avancement du projet et de ses besoins.
 
 \chapter{Procédure de suivi d'avancement}
 
@@ -143,9 +189,8 @@ de consulter des versions antérieures de nos documents en quelques clics.\\
 	\item Réunions :\\
 	Le meilleur moyen de travailler efficacement reste le fait d'organiser des réunions en physique 
 	plutot que des appels ou des echanges de messages. C'est pourquoi nous organisons régulièrement des réunions
-	entre membre du projet pour faire un point définir les objectif et avancer sur le projet.
-\\ \newline
+	entre membre du projet pour faire un point définir les objectif et avancer sur le projet. \newline
 
 Pour tenir de l'avancement du projet nous planifions des seances de travails et des réunions hebdomadaire pour traiter
-aussi bien de l'aspect technique que de l'aspect gestion de projet.
+aussi bien de l'aspect technique que de l'aspect gestion de projet. Des comptes rendu de réunion sont effectués après chaqu'une d'entre elles.
 \end{itemize}
