@@ -40,7 +40,7 @@ Nous possédons des logiciels de référence sur lesquels se baser.\\ \newline
 
 Plusieurs parties à réaliser, sujet pluridisciplinaire :
 \begin{itemize}
-	\item application client serveur.
+	\item Application client serveur.
 	\item Interface Web.
 	\item Logiciel client Windows.
 \end{itemize}
@@ -77,18 +77,23 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 
 \section{Connaissances techniques personnelles}
 \begin{itemize}
-	\item Obfuscation : Aucune expérience.
-	\item Injection de code : Aucune expérience.
-	\item Application client serveur : Alexis a le plus d'expérience dû à son stage.
-	\item Interface Web : Experience homogène dans le groupe. (Apprentissage des cours de Licence Informatique).
-	\item Développement logiciel Windows : Noe a le plus d'expérience dû à son stage.
-	\item Implémentation d'algorithme de cryptographie : Aucune expérience. 
+	\item Obfuscation : Aucune expérience.\newline
+	\item Injection de code : Aucune expérience.\newline
+	\item Application client serveur : Alexis a le plus d'expérience dû à son stage qui a consisté en la réalisation 
+		  	d'ajout de fonctionnalitées à un projet utilisant le framework Symfony.\newline
+	\item Interface Web : Experience homogène dans le groupe. (Apprentissage des cours de Licence Informatique).\newline
+	\item Développement logiciel Windows : Noe a le plus d'expérience dû à son stage qui a consisté en la programmation en 
+			.NET de logiciels de gestion et de configuration d'un laser industriel.\newline
+	\item Implémentation d'algorithme de cryptographie : Aucune expérience.
 \end{itemize}
 
 \section{La complexité des solutions techniques}
-Les solutions techniques n'étant pas encore vraiment décidées.
+
 \begin{itemize}
-	\item ElGamal.
+	\item Obfuscation de code
+	\item API Rest et utilisation depuis le logiciel de vérification de licences
+	\item Injection de code et Signature ElGamal
+	\item Interfaçage C / C\#
 \end{itemize}
 
 \section{Perturbations engendrées par les autres activités}
@@ -116,7 +121,15 @@ Les solutions techniques n'étant pas encore vraiment décidées.
 	notre code de vérification de licence dans les programmes produits par le client. Cela lui demanderait donc un travail 
 	supplémentaire sur ses logiciels, et les demandes du client ne seront donc pas totalement satisfaite.
 	À savoir que le client dans le cadre de ce projet ne demande à minima qu'une preuve de concept de l'injection de code.
-	Dans l'espoir que les étudiant reprenant ce projet ultérieurement soient déjà avancés.\newline
+	Dans l'espoir que les étudiant reprenant ce projet ultérieurement soient déjà avancés.
+		\begin{itemize}
+			\item  Algorithme de signature ElGamal\newline
+			Cette étape est critique dans le bon déroulement de la phase d'injection de code. Le code à injecter se doit d'être 
+			le plus léger possible. Ainsi il ne nous faut faire appel à aucune DLL exterieure et coder un algorithme de siganture de nous
+			même est une solution qui nous a été proposé par le client. Ne pas valider cette étape est probable étant donné
+			la complexité de la tâche, néanmmoins l'impacte sur le projet n'est pas critique; L'utilisation d'une DLL restant
+			toujours possible malgré le coût engendré.\newline
+		\end{itemize}
 	\item Minimisation des risques de failles d'implémentation\newline
 	À la fois dans un but pédagogique et parceque le client utilisera réellement le fruit de ce projet, nous devrons
 	faire au maximum afin de minimiser les risques de failles causées par de potentielles erreures d'implémentation de notre part.
@@ -130,8 +143,12 @@ Les solutions techniques n'étant pas encore vraiment décidées.
 	en assembleur est suffisamment élevé pour estimer que les risques qu'un des utilisateurs y parvienne sont faibles; Étant donné que le public
 	visé par notre produit et le client, correspond à des utilisateurs non initiés à l'informatique. Ce faisant nous pouvons estimer la criticité 
 	des conséquences associées à ce risque comme non critique.\newline
-	\item  Algorithme de signature ElGamal\newline
 	\item 6 - Utilisation du C et interfaçage avec du C\#\newline
+	Globalement nous n'avons que peu d'expéricence dans le domaine du développement windows. Ainsi pouvoir se rattacher à un langage que nous
+	connaissons déjà pourrait accélérer le développement. Nous avons donc choisi d'utiliser du C lors de ce projet, or nous devront créer une 
+	interface compatible avec du C\#, notamment afin de créer une DLL utilisable par d'autre développeur afin de sécuriser leurs logiciels.
+	Ici repose la difficultée. Les chances d'un échec sur ce sujet son minime au vu de la complexité de la tache, mais l'impacte serait très fort.
+	Cela nous forcerait à revoir notre stratégie de développement et par conséquent de perdre du temps par rapport à notre planing.
 \end{itemize}
 
 \chapter{Top cinq des risques (Bilan)}
@@ -140,17 +157,17 @@ Les solutions techniques n'étant pas encore vraiment décidées.
     \small
     \begin{tabular}{|m{2.5cm}|m{2.5cm}|m{2.5cm}|m{1.5cm}|m{1.5cm}|m{4cm}|} 
 	\hline
-	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{freq} & \textbf{Stratégie}\\
+	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{Freq.} & \textbf{Stratégie}\\
 	\hline
-	Failles d'implémentation & Cracking du logiciel et de son injection &  Perte de controle du logicel & Critique & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	Failles d'implémentation & Cracking du logiciel et de son injection &  Perte de controle du logicel et Insatisfaction du client & Critique & Forte & Effectuer des tests unitaires sur les logiciels et les exécutables.\\
 	\hline
-	Injection de Code & Cracking du logiciel et de son injection &  Perte de controle du logicel / Insatisfaction du client & Critique & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	Échec de l'Injection de Code & Que la complexité de la tâche soit trop élevée et que l'objecif ne soit pas atteint &  Insatisfaction client / Perte de temps et d'énergie & Modéré & Très forte & Effectuer une preuve de concept avant le début de la phase de développement.\\
 	\hline
-	Obfuscation du code & Cracking du logiciel et de son injection &  Perte de controle du logicel d'injection de code & Important & Trés forte & Effectuer des testes unitaire sur les logiciels et les exécutables.\\
+	Signature ElGamal & Complications lors de l'accès au logicel &  Impossible d'utliser le logicel / Objectif injection de code non atteint & Fort pour l'injection & Forte & Effectuer une preuve de concept au plus tôt.\\
+	\hline
+	Obfuscation du code & Cracking du logiciel et de son injection &  Perte de controle du logicel d'injection de code & Important & Très forte & Effectuer des tests unitaire sur les logiciels et les exécutables.\\
 	\hline
 	Gestion du temps & Manque de temps pour un rendu complet &  Prise de retard par rapport aux TP de Gestion de Projet & Important & forte & S’organiser et séparer efficacement les tâches pour bien gérer le travail.\\
-	\hline
-	Signature ElGamal & Complications lors de l'accès au logicel &  Impossible d'utliser le logicel & Fort & Faible & Effectuer des testes unitaire sur les signatures pour prevenir ce risque.\\
 	\hline	    
     \end{tabular}
 \end{table}
