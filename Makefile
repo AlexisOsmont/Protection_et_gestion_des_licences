@@ -1,7 +1,7 @@
 SHELL=/bin/bash
 MAKEFLAGS += --no-print-directory
 
-objects = stb fiches dat adr pdd
+objects = stb fiches dat adr pdd cdr
 
 all: $(objects)
 	@echo "Done"
@@ -13,7 +13,9 @@ clean:
 	@cd DAT/main/; $(MAKE) clean
 	@cd ADR/; $(MAKE) clean
 	@cd PDD/; $(MAKE) clean
+	@cd CDR/; $(MAKE) clean
 	@echo "Done"
+
 
 stb:
 	@echo "Entering into STB/" 	
@@ -34,4 +36,8 @@ dat:
 adr:
 	@echo "Entering into ADR/" 	
 	@cd ADR/; $(MAKE)
+
+cdr:
+	@echo "Entering into CDR/" 	
+	@cd CDR/; $(MAKE)
 

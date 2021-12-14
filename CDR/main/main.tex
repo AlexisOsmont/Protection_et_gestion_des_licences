@@ -83,18 +83,32 @@ vérification, elle, sur un système Windows.
 
 Il faudra donc testés les 2 cas, encore une fois sur plusieurs machines/versions.
 
+\section{Outils de test}
+Les outils que nous mettront en oeuvre pour nous aider à effectuer et gérer les tests sont les
+suivants :
+\begin{itemize}
+    \item MantisBT,
+    \item Validateur HTML/CSS de W3C.
+\end{itemize}
+
+\section{Jeu de données}
+Nous définirons pour chacun des modules à tester un jeu de données de tests, sous forme de fichiers
+CSV ou d'une base de donnée MySQL.
  
 \chapter{Responsabilités}
 Les reponsibilités des tests seront d'abord répartis selon la répartiton des tâches, chacun
-devra donc écrire des tests pour les modules qu'il dévelloppe et se créer ses propres données
-de test. Puis lors de la phase d'intégration, un journal de test sera régulierement mis à jour
+devra donc écrire des tests pour les modules qu'il développe et se créer ses propres données
+de test.
+
+Puis lors de la phase d'intégration, un journal de test sera régulierement mis à jour
 afin de répertorier les bugs et les régressions de la solution et ainsi identifier plus      
 facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la résolve.
 
 
 \chapter{Stratégie de tests}
 
-\section{Démarche général et outils} 
+\section{Démarche général et outils}
+\label{section:dem_gen}
 Nous avons choisit d'utiliser MantisBT (Mantis Bug tracker) qui est un logiciel gratuit
 et open source afin de répertorier les bugs, celui-ci permet d'enregistrer la déclaration
  d'un bug, et d'y affecter un quelqu'un. Ce dernier pourra alors rendre compte de
@@ -123,7 +137,7 @@ curl -H "Content-Type: text/html; charset=utf-8" \
           \end{minted}
               
     \item vérification manuelle du rendu visuel de l'interface.
-    \item tests sur différents navigateur (Chrome, firefox, opera)
+    \item tests sur différents navigateur (Chrome, Firefox, Opera).
             
 \end{itemize}
 Attention au attaques XSS
@@ -149,8 +163,50 @@ Attention au injections SQL
 
 
 \chapter{Gestion des anomalies}
+Pour la gestion des anomalies nous utiliserons le logiciel MantisBT (comme précisé section
+\ref{section:dem_gen}) afin de répertorier les tests et les anomalies qui en ressortent.\newline
+
+Avant la phase d'intégration du projet, lorsque chacun aura une partie indépendante à développer,
+la gestion des anomalies sera à la charge de chacun. Il sera cependant conseillé de consigner ses
+avancements et les anomalies afin de permettre à un autre membre du groupe de reprendre cette
+partie si besoin.\newline
+
+Cependant une fois que nous aurons mis en commun les différentes parties de l'application, le
+référencement des anomalies et la journalisation des tests via MantisBT sera obligatoire afin de
+pouvoir identifier la source et l'auteur des anomalies.
+
 
 \chapter{Procédure de test}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } logiciel testé
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:}} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n° numéro et titre de la procédure
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & La première action que doit réaliser le testeur 
+              & Ce que le logiciel doit fournir comme résultat 
+              & Exigences vérifiées & \\
+            \hline
+            2 & La seconde action que doit réaliser le testeur 
+              & Ce que le logiciel doit fournir comme résultat 
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab1}
+\end{table}
+
 
 \chapter{Jeux de données de test}
 
