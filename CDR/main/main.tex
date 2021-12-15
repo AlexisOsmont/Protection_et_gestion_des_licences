@@ -96,7 +96,7 @@ Nous définirons pour chacun des modules à tester un jeu de données de tests, 
 CSV ou d'une base de donnée MySQL.
  
 \chapter{Responsabilités}
-Les reponsibilités des tests seront d'abord répartis selon la répartiton des tâches, chacun
+Les responsabilités des tests seront d'abord réparties selon la répartiton des tâches, chacun
 devra donc écrire des tests pour les modules qu'il développe et se créer ses propres données
 de test.
 
@@ -109,22 +109,22 @@ facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la ré
 
 \section{Démarche général et outils}
 \label{section:dem_gen}
-Nous avons choisit d'utiliser MantisBT (Mantis Bug tracker) qui est un logiciel gratuit
+Nous avons choisi d'utiliser MantisBT (Mantis Bug Tracker) qui est un logiciel gratuit
 et open source afin de répertorier les bugs, celui-ci permet d'enregistrer la déclaration
- d'un bug, et d'y affecter un quelqu'un. Ce dernier pourra alors rendre compte de
+ d'un bug, et d'affecter quelqu'un à sa résolution. Ce dernier pourra alors rendre compte de
 l'avancement de sa résolution, jusqu'à sa clôture. Le déclarant de l'anomalie peut  
 s'informer à tout moment via le serveur Web de l'avancement du traitement de 
 son problème.  
 
 \section{Campagne de test}
-Les tests seront lancer après chaque modification sur un module ou plusieurs modules, sur
+Les tests seront lancés après chaque modification sur un module ou plusieurs modules, sur
 le serveur de test.
 
 \section{Tests de l'application web}
 
 \subsection{Partie Frontend}
 
-Afin de tester que l'interface graphique (Vue du model MVC) fonctionne correctement, nous allons mettre en place les procédures suitantes:
+Afin de tester que l'interface graphique (vue du modèle MVC) fonctionne correctement, nous allons mettre en place les procédures suivantes:
 \begin{itemize}
 
     \item vérifier la validité syntaxique des pages statiques en HTML / css via 
@@ -140,26 +140,44 @@ curl -H "Content-Type: text/html; charset=utf-8" \
     \item tests sur différents navigateur (Chrome, Firefox, Opera).
             
 \end{itemize}
-Attention au attaques XSS
+\newpage
 
 \subsection{Partie Backend}
 
-Afin de tester que le model et le controller du model MVC fonctionne correctement, 
-nous allons mettre en place les procédures suitantes:
+Afin de tester que le modèle et le contrôleur du modèle MVC fonctionne correctement, 
+nous allons mettre en place les procédures suivantes :
 \begin{itemize}
-    
-    \item réalisation de tests unitaire sur le model et le controller via 
+    \item réalisation de tests unitaires sur le modèle et le contrôleur via 
           un script de test écrit en PHP, celui-ci pourra être lancer après 
-          chaque mise à jour. Il utilisera les informations contenue dans la  
+          chaque mise à jour. Il utilisera les informations contenues dans la  
           base de données de test.
         
-    \item test de l'API rest du logiciel d'activation via un script bash 
+    \item test de l'API Rest du logiciel d'activation via un script bash 
           utilisant la commande curl avec le jeu de données de la base de test.
         
     \item test du programme de génération de licence via un script bash qui
           utiilisera les données de test.
 \end{itemize}
-Attention au injections SQL
+
+\subsection{Sécurité}
+Il faudra prêter une attention particulière à la sécurité de notre plateforme afin de garantir un système
+de gestion et protection de licences fiable (voir Analyse des risques).
+
+Par conséquent, afin d'en tester la robustesse nous allons effectuer différents types d'attaques sur notre site :
+\begin{itemize}
+    \item Injections XSS
+    \item Injections SQL
+    \item ...
+\end{itemize}
+
+\section{Logiciel protégé}
+
+Une fois le projet suffisamment avancé pour pouvoir commencé à générer des licences et protéger des logiciels
+avec, il nous faudra procéder à des tests d'efficacité de celui-ci.
+
+Également nous allons essayer d'obfusquer au maximum l'exécutable produit pour rendre le reverse engineering
+plus compliqué pour un attaquant. Il faudra donc que l'on se mette à la place de cet attaquant en essayant
+de retrouver des informations sur le logiciel en utilisant des techniques de reverse engineering.
 
 
 \chapter{Gestion des anomalies}
@@ -177,6 +195,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 
 
 \chapter{Procédure de test}
+
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{1cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|m{1cm}|}
