@@ -4,7 +4,8 @@
 	\item Le client est le commanditaire du projet.
 	\item Un utilisateur est une personne souhaitant utiliser un logiciel du client. 
 	\item Une licence est un droit accordé pour une machine et un utilisateur d'utiliser un logiciel donné.
-	\item Craquer un logiciel est le fait de pouvoir l'utiliser sans avoir payé pour son utilisation. Soit en modifiant le code compilé, soit en utilisant une autre méthode. 
+	\item Craquer un logiciel est le fait de pouvoir l'utiliser sans avoir payé pour son utilisation. 
+	Soit en modifiant le code compilé, soit en utilisant une autre méthode. 
 \end{itemize}
 
 \chapter{Liste des points durs}
@@ -15,13 +16,16 @@
 	et de la greffe de code, notre incapacité à la minimisation des failles d'implémentation est un risque élevé.\newline
 	
 	\item \textbf{Programmation de l'algorithme de signature ElGamal} \newline
-	L'un des points les plus importants est la signature, la principale difficultée ici est de créer une signature unique grâce à l'algorithme de signature ElGamal que nous devront coder "à la main" afin d'alléger au maximum l'exécutable de verification de licence.	\newline
+	L'un des points les plus importants est la signature, la principale difficultée ici est de créer une signature unique grâce à 
+	l'algorithme de signature ElGamal que nous devront coder "à la main" afin d'alléger au maximum l'exécutable de verification de licence.	\newline
 	
 	\item \textbf{Obfuscation du code} \newline
-	L'obsfuscation de code est un élément essentiel car le but de notre projet est de protéger des logiciels du cracking. Le risque majeur ici est de ne pas suffisamment obfusquer le code et donc de le rendre facilement accessible.\newline
+	L'obsfuscation de code est un élément essentiel car le but de notre projet est de protéger des logiciels du cracking. 
+	Le risque majeur ici est de ne pas suffisamment obfusquer le code et donc de le rendre facilement accessible.\newline
 	
 	\item \textbf{Utilisation du C pour une DLL ou développement} \newline
-	L'utilisation du langage C est l'un de nos choix en remplacement du C++ et C\# même si celui-ci possède moins d'utilitaires que les autres, et est par conséquent plus assujetti aux failles d'implémentation.\newline
+	L'utilisation du langage C est l'un de nos choix en remplacement du C++ et C\# même si celui-ci possède moins d'utilitaires 
+	que les autres, et est par conséquent plus assujetti aux failles d'implémentation.\newline
 	
 	\item \textbf{Injection de Code dans un PE} \newline
 	L'injection de code peut, si elle est mal implémentée laisser des failles facilement utilisables pour des personnes malintentionnées.\newline
@@ -38,7 +42,8 @@ Au début du projet, nous n'avions pas eu tous les détails sur la nature du pro
 dans notre compréhension du sujet et sur la production de documents.
 Nous possédons des logiciels de référence sur lesquels se baser.\\ \newline
 
-Plusieurs parties à réaliser, sujet pluridisciplinaire :
+Nous sommes face à un sujet pluridisciplinaire, plusieurs grosses parties seront à 
+développer et notre experience dans chaque domaine est fluctuante.
 \begin{itemize}
 	\item Application client serveur.
 	\item Interface Web.
@@ -46,14 +51,17 @@ Plusieurs parties à réaliser, sujet pluridisciplinaire :
 \end{itemize}
 
 \section{Définition du besoin}
+
+Le produit final sera réellement utlisé par le client ce qui rajoute une pression supplémentaire concernant la qualité 
+du rendu final et l'éventail des fonctionnalitées à implémenter. Cela a tout de même le bénéfice d'avoir un référent 
+technique très impliqué (notre client est aussi notre référent technique).
+\begin{itemize}
+	\item Attente de la part du client
+\end{itemize}
+
 Le produit final sera utilisé par des personnes non formées à l'informatique. 
 \begin{itemize}	
 	\item Les interfaces devront être pensées pour en facilité l'usage au près des utilisateurs.\newline
-\end{itemize}
-
-Le produit final sera réellement utlisé par le client ce qui rajoute une pression supplémentaire concernant la qualité du rendu final et l'éventail des fonctionnalitées à implémenter. Cela a tout de même le bénéfice d'avoir un référent technique très impliqué (notre client est aussi notre référent technique).
-\begin{itemize}
-	\item Attente de la part du client
 \end{itemize}
 
 \section{Disponibilité des acteurs et ressources}
@@ -159,15 +167,40 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 	\hline
 	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{Freq.} & \textbf{Stratégie}\\
 	\hline
-	Failles d'implémentation & Cracking du logiciel et de son injection &  Perte de controle du logicel et Insatisfaction du client & Critique & Forte & Effectuer des tests unitaires sur les logiciels et les exécutables.\\
+	Failles d'implémentation 
+		& Cracking du logiciel et de son injection 
+		& Perte de controle du logicel et Insatisfaction du client 
+		& Critique 
+		& Forte 
+		& Effectuer des tests unitaires sur les logiciels et les exécutables.\\
 	\hline
-	Échec de l'Injection de Code & Que la complexité de la tâche soit trop élevée et que l'objecif ne soit pas atteint &  Insatisfaction client / Perte de temps et d'énergie & Modéré & Très forte & Effectuer une preuve de concept avant le début de la phase de développement.\\
+	Échec de l'Injection de Code 
+		& Que la complexité de la tâche soit trop élevée et que l'objecif ne soit pas atteint 
+		& Insatisfaction client / Perte de temps et d'énergie 
+		& Modéré 
+		& Très forte 
+		& Effectuer une preuve de concept avant le début de la phase de développement.\\
 	\hline
-	Signature ElGamal & Complications lors de l'accès au logicel &  Impossible d'utliser le logicel / Objectif injection de code non atteint & Fort pour l'injection & Forte & Effectuer une preuve de concept au plus tôt.\\
+	Signature ElGamal 
+		& Complications lors de l'accès au logicel 
+		& Impossible d'utliser le logicel / Objectif injection de code non atteint 
+		& Fort pour l'injection 
+		& Forte 
+		& Effectuer une preuve de concept au plus tôt.\\
 	\hline
-	Obfuscation du code & Cracking du logiciel et de son injection &  Perte de controle du logicel d'injection de code & Important & Très forte & Effectuer des tests unitaire sur les logiciels et les exécutables.\\
+	Obfuscation du code 
+		& Cracking du logiciel et de son injection 
+		& Perte de controle du logicel d'injection de code 
+		& Important 
+		& Très forte 
+		& Effectuer des tests unitaire sur les logiciels et les exécutables.\\
 	\hline
-	Gestion du temps & Manque de temps pour un rendu complet &  Prise de retard par rapport aux TP de Gestion de Projet & Important & forte & S’organiser et séparer efficacement les tâches pour bien gérer le travail.\\
+	Gestion du temps 
+		& Manque de temps pour un rendu complet 
+		& Prise de retard par rapport aux TP de Gestion de Projet
+		& Important 
+		& Forte 
+		& S’organiser et séparer efficacement les tâches pour bien gérer le travail.\\
 	\hline	    
     \end{tabular}
 \end{table}
