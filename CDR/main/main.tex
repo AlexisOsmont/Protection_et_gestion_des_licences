@@ -196,20 +196,170 @@ pouvoir identifier la source et l'auteur des anomalies.
 
 \chapter{Procédure de test}
 
+\section{Procédure de test du CA1}
 \begin{table}[!h]
         \centering
-        \begin{tabular}{|m{1cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|m{1cm}|}
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
             \hline
             \multicolumn{3}{|c|}{
-                \textbf{Objet testé: } logiciel testé
+                \textbf{Objet testé: } Application serveur 
             } & \multicolumn{2}{|c|}{
                 \textbf{Version: } version    
             } \\
             \hline
-            \multicolumn{5}{|c|}{\textbf{Objectifs de test:}} \\
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                vérification du CA1 : Demande d'une licence} \\
             \hline
             \multicolumn{5}{|c|}{
-                \textbf{Procédure n° }Procédure n° numéro et titre de la procédure
+                \textbf{Procédure n° }Procédure n°1 - Test CA1
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & le testeur doit se rendre sur l'interface de l'application et 
+                effectuer demande de licence (fonctionallité implémenté 
+                sous la forme d'un bouton présent sur l'interface d'un
+                utilisateur) via un compte utilisateur déjà existant. 
+              & le testeur doit constater un message lui indiquant le succès (ou non)
+                de sa demande. En cas de succès, l'admnistrateur doit être notifier via 
+                un mail de la demande et la base de données doit être mise à jour: 
+                création d'une entrée dans la table licence comportant l'id du
+                logiciel demandé, de l'utilisateur ayant éfféctué la demande et avec le 
+                statut \emph{Pending}.
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab1}
+\end{table}
+\newpage
+
+\section{Procédure de test du CA2}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Application serveur
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                vérification du CA2 : Accord d'une licence }\\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n°2 - Test CA2
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & le testeur doit se connecter à l'interface de l'application
+                via le compte admnistrateur, aller dans le panneau de configuration
+                de l'application, et selectionner une entrée dans la table des demandes 
+                en attentes puis cliquer sur le bouton \emph{accepter}. 
+              & le testeur doit constater un message lui indiquant le succès (ou non)
+                de l'opération. En cas de succès, l'utilisateur qui a fait la demande 
+                doit être notifier via un mail de l'acceptation de sa demande et la 
+                base de données doit être mise à jour: misa à jour de l'entrée dans 
+                la table licence comportant l'id du logiciel demandé et de l'utilisateur 
+                ayant éfféctué la demande et avec le statut \emph{Accepted}.
+              & Exigences vérifiées & \\
+            \hline
+            2 & le testeur doit se connecter à l'interface de l'application
+                via le compte admnistrateur, aller dans le panneau de configuration
+                de l'application, et selectionner une entrée dans la table des demandes 
+                en attentes puis cliquer sur le bouton \emph{refuser}. 
+              & le testeur doit constater un message lui indiquant le succès (ou non)
+                de l'opération. En cas de succès, l'utilisateur qui a fait la demande 
+                doit être notifier via un mail du refus de sa demande et la 
+                base de données doit être mise à jour: misa à jour de l'entrée dans 
+                la table licence comportant l'id du logiciel demandé et de l'utilisateur 
+                ayant éfféctué la demande et avec le statut \emph{Refused}.
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab2}
+\end{table}
+\newpage
+
+\section{Procédure de test du CA3}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Logiciel d'Activation 
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                vérification du CA3 : Activation d'une licence} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n°3 - Test CA3
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & Le testeur doit lancer le logiciel d'activation sur la
+                machine cible (et vérifier qu'il a accès à internet). 
+              & Une fois démarré le logiciel doit afficher un menu avec 
+                deux entrées de texte comportant respectivement les champs
+                "\emph{Identifiant}" et "\emph{Mot de passe}" ainsi qu'une liste
+                déroulante contenant la liste de logiciels disponibles
+                (cette liste doit correspondre à la liste présente dans
+                 la base de données).
+              & Exigences vérifiées & \\
+            \hline
+            2 & le testeur doit réaliser l'action 1 puis séléctionner 
+                un logiciel présent dans la liste, et saisir les 
+                identifiants d'un utilisateur existant (ayant vu sa demande 
+                de licence pour ce logiciel validé) et appuyer sur le bouton
+                "\emph{valider}".  
+              & Une nouvelle interface apparaît une fois l'opération terminer
+                avec un message indiquant le succès (ou non) de l'opération.
+                En cas de succès, un fichier de licence doit être présent 
+                dans le dossier depuis lequel l'utilisateur à éxécuté le logiciel. 
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab3}
+\end{table}
+\newpage
+
+\section{Procédure de test du CA4}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } logiciel protégé par la bibliothèque ou la greffe
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:}
+                vérification du CA4 : Démarrage d'un logiciel protégé} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n°4 - Test CA4 
             } \\
             \hline
             N° & Actions & Résultats attendus & Exig. & OK / NOK \\
@@ -225,7 +375,83 @@ pouvoir identifier la source et l'auteur des anomalies.
         \end{tabular} 
         \label{tab:tab1}
 \end{table}
+\newpage
 
+\section{Procédure de test du CA5}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Application serveur
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:}
+                vérification du CA5 : Création d'un compte sur le site Web} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n°4 - Test CA5
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & le testeur démarre le logiciel protégé sur la machine
+                cible. 
+              & Un menu appraît avec un champ de texte permettant d'écrire
+                le chemin du fichier de licence, un bouton  une boîte de dialogue 
+              & Exigences vérifiées & \\
+            \hline
+            2 & La seconde action que doit réaliser le testeur 
+              & Ce que le logiciel doit fournir comme résultat 
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab1}
+\end{table}
+\newpage
+
+\section{Procédure de test du CA6}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{1cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Application serveur
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                vérification du CA6 : Paramétrage d'une licence} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n° }Procédure n°6 - Test CA6
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exig. & OK / NOK \\
+            \hline      % start of the array
+            1 & La première action que doit réaliser le testeur 
+              & Ce que le logiciel doit fournir comme résultat 
+              & Exigences vérifiées & \\
+            \hline
+            2 & La seconde action que doit réaliser le testeur 
+              & Ce que le logiciel doit fournir comme résultat 
+              & Exigences vérifiées & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab1}
+\end{table}
+\newpage
 
 \chapter{Jeux de données de test}
 
