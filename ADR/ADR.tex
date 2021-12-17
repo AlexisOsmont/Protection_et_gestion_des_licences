@@ -8,7 +8,6 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{titlesec, blindtext, color}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
 \usepackage{lscape}
 \usepackage{subfigure}
 \usepackage{amsmath}
@@ -16,6 +15,16 @@
 \usepackage[colorinlistoftodos]{todonotes}
 % make links clickable
 \usepackage[hidelinks]{hyperref}
+
+% for the description 
+\usepackage{enumitem}
+\setlist[description]{
+    style=nextline,
+    labelwidth=0pt,
+    leftmargin=30pt,
+    parsep=3pt,
+    itemindent=\dimexpr-20pt-\labelsep\relax
+}
 
 % for the table
 \usepackage{multirow}
@@ -38,10 +47,10 @@
 \newcommand\titleOfDoc{\typeOfDoc \\ \hfill \\ \projectName}
 
 \newcommand\authors{
-	Alexis Osmont
-    Kaci Hammoudi\\
-    Louka Boivin\\
     Sami Babigeon\\			
+    Louka Boivin\\
+    Kaci Hammoudi\\
+	Alexis Osmont
 }
 
 \newcommand\client{M. Ziadi Djelloul}

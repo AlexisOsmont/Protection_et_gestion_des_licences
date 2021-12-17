@@ -30,7 +30,7 @@
 	\item \textbf{Injection de Code dans un PE} \newline
 	L'injection de code peut, si elle est mal implémentée laisser des failles facilement utilisables pour des personnes malintentionnées.\newline
 	
-	\item \textbf{Le temps} \newline
+	\item \textbf{Respect des échéances} \newline
 	Nous avons pris du retard dans la production de tous les documents demandés, dû à des délais de remise de travail demandé ainsi qu'aux 
 	difficultées rencontrées quant à l'organisation de réunion entre membres du projet.\newline
 \end{itemize}
@@ -112,52 +112,58 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 \end{itemize}
 
 \chapter{Ordonner les points durs}
-\begin{itemize}
-	\item 1 - Injection de Code dans un PE
-	\item 2 - Minimisation des risques de failles d'implémentation
-	\item 3 - Obfuscation du code
-	\item 4 - Gestion du temps
-	\item 5 - Algorithme de signature ElGamal
-	\item 6 - Utilisation du C et interfaçage avec du C\# 
-\end{itemize}
+\begin{enumerate}
+	\item Injection de Code dans un PE
+	\item Minimisation des risques de failles d'implémentation
+	\item Obfuscation du code
+	\item Gestion du temps
+	\item Algorithme de signature ElGamal
+	\item Utilisation du C et interfaçage avec du C\# 
+\end{enumerate}
 
 \chapter{Definitions des risques associés}
 
-\begin{itemize}
-	\item Injection de Code dans un PE\newline
+\begin{description}
+
+    \item[Injection de Code dans un PE]\
 	Dans le cas d'un échec de l'injection de code dans un exécutable windows, nous ne pourrions pas greffer dynamiquement
 	notre code de vérification de licence dans les programmes produits par le client. Cela lui demanderait donc un travail 
 	supplémentaire sur ses logiciels, et les demandes du client ne seront donc pas totalement satisfaite.
 	À savoir que le client dans le cadre de ce projet ne demande à minima qu'une preuve de concept de l'injection de code.
 	Dans l'espoir que les étudiant reprenant ce projet ultérieurement soient déjà avancés.
-		\begin{itemize}
-			\item  Algorithme de signature ElGamal\newline
+		
+        \begin{description}
+            \item[Algorithme de signature ElGamal]
 			Cette étape est critique dans le bon déroulement de la phase d'injection de code. Le code à injecter se doit d'être 
 			le plus léger possible. Ainsi il ne nous faut faire appel à aucune DLL exterieure et coder un algorithme de siganture de nous
 			même est une solution qui nous a été proposé par le client. Ne pas valider cette étape est probable étant donné
 			la complexité de la tâche, néanmmoins l'impacte sur le projet n'est pas critique; L'utilisation d'une DLL restant
 			toujours possible malgré le coût engendré.\newline
-		\end{itemize}
-	\item Minimisation des risques de failles d'implémentation\newline
+		\end{description}
+
+    \item[Minimisation des risques de failles d'implémentation]
 	À la fois dans un but pédagogique et parceque le client utilisera réellement le fruit de ce projet, nous devrons
 	faire au maximum afin de minimiser les risques de failles causées par de potentielles erreures d'implémentation de notre part.
 	Dans le cas contraire, la solution fournit au client se verrait alors inutile, ne pouvant pas protéger efficacement les logiciels
 	de ce dernier. 
 	Pour ce faire il nous faudra mettre en place un système de test unitaires, et de validation des ajouts et des modifications au code.
 	Afin de garantir qu'à chaque étape du projet tous les contrats initialements définits soient bien respectés.\newline
-	\item Obfuscation du code\newline
+
+\item[Obfuscation du code]
 	Les risques associés au manque d'obfuscation du code rejoignent ceux du point précédent. Le produit final finira par être trop facilement
 	détournable et le produit se verra d'efficacité limitée. Néanmoins le niveau d'expertise nécessaire à la compréhension d'un code décompilé 
 	en assembleur est suffisamment élevé pour estimer que les risques qu'un des utilisateurs y parvienne sont faibles; Étant donné que le public
 	visé par notre produit et le client, correspond à des utilisateurs non initiés à l'informatique. Ce faisant nous pouvons estimer la criticité 
 	des conséquences associées à ce risque comme non critique.\newline
-	\item 6 - Utilisation du C et interfaçage avec du C\#\newline
+
+\item[Utilisation du C et interfaçage avec du C\#]
 	Globalement nous n'avons que peu d'expéricence dans le domaine du développement windows. Ainsi pouvoir se rattacher à un langage que nous
 	connaissons déjà pourrait accélérer le développement. Nous avons donc choisi d'utiliser du C lors de ce projet, or nous devront créer une 
 	interface compatible avec du C\#, notamment afin de créer une DLL utilisable par d'autre développeur afin de sécuriser leurs logiciels.
 	Ici repose la difficultée. Les chances d'un échec sur ce sujet son minime au vu de la complexité de la tache, mais l'impacte serait très fort.
 	Cela nous forcerait à revoir notre stratégie de développement et par conséquent de perdre du temps par rapport à notre planing.
-\end{itemize}
+
+\end{description}
 
 \chapter{Top cinq des risques (Bilan)}
 
@@ -165,7 +171,7 @@ Nous nous connaissions déjà et communication facile lors des réunions.
     \small
     \begin{tabular}{|m{2.5cm}|m{2.5cm}|m{2.5cm}|m{1.5cm}|m{1.5cm}|m{4cm}|} 
 	\hline
-	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{Freq.} & \textbf{Stratégie}\\
+	\textbf{Risque} & \textbf{Craintes} & \textbf{Effets} & \textbf{Impacts} & \textbf{Prob.} & \textbf{Stratégie}\\
 	\hline
 	Failles d'implémentation 
 		& Cracking du logiciel et de son injection 
@@ -174,7 +180,7 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 		& Forte 
 		& Effectuer des tests unitaires sur les logiciels et les exécutables.\\
 	\hline
-	Échec de l'Injection de Code 
+	Échec de l'injection de code 
 		& Que la complexité de la tâche soit trop élevée et que l'objecif ne soit pas atteint 
 		& Insatisfaction client / Perte de temps et d'énergie 
 		& Modéré 
@@ -195,7 +201,7 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 		& Très forte 
 		& Effectuer des tests unitaire sur les logiciels et les exécutables.\\
 	\hline
-	Gestion du temps 
+	Respect des échéances 
 		& Manque de temps pour un rendu complet 
 		& Prise de retard par rapport aux TP de Gestion de Projet
 		& Important 
