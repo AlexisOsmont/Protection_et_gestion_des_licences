@@ -52,6 +52,22 @@ des licences.
 
 \chapter{Terminologie}
 
+\chapter{Plan de qualité}
+
+La solution mise en place pour le projet est majoritairement une application web et 
+peut donc être vulnérable faces aux attaques courante comme celles-ci:
+\begin{itemize}
+    \item Brocken access control.
+    \item Injections XSS.
+    \item Injections SQL.
+    \item ...
+\end{itemize}
+Afin de prévenir ce genre d'attaques nous allons effectuer une série de tests afin de 
+détecter, puis de corriger ces failles de vulnérabilité. Nous pourrons entre autre 
+effectuer des tests d'intrusion sur la plateforme, des tests de charges afin de 
+s'assurer que le site supportera une attaque de type DDOS 
+(Distributed Denial of Service). 
+
 \chapter{Environnement de test}
 
 \section{Application Web}
