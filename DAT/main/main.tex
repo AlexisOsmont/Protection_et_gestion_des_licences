@@ -32,17 +32,17 @@ Documents de spécification :
 	\end{itemize}
 \end{itemize}
 
-%\chapter{Terminologie}
-
 \chapter{Configuration requise}
 
 Les éléments matériels nécessaire au développement de cet outil sont :
 \begin{itemize}
-    \item Un serveur sur lequel nous devrons installer tout le necéssaire à la mise en place d'un serveur Web (Apache, PHP, MySQL).
+    \item Un serveur sur lequel nous devrons installer le necéssaire à la mise en place d'un
+        serveur Web (Apache, Tomcat, PHP, MySQL).
     \item Un ordinateur sous Windows pour développer les interfaces et effectuer les tests.
 \end{itemize}
 
-De plus nous aurons besoin de différents logiciels pour effectuer des tests (protéger les logiciels) lorsque le dévellopement de l'outil sera suffisamment avancé.
+De plus nous aurons besoin de différents logiciels pour effectuer des tests (protéger les
+logiciels) lorsque le dévellopement de l'outil sera suffisamment avancé.
 
 \chapter{Architecture statique}
 Afin de réaliser ce projet nous avons choisi de mettre en place l'infrastructure suivante:
@@ -60,7 +60,7 @@ Afin de réaliser ce projet nous avons choisi de mettre en place l'infrastructur
 		afin de lui permettre de générer une licence. Pour cela il échangera avec
 		le serveur des informations sur le matériel physique de la machine, ce 
 		qui permettra à ce dernier de générer le fichier de licence.
-	\item[\textbf{Outil de Validation}:]
+	\item[\textbf{Outil de validation}:]
 		Outil permettant de vérifier la validité d'une licence, cet outil
 		pourra prendre les formes suivantes: 
 		\begin{itemize}
@@ -72,7 +72,8 @@ Afin de réaliser ce projet nous avons choisi de mettre en place l'infrastructur
 \end{description}
 
 L'architecture générale de ce projet peut être représenter via 
-le schéma n°\ref{fig:fig1}.\newline
+le schéma n°\ref{fig:fig1}.
+\newpage
 
 \begin{figure}[hp!]
 	\centering
@@ -80,11 +81,19 @@ le schéma n°\ref{fig:fig1}.\newline
 	\caption{Schéma d'architecture générale}
 	\label{fig:fig1}
 \end{figure}
+
 \newpage
 
 \section{Constituant «application»}
 
-\subsection{Description}
+\begin{figure}[p]
+    \vspace{-0.5cm}
+	\caption{API rest}
+	\input{rest-api.tex}
+	\label{fig:fig2}
+\end{figure}
+
+\subsection*{Description}
 
 \begin{description}
 	\item[\textbf{Rôle}:]
@@ -97,58 +106,44 @@ le schéma n°\ref{fig:fig1}.\newline
 				API Rest \cite{REST} permettant au client d'envoyer les informations
 				nécéssaires à la génération de la licence (voir \ref{fig:fig2}).			
 	\item[\textbf{Dépendances}:]
-				Dépend du module de base de données.
+				Dépend du module de base de données et du serveur Tomcat.
 	\item[\textbf{Langages}:]
-				HTML, CSS, JS, PHP, SQL, Bash, C 
+                HTML, CSS, Java, SQL, Bash, C
 	\item[\textbf{Procédé de développement}:]
-				Utilisation du pattern design MVC (Modèle - Vue - Contrôleur) avec le framework
-                CodeIgniter \cite{igniter} et respect des conventions Material Design
-                \cite{Material} (utilisation d'un framework CSS).
+				Utilisation du pattern design MVC (Modèle - Vue - Contrôleur) et respect des
+                conventions Material Design \cite{Material} (utilisation d'un framework CSS).
 	\item[\textbf{Taille et complexité}:]
 				Taille importante et complexité élévé.
 \end{description}
 
-\subsection{Justifications techniques.}
-Utilisation de la pile LAMP (Linux, Apache, MySQL, PHP) car beaucoup de 
-support et de documentation \cite{LAMP}. Il y a possibilité d'automatiser 
-le déploiement de la solution via un script d'installation. \newline
+\subsection*{Justifications techniques}
+Utilisation de Java pour la partie back-end. Le modèle peut être écrit en Java, et la partie
+contrôleur utilisera les servlets et les JSP. La programmation orienté-objet avec Java permet
+d'avoir un code plus compréhensible et plus simple. De plus, comparé à PHP, Java offre une plus
+large API. Avec cette technologie, il y a possibilité d'automatiser simplement le déploiement de
+la solution via un script d'installation.
+
+\subsection*{Script de génération}
 Le serveur utilisera un script permettant de générer une licence pour un 
 utilisateur en prenant en paramètre l'identifiant du logiciel pour lequel on doit 
 générer la licence, un hashé des informations hardware du client, et les
 attributs de la licence (nombre d'essais, période de validité) et renverra
-le fichier de licence. Le script utilisera les fonctions suivantes:
+le fichier de licence.
 
-\begin{minted}{c}
-// Récupère les droits d'une licence à partir d'un fichier de
-// licence, renseigné par son chemin.
-char *hashWithSHA256(const char *string);
-
-// Génère une signature de dataToSign à partir de la clé privé asymétrique 
-//  privateKey. 
-char *generateSignature(const char *dataToSign, const char *privateKey);
-  
-// Encode une chaîne de caractères en base64
-char *encodeBase64(const char *string);
-\end{minted}
-
-\begin{figure}[hp!]
-    \vspace{-0.5cm}
-	\caption{API rest}
-	\input{rest-api.tex}
-	\label{fig:fig2}
-\end{figure}
-%\newpage
+Les fonctions qui devront être implementés pour ce script sont décrites dans l'annexe
+(section \ref{api:gen}).
+\newpage
 
 \section{Constituant «Base de données»}
 
-\begin{figure}[hp!]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth - 2cm]{../png/SQL_table.png}
-	\caption{Diagramme UML des Tables de la BDD}
+	\caption{Diagramme UML des tables de la BDD}
 	\label{fig:fig2}
 \end{figure}
 
-\subsection{Description}
+\subsection*{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
 		Le but de ce module est de permettre de stocker les informations relatives aux
@@ -160,26 +155,29 @@ char *encodeBase64(const char *string);
 	\item[\textbf{Dépendances}:]
 		Pas de dépendances.		
 	\item[\textbf{Languages}:]
-		PHP 8, MySQL.
+		Java, SQL.
 	\item[\textbf{Procédé de développement}:]
-	  Porter une attention partculière à la sécurisation des données, via
-	  du chiffrement et à se proteger des attaques du type «injections SQL». 
+	    Porter une attention partculière à la sécurisation des données, via
+	    du chiffrement et à se proteger des attaques du type «injections SQL». 
 	\item[\textbf{Taille et complexité}:]
 		Taille faible et complexité faible. 
 \end{description}
 
-\subsubsection{Modèle PHP}
-Nous utiliserons MySQL avec PHP 8 pour interagir avec notre base de données (partie modèle) depuis la plateforme Web.
+\subsection*{Justifications techniques}
+MySQL est le SGBD le plus simple et le plus utilisé. De plus celui ci est open source et son
+installation est rapide.
 
-Le modèle PHP à implémenter est disponible en annexe (voir section \ref{section:php}).
+\subsection*{Modèle Java et DAO}
+Nous utiliserons MySQL avec Java (JDBC) pour interagir avec notre base de données
+depuis la plateforme Web.
 
-\subsection{Justifications techniques.}
-PHP est le langage de script le plus utilisé pour la programmation coté serveur et également le plus simple.
-De plus, depuis PHP 5, c'est un langage orienté-objet, ce qui permet de créer des interfaces simples, pour la
-compréhension, l'utilisation et la maintenabilité du code.
+Le modèle Java correspondra à une classe par types d'objets dans la base de données (c'est-à-dire
+une par table). Ensuite à chacune de ces classes correspondra son DAO (Data Access Object) qui
+effectuera les requêtes avec la base de données et qui renverra les objets correspondant au modèle.
 
 \section{Constituant «Logiciel d'activation»}
-\subsection{Description}
+
+\subsection*{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
 		Récupérer les informations matérielles sur la machine d'un utilisateur, puis 
@@ -188,7 +186,7 @@ compréhension, l'utilisation et la maintenabilité du code.
 	\item[\textbf{Services offerts}:] 
 		N'offre aucun service.
 	\item[\textbf{Dépendances}:]
-		Dépend du Module Serveur.
+		Dépend du module application.
 	\item[\textbf{Languages}:]
 		C\#.
 	\item[\textbf{Procédé de développement}:]
@@ -197,26 +195,23 @@ compréhension, l'utilisation et la maintenabilité du code.
 		Taille faible et complexité faible. 
 \end{description}
 
-\subsection{Justifications techniques}
-Ce logiciel sera principalement constitué d'une interface graphique et fera des requêtes HTTPS sur notre serveur.
-Il devra être éxécutable sur Windows et donc, le langage C\# est le plus adapté pour cette tâche car il permet de
-réaliser facilement des interfaces Windows.
+\subsection*{Justifications techniques}
+Ce logiciel sera principalement constitué d'une interface graphique et fera des requêtes HTTPS sur
+notre serveur. Il devra être éxécutable sur Windows et donc, le langage C\# est le plus adapté pour
+cette tâche car il permet de réaliser facilement des interfaces Windows.
+\newpage
 
-\section{Constituant «Système de véfication - Librairie»}
-\subsection{Description}
+\section{Constituant «Système de vérification - Librairie»}
+\subsection*{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
 		Fournir une API pour des programmes en C\# afin de 
 		permettre à un developpeur de vérifier une licence dans son code.
         Cependant le code de la bibliothèque ne sera pas en C\# mais en 
         C car celui-ci est plus facile à obfusquer et plus efficace. 
-%	\item[\textbf{Propriétés et attributs de caractérisation}:]
-
-	\newpage
-
 	\item[\textbf{Services offerts}:]
-		Ce module propose une API dont les fonctions sont les suivantes:
-        \inputminted{csharp}{lib.cs}
+        Ce module propose une API dont les fonctions sont définies en annexe
+        (section \ref{api:lib}).
 	\item[\textbf{Dépendances}:]
 		Dépend d'un fichier de licence.	
 	\item[\textbf{Languages}:]
@@ -227,7 +222,7 @@ réaliser facilement des interfaces Windows.
 		Taille importante et complexité relative.
 \end{description}
 
-\subsection{Justifications techniques.}
+\subsection*{Justifications techniques}
 Dans un premier temps, les fonctions de l'API pourront être implémentées en utilisant des bibliothèques systèmes comme par exemple, pour les informations hardware, la classe \verb:System.Management:, ou bien la classe \verb:System.Security.Cryptography: pour le hash avec SHA-256.\newline
 
 Dans un second temps, nous devrons implanter au maximum ces fonctions nous-mêmes et 
@@ -236,9 +231,10 @@ exécutable (greffe dans un PE) sans pour autant alourdir ou ralentir l'éxécut
 l'application. \newline
 
 C'est aussi dans un but pédagogique nous avons choisi d'implémenter nous même le système cryptographique de signature. Le schéma de signature retenu est ElGamal \cite{ElGamal}.
+\newpage
 
-\section{Constituant «Système de véfication - Greffe»}
-\subsection{Description}
+\section{Constituant «Système de vérification - Greffe»}
+\subsection*{Description}
 \begin{description}
 	\item[\textbf{Rôle}:]
 			Outil permettant d'ajouter les fonctions de vérification directement à un
@@ -257,7 +253,6 @@ C'est aussi dans un but pédagogique nous avons choisi d'implémenter nous même
 		Taille faible et complexité élevé.
 \end{description}
 
-% \subsection{Justifications techniques.}
 
 \chapter{Fonctionnement dynamique}
 Cette section décrit le fonctionnement dynamique des composants selon les cas d'utilisations vu
@@ -305,9 +300,25 @@ dans la spécification technique des besoins.
 
 \chapter{Annexe}
 \label{chap:Annexe}
-
 \input{coding-convention.tex}
 
-\section{Modèle PHP}
-\label{section:php}
-\inputminted{php}{api.php}
+\section{API}
+\subsection{Script de génération}
+\label{api:gen}
+\begin{minted}{c}
+// Récupère les droits d'une licence à partir d'un fichier de
+// licence, renseigné par son chemin.
+char *hashWithSHA256(const char *string);
+
+// Génère une signature de dataToSign à partir de la clé privé asymétrique 
+//  privateKey. 
+char *generateSignature(const char *dataToSign, const char *privateKey);
+  
+// Encode une chaîne de caractères en base64
+char *encodeBase64(const char *string);
+\end{minted}
+
+\subsection{Système de vérification - Librairie}
+\label{api:lib}
+\inputminted{csharp}{lib.cs}
+
