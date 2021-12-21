@@ -10,30 +10,30 @@
 
 \chapter{Liste des points durs}
 
-\begin{itemize}
-	\item \textbf{Minimisation des risques de failles d'implémentations} \newline
+\begin{description}
+	\item[\textbf{Minimisation des risques de failles d'implémentations}]
 	Étant donné notre manque d'expérience dans les domaines des gestionnaires de licences
 	et de la greffe de code, notre incapacité à la minimisation des failles d'implémentation est un risque élevé.\newline
 	
-	\item \textbf{Programmation de l'algorithme de signature ElGamal} \newline
+	\item[\textbf{Programmation de l'algorithme de signature ElGamal}]
 	L'un des points les plus importants est la signature, la principale difficultée ici est de créer une signature unique grâce à 
 	l'algorithme de signature ElGamal que nous devront coder "à la main" afin d'alléger au maximum l'exécutable de verification de licence.	\newline
 	
-	\item \textbf{Obfuscation du code} \newline
+	\item[\textbf{Obfuscation du code}]
 	L'obsfuscation de code est un élément essentiel car le but de notre projet est de protéger des logiciels du cracking. 
 	Le risque majeur ici est de ne pas suffisamment obfusquer le code et donc de le rendre facilement accessible.\newline
 	
-	\item \textbf{Utilisation du C pour une DLL ou développement} \newline
+	\item[\textbf{Utilisation du C pour une DLL ou développement}]
 	L'utilisation du langage C est l'un de nos choix en remplacement du C++ et C\# même si celui-ci possède moins d'utilitaires 
 	que les autres, et est par conséquent plus assujetti aux failles d'implémentation.\newline
 	
-	\item \textbf{Injection de Code dans un PE} \newline
+	\item[\textbf{Injection de Code dans un PE}]
 	L'injection de code peut, si elle est mal implémentée laisser des failles facilement utilisables pour des personnes malintentionnées.\newline
 	
-	\item \textbf{Respect des échéances} \newline
+	\item[\textbf{Respect des échéances}]
 	Nous avons pris du retard dans la production de tous les documents demandés, dû à des délais de remise de travail demandé ainsi qu'aux 
 	difficultées rencontrées quant à l'organisation de réunion entre membres du projet.\newline
-\end{itemize}
+\end{description}
 
 \chapter{Evalutaion du contexte}
 
@@ -112,12 +112,42 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 \end{itemize}
 
 \chapter{Ordonner les points durs}
+
+En considérons deux échelles d'évaluation de risques, à savoir de gravité et de probabilité, nous pouvons
+trier les risques par ordre d'importance en terme d'impacte sur le projet. Les risques avec le plus d'impacte
+seront ceux sur lesquels nous devront nous attarder afin d'en minimiser la probabilité d'apparition et les 
+conséquences en cas d'apparition.\\
+
+L'échelle de probabilité se présente ainsi :\\
 \begin{enumerate}
-	\item Injection de Code dans un PE
+	\item{Très peu probable}
+	\item{Rare, peu probable}
+	\item{Risque occasionnel, peut se réaliser}
+	\item{Risque fréquent, a de fortes probabilités de se réaliser}
+\end{enumerate}
+
+\bigskip
+
+L'échelle de gravité se présente ainsi :\\
+\begin{enumerate}
+	\item{Mineures, insignifiantes}
+	\item{Gravité modéré}
+	\item{Majeures, significatives}
+	\item{Importantes, catastrophiques}
+\end{enumerate}
+
+\bigskip
+
+Le détail de chacune des évaluations des risques est disponible dans la partie \ref{chapter:bilan}.\newline
+En faisant le produit des deux échelles pour chacun des risques, nous obtenons un classement
+de ces derniers en fonction de leurs importance.\\
+
+\begin{enumerate}
 	\item Minimisation des risques de failles d'implémentation
-	\item Obfuscation du code
-	\item Gestion du temps
+	\item Obfuscation du code  
+	\item Injection de Code dans un PE
 	\item Algorithme de signature ElGamal
+	\item Non respect des délais de rendu
 	\item Utilisation du C et interfaçage avec du C\# 
 \end{enumerate}
 
@@ -166,6 +196,7 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 \end{description}
 
 \chapter{Top cinq des risques (Bilan)}
+\label{chapter:bilan}
 
 \begin{table}[!h]
     \small
@@ -176,36 +207,36 @@ Nous nous connaissions déjà et communication facile lors des réunions.
 	Failles d'implémentation 
 		& Cracking du logiciel et de son injection 
 		& Perte de controle du logicel et Insatisfaction du client 
-		& Critique 
-		& Forte 
+		& 4
+		& 4 
 		& Effectuer des tests unitaires sur les logiciels et les exécutables.\\
 	\hline
 	Échec de l'injection de code 
 		& Que la complexité de la tâche soit trop élevée et que l'objecif ne soit pas atteint 
 		& Insatisfaction client / Perte de temps et d'énergie 
-		& Modéré 
-		& Très forte 
+		& 2 
+		& 3 
 		& Effectuer une preuve de concept avant le début de la phase de développement.\\
 	\hline
 	Signature ElGamal 
 		& Complications lors de l'accès au logicel 
 		& Impossible d'utliser le logicel / Objectif injection de code non atteint 
-		& Fort pour l'injection 
-		& Forte 
+		& 3
+		& 2 
 		& Effectuer une preuve de concept au plus tôt.\\
 	\hline
 	Obfuscation du code 
 		& Cracking du logiciel et de son injection 
 		& Perte de controle du logicel d'injection de code 
-		& Important 
-		& Très forte 
+		& 4
+		& 2
 		& Effectuer des tests unitaire sur les logiciels et les exécutables.\\
 	\hline
 	Respect des échéances 
 		& Manque de temps pour un rendu complet 
 		& Prise de retard par rapport aux TP de Gestion de Projet
-		& Important 
-		& Forte 
+		& 3
+		& 1 
 		& S’organiser et séparer efficacement les tâches pour bien gérer le travail.\\
 	\hline	    
     \end{tabular}
