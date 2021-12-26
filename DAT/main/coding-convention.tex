@@ -58,16 +58,19 @@ Les \mintinline{c}{goto} sont interdits.
 
 \subsection{Commentaires}
 Les commentaires ne doivent pas qu’uniquement formuler en texte ce qui est traduit
-dans le langage de programmation (qui se doit d'être lisible) : \newline
+dans le langage de programmation (qui se doit d'être lisible) :
+
 Ils apportent une réelle plus-value dans la compréhension du programme ou doivent
 attirer l’attention du mainteneur sur certains choix réalisés. Les commentaires seront 
-rédigés en anglais. \newline
+rédigés en anglais.
+
 Un commentaire doit être sur une seule ligne (ne peut pas être sur la même ligne 
 que du code).
  
 \subsection{Nommages}
-La définition des constantes seront en majuscules séparé par des underscores.\newline
-Pour la définition d'un type, d'une structure ou d'une classe la notation 'PascalCase'
+La définition des constantes seront en majuscules séparé par des underscores.
+
+Pour la définition d'un type, d'une structure ou d'une classe la notation "PascalCase"
 sera utilisé: 
 \begin{minted}{c}
 typedef struct 
@@ -78,14 +81,14 @@ SuperComplexDataType;
 \end{minted}
 
 Pour les variables et les fonctions les noms devront être significatifs et 
-pertinents.\newline
+pertinents.
+
 Ils sont constitués uniquement des caractères non accentués suivants: 
-[a-z], [A-Z], [0-9]\newline
-Avec les restrictions suivantes :
+[a-z], [A-Z], [0-9], avec les restrictions suivantes :
 \begin{itemize}
 	\item Le nom ne doit pas commencer par un chiffre.
 	\item Le nom ne peut pas avoir de caractères "underscore".
-	\item Les noms doivent être en 'camelCase', en Anglais.
+	\item Les noms doivent être en "camelCase", en Anglais.
 	\item Les noms ne peuvent pas commencer par des majuscules exception faite
           des acronymes (voir plus bas).
 \end{itemize}

@@ -91,7 +91,9 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	Un utilisateur pourra s'inscrire via une interface afin de pouvoir obtenir une licence qui lui permettra d'utiliser le logiciel souhaité. (étape I)
 	Sur cette même interface il pourra choisir le logiciel dont il souhaite obtenir une licence et en effectuer la demande.
 	\item \textbf{Génération de la licence} \newline
-	Une fois inscrit, si le client a validé la demande de licence (voir 5.2.1), l'utilisateur devra télécharger un outil, depuis la plateforme, afin de générer la licence. (étape III)
+        Une fois inscrit, si le client a validé la demande de licence (voir \ref{spec:client}),
+        l'utilisateur devra télécharger un outil, depuis la plateforme, afin de générer la
+        licence. (étape III)
 	\item \textbf{Utilisation du logiciel avec la licence} \newline
 	La licence obtenue, l'utilisateur pourra alors débloquer le logiciel protégé qu'il souhaite utiliser en lui renseignant sa licence. (étape IV)
 \end{itemize}
@@ -99,6 +101,7 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 \section{Partie client}
 
 \begin{itemize}
+    \label{spec:client}
 	\item \textbf{Activation d'un compte et gestion des droits} \newline
 	Lorsque qu'un utilisateur se créera un compte et effectuera une demande de licence, notre client pourra, ou non, 
 	répondre à sa demande et lancer la génération de licence via son interface administrateur (étape II)
@@ -274,7 +277,13 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
     \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|}
+    \begin{tabular}{
+        |>{\raggedright\arraybackslash}m{1.5cm}
+        |>{\raggedright\arraybackslash}m{1.9cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{7cm}
+        |}
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
@@ -289,7 +298,13 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
     \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+    \begin{tabular}{
+        |>{\raggedright\arraybackslash}m{1.5cm}
+        |>{\raggedright\arraybackslash}m{1.9cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{7cm}
+        |}
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
@@ -299,16 +314,23 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 	\hline
     \end{tabular}
 \end{table}
+\newpage
 
 \subsection{Démarrage du logiciel protégé}
 
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
     \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+    \begin{tabular}{
+        |>{\raggedright\arraybackslash}m{1.5cm}
+        |>{\raggedright\arraybackslash}m{1.9cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{7cm}
+        |}
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
-	    \textbf{RG\#3.1} & Démarrage logiel protégé & Chemin valide vers un fichier & Démarrage du logiciel si la licence est valide, message d'erreur sinon & L'utilisateur tente d'ouvrir le logiciel protégé pour lequel il a demandé (ou non) une licence. Le système de vérification de licence se lance et effectue la vérification sur le fichier que l'utilisateur lui fourni \\
+	    \textbf{RG\#3.1} & Démarrage logiciel protégé & Chemin valide vers un fichier & Démarrage du logiciel si la licence est valide, message d'erreur sinon & L'utilisateur tente d'ouvrir le logiciel protégé pour lequel il a demandé (ou non) une licence. Le système de vérification de licence se lance et effectue la vérification sur le fichier que l'utilisateur lui fourni \\
     \hline
     \end{tabular}
 \end{table}
@@ -317,7 +339,13 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
     \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+    \begin{tabular}{
+        |>{\raggedright\arraybackslash}m{1.5cm}
+        |>{\raggedright\arraybackslash}m{1.9cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{7cm}
+        |}
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
@@ -332,11 +360,17 @@ Cette section décrit comment l'utilisateur pourra intéragir avec notre outil. 
 
 \begin{table}[!h] % <-- Super important in order to anchor at the top of the document
     \small
-    \begin{tabular}{|m{1.5cm}|m{1.9cm}|m{2.5cm}|m{2.5cm}|m{7cm}|} 
+    \begin{tabular}{
+        |>{\raggedright\arraybackslash}m{1.5cm}
+        |>{\raggedright\arraybackslash}m{1.9cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{2.5cm}
+        |>{\raggedright\arraybackslash}m{7cm}
+        |} 
 	\hline
 	    \textbf{ID} & \textbf{Action} & \textbf{Entrée} & \textbf{Sortie} & \textbf{Description} \\
 	\hline
-	    \textbf{RG\#5.1} & Connexion au gestionnaire de licence & Identifiant \& Mot de passe administrateur & Plateforme de gestion  des demande de licences utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
+	    \textbf{RG\#5.1} & Connexion au gestionnaire de licence & Identifiant \& mot de passe administrateur & Plateforme de gestion  des demande de licences utilisateurs & La plateforme permet un paramétrage et des modifications des licences en fonction des licences accordées à l'utilisateur contenu dans la base de données\\
 	\hline
 	    \textbf{RG\#5.2} & Paramétrage  des licences& Identifiants utilisateur \&  logiciel demandé & Notification utilisateur après le paramétrage de la licence par l'administrateur & Notification et message informatif pour l'utilisateur et l'administrateur quant aux modifications apportées après la mise à jour de la base de données grâce au paramétrage\\
 	\hline	    
