@@ -50,10 +50,17 @@ des licences.
     \item Analyse des risques
 \end{itemize}
 
-\chapter{Terminologie}
+%\chapter{Terminologie}
 
 \chapter{Plan de qualité}
 
+Le projet ayant pour but de créer un outil de protection et de gestion des licences, la sécurité
+est l'objectif principale. Et donc afin de fournir une solution fiable nous devons appliquer un
+plan de qualité qui permettra de s'assurer que l'on répond aux exigences du client, en termes de
+fonctionnalités et de sécurité.
+
+Les différentes parties de l'outil à tester sont les suivantes :
+\section{Application web}
 La solution mise en place pour le projet est majoritairement une application web et 
 peut donc être vulnérable faces aux attaques courante comme celles-ci:
 \begin{itemize}
@@ -62,11 +69,35 @@ peut donc être vulnérable faces aux attaques courante comme celles-ci:
     \item Injections SQL.
     \item ...
 \end{itemize}
+\medskip
 Afin de prévenir ce genre d'attaques nous allons effectuer une série de tests afin de 
 détecter, puis de corriger ces failles de vulnérabilité. Nous pourrons entre autre 
 effectuer des tests d'intrusion sur la plateforme, des tests de charges afin de 
-s'assurer que le site supportera une attaque de type DDOS 
-(Distributed Denial of Service). 
+s'assurer que le site supportera une attaque de type DDOS (Distributed Denial of Service). 
+
+\section{Génération/vérification de la licence}
+Une licence sert à protéger un logiciel d'une utilisation non consentie par son propriétaire.
+Donc notre outil doit pouvoir générer et vérifier l'authenticité d'une licence sans que celle
+ci puisse être reproduite ou falsifiée afin de garantir que seul le propriétaire de cette licence
+pourra utiliser ce logiciel.
+
+L'authenticité d'une licence est garantie par la signature électronique. Si l'on choisit les bons
+algorithme de signature, il est impossible même avec une énorme capacité de calcul de reproduire
+une signature électronique et donc d'obtenir une fausse licence pour un logiciel.
+
+Ce qui doit être sécurisé est donc tout ce qui vient autour de cette signature : activation de la
+licence, plateforme de gestion des licences, transfert des données sensibles avec la plateforme,
+méthode de vérification de la licence etc...
+
+\section{Protection du code source}
+Toujours afin de garantir la propriété intellectuelle au propriétaire du logiciel, il faut aussi
+faire en sorte que l'on ne puisse pas déterminer le fonctionnement interne du logiciel voire même
+retrouver le code source de celui-ci. Cela passera par l'obfuscation du code.
+
+Pour tester l'efficacité de l'obfuscation du code d'un logiciel, nous pourrons définir une
+personne chargé de développer l'obfuscateur et une autre qui pourra tenter à l'aide de méthode
+de reverse engineering de retrouver le plus d'informations possibles sur le code original.
+Comme cela nous pourrons au fur et à mesure améliorer la protection du code source.
 
 \chapter{Environnement de test}
 
@@ -485,7 +516,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\chapter{Jeux de données de test}
+%\chapter{Jeux de données de test}
 
 \chapter{Couverture de test}
 
