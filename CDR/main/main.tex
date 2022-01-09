@@ -94,10 +94,15 @@ Toujours afin de garantir la propriété intellectuelle au propriétaire du logi
 faire en sorte que l'on ne puisse pas déterminer le fonctionnement interne du logiciel voire même
 retrouver le code source de celui-ci. Cela passera par l'obfuscation du code.
 
-Pour tester l'efficacité de l'obfuscation du code d'un logiciel, nous pourrons définir une
-personne chargé de développer l'obfuscateur et une autre qui pourra tenter à l'aide de méthode
-de reverse engineering de retrouver le plus d'informations possibles sur le code original.
-Comme cela nous pourrons au fur et à mesure améliorer la protection du code source.
+Dans un premier temps l'obfuscation sera utilisé afin de cacher dans le code l'étape (ou les
+étapes) de vérification de la licence, pour éviter qu'un utilisateur puisse modifier l'éxécutable
+de sorte à éviter cette vérification (simple \verb:jmp:). Dans un second temps, on pourra envisager
+de développer un obfuscateur de code C\# ou même d'un PE Windows.
+
+Pour tester l'efficacité de l'obfuscation d'un code, nous pourrons définir une personne chargé
+de développer l'obfuscateur et une autre qui pourra tenter à l'aide de méthode de reverse
+engineering de retrouver le plus d'informations possibles sur le code original. Comme cela
+nous pourrons au fur et à mesure en améliorer la protection.
 
 \chapter{Environnement de test}
 
@@ -118,10 +123,9 @@ des tests par rapport à l'interface avec l'utilisateur. Le logiciel d'activatio
 d'être utilisé sur Windows et le développement de son interface se fera à l'aide d'un outil Windows
 (probablement en C\# avec Visual Studio).
 
-Tous les tests concernant le logiciel d'activation se
-feront donc sur Windows, de préférence sur plusieurs versions. Windows 10 et 11 pourront être
-testés facilement, et selon si l'on dispose des machines necéssaires, Windows 7 et 8 pourront être
-testés.
+Tous les tests concernant le logiciel d'activation se feront donc sur Windows, de préférence
+sur plusieurs versions. Windows 10 et 11 pourront être testés facilement, et selon si l'on dispose
+des machines necéssaires, Windows 7 et 8 pourront être testés.
 
 \section{Système de vérification}
 Le système de vérification de licence devra être testé sur plusieurs systèmes. En effet, la
@@ -129,6 +133,7 @@ génération d'une licence sera effectué côté serveur, donc sur un système L
 vérification, elle, sur un système Windows.
 
 Il faudra donc testés les 2 cas, encore une fois sur plusieurs machines/versions.
+\newpage
 
 \section{Outils de test}
 Les outils que nous mettront en oeuvre pour nous aider à effectuer et gérer les tests sont les
@@ -136,6 +141,7 @@ suivants :
 \begin{itemize}
     \item MantisBT,
     \item Validateur HTML/CSS de W3C.
+    \item Jupiter (ou autre API de test pour les applications webs Java)
 \end{itemize}
 
 \section{Jeu de données}
@@ -145,11 +151,15 @@ CSV ou d'une base de donnée MySQL.
 \chapter{Responsabilités}
 Les responsabilités des tests seront d'abord réparties selon la répartiton des tâches, chacun
 devra donc écrire des tests pour les modules qu'il développe et se créer ses propres données
-de test.
+de test.\newline
 
 Puis lors de la phase d'intégration, un journal de test sera régulierement mis à jour
 afin de répertorier les bugs et les régressions de la solution et ainsi identifier plus      
-facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la résolve.
+facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la résolve.\newline
+
+Pour les erreurs ou bugs qui ne proviennent pas d'une seule personne ou bien dont la source
+n'est pas identifié, la personne la plus apte à régler cette erreur ou bien un membre du groupe
+en avance sur ses tâches pourra s'en occuper.
 
 
 \chapter{Stratégie de tests}
@@ -158,14 +168,15 @@ facilement la source de l'erreur et en trouver l'auteur afin que celui-ci la ré
 \label{section:dem_gen}
 Nous avons choisi d'utiliser MantisBT (Mantis Bug Tracker) qui est un logiciel gratuit
 et open source afin de répertorier les bugs, celui-ci permet d'enregistrer la déclaration
- d'un bug, et d'affecter quelqu'un à sa résolution. Ce dernier pourra alors rendre compte de
+d'un bug, et d'affecter quelqu'un à sa résolution. Ce dernier pourra alors rendre compte de
 l'avancement de sa résolution, jusqu'à sa clôture. Le déclarant de l'anomalie peut  
 s'informer à tout moment via le serveur Web de l'avancement du traitement de 
 son problème.  
 
 \section{Campagne de test}
 Les tests seront lancés après chaque modification sur un module ou plusieurs modules, sur
-le serveur de test.
+le serveur de test. Pour ne pas nous surcharger en travail nous essaierons d'automatiser un
+maximum de ces tests.
 
 \section{Tests de l'application web}
 
@@ -195,22 +206,23 @@ Afin de tester que le modèle et le contrôleur du modèle MVC fonctionne correc
 nous allons mettre en place les procédures suivantes :
 \begin{itemize}
     \item réalisation de tests unitaires sur le modèle et le contrôleur via 
-          un script de test écrit en PHP, celui-ci pourra être lancer après 
-          chaque mise à jour. Il utilisera les informations contenues dans la  
+          un script de test ou via l'outil Jupiter, ceux-ci pourront être lancer après 
+          chaque mise à jour. Ces tests utiliseront les informations contenues dans la  
           base de données de test.
         
     \item test de l'API Rest du logiciel d'activation via un script bash 
           utilisant la commande curl avec le jeu de données de la base de test.
         
     \item test du programme de génération de licence via un script bash qui
-          utiilisera les données de test.
+          utilisera les données de test.
 \end{itemize}
 
 \subsection{Sécurité}
-Il faudra prêter une attention particulière à la sécurité de notre plateforme afin de garantir un système
-de gestion et protection de licences fiable (voir Analyse des risques).
+Il faudra prêter une attention particulière à la sécurité de notre plateforme afin de garantir
+un système de gestion et protection de licences fiable (voir Analyse des risques).
 
-Par conséquent, afin d'en tester la robustesse nous allons effectuer différents types d'attaques sur notre site :
+Par conséquent, afin d'en tester la robustesse nous allons effectuer différents types d'attaques
+sur notre site :
 \begin{itemize}
     \item Injections XSS
     \item Injections SQL
@@ -221,12 +233,19 @@ Par conséquent, afin d'en tester la robustesse nous allons effectuer différent
 
 \section{Logiciel protégé}
 
-Une fois le projet suffisamment avancé pour pouvoir commencé à générer des licences et protéger des logiciels
-avec, il nous faudra procéder à des tests d'efficacité de celui-ci.
+Une fois le projet suffisamment avancé pour pouvoir commencé à générer des licences et protéger
+des logiciels avec, il nous faudra procéder à des tests d'efficacité de celui-ci.
 
-Également nous allons essayer d'obfusquer au maximum l'exécutable produit pour rendre le reverse engineering
-plus compliqué pour un attaquant. Il faudra donc que l'on se mette à la place de cet attaquant en essayant
-de retrouver des informations sur le logiciel en utilisant des techniques de reverse engineering.
+Il faudra aussi s'assurer que les vérifications de licence ajoutées au logiciel n'entraîne pas de
+ralentissement sur celui-ci. En effet, il ne faut pas que l'utilisateur ressente cette vérification
+pour ne pas influer sur son utilisation (latences, bloquages), et aussi pour ne pas qu'un
+utilisateur mal intentionné puisse déduire la fréquence des vérifications ou encore les étapes
+qui en entraînent une.\newline
+
+Également nous allons essayer d'obfusquer au maximum l'exécutable produit pour rendre le reverse
+engineering plus compliqué pour un attaquant. Il faudra donc que l'on se mette à la place de cet
+attaquant en essayant de retrouver des informations sur le logiciel en utilisant des techniques
+de reverse engineering.
 
 
 \chapter{Gestion des anomalies}
@@ -245,7 +264,11 @@ pouvoir identifier la source et l'auteur des anomalies.
 
 \chapter{Procédure de test}
 
-\section{Procédure de test du CA1}
+\section{Procédure selon les cas d'utilisations}
+Cette section décrit les différentes procédures de tests que l'on mettra en place pour vérifier
+le fonctionnement qui est attendu selon chaque cas d'utilisations.
+
+\section*{Procédure de test du CA1}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -286,7 +309,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\section{Procédure de test du CA2}
+\section*{Procédure de test du CA2}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -339,7 +362,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\section{Procédure de test du CA3}
+\section*{Procédure de test du CA3}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -389,7 +412,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\section{Procédure de test du CA4}
+\section*{Procédure de test du CA4}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -433,7 +456,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\section{Procédure de test du CA5}
+\section*{Procédure de test du CA5}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -474,7 +497,7 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
-\section{Procédure de test du CA6}
+\section*{Procédure de test du CA6}
 \begin{table}[!h]
         \centering
         \begin{tabular}{|m{0.6cm}|
@@ -516,15 +539,162 @@ pouvoir identifier la source et l'auteur des anomalies.
 \end{table}
 \newpage
 
+\section{Procédure de tests de sécurité}
+Cette section décrit les procédures que l'on mettra en place pour vérifier et garantir la
+sécurité de notre projet.
+
+\section*{Sécurité de l'application}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{0.6cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6.4cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Application serveur
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version    
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                Trouver les failles de sécurité afin de les régler} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n°}7 - Test d'intrusion
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exigences & OK / NOK \\
+            \hline      % start of the array
+            1 & Le testeur devra effectuer une liste de tests d'intrusion
+                (injections, broken access control...) définie au préalable.
+                Cette liste devra être mis à jour régulièrement pour effectuer
+                le maximum de tests. Un script pourra être écrit afin de rendre
+                cette tache automatique et renvoyer un rapport.
+              & Selon les résultats trouvés ou selon le rapport, le testeur pourra
+                notifier une faille sur le journal des anomalies (MantisBT) afin
+                qu'elle soit réglée.
+              & Exigence de sécurité vérifiée & \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n°}8 - Test de charge
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exigences & OK / NOK \\
+            \hline      % start of the array
+            1 & Régulièrement, un test de charge devra être effectuer sur
+                le serveur de l'application afin de savoir la quantité de
+                requêtes qu'il peut supporter.
+              & Selon le résultat de ce test, la configuration du serveur
+                pourra être modifié, pour augmenter le nombre de requêtes
+                possibles, ou bien des mesures pourront être mises en
+                places pour limiter le nombre de requêtes possibles par
+                exemple.
+              & Exigence de sécurité vérifiée & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab6}
+\end{table}
+\newpage
+
+\section*{Évaluation de la protection d'un logiciel}
+\begin{table}[!h]
+        \centering
+        \begin{tabular}{|m{0.6cm}|
+                         >{\raggedright\arraybackslash}m{4cm}|
+                         >{\raggedright\arraybackslash}m{6.4cm}|
+                         >{\raggedright\arraybackslash}m{2cm}|
+                         m{1cm}|}
+            \hline
+            \multicolumn{3}{|c|}{
+                \textbf{Objet testé: } Logiciel protégé
+            } & \multicolumn{2}{|c|}{
+                \textbf{Version: } version
+            } \\
+            \hline
+            \multicolumn{5}{|c|}{\textbf{Objectifs de test:} 
+                Évaluer la protection du logiciel cible} \\
+            \hline
+            \multicolumn{5}{|c|}{
+                \textbf{Procédure n°}9 - Reverse-engineering
+            } \\
+            \hline
+            N° & Actions & Résultats attendus & Exigences & OK / NOK \\
+            \hline      % start of the array
+            1 & Le testeur devra tenter de retrouver un maximum d'informations
+                possibles sur le logiciel cible et la manière dont il est
+                protégé par la licence. Il pourra utiliser tous les outils
+                qu'il souhaite : décompileur, dé-assembleur, désobfuscateur.
+              & Selon la quantité d'informations retrouvée par le testeur,
+                nous devrons faire en sorte d'obscussir plus ce qui a été
+                retrouvé.\newline
+
+                \emph{Note : le fait est qu'il est impossible de cacher
+                100\% du code source, il y a forcément des informations
+                que l'on peut extraire. L'objectif ici est principalement
+                d'éviter qu'un utilisateur contourne la vérification de
+                la licence, ou retrouve des informations sensibles (clé
+                de chiffrement...).}
+              & Exigence de sécurité vérifiée & \\
+            \hline
+        \end{tabular} 
+        \label{tab:tab6}
+\end{table}
+\newpage
 %\chapter{Jeux de données de test}
 
 \chapter{Couverture de test}
 
 \begin{table}[!h]
     \centering
-    \begin{tabular}{|l|l|l|l|}
+    \vspace{-0.3cm}
+    \begin{tabular}{| >{\raggedright\arraybackslash}m{0.15\textwidth}
+                    | >{\raggedright\arraybackslash}m{0.30\textwidth}
+                    | >{\raggedright\arraybackslash}m{0.13\textwidth}
+                    | >{\raggedright\arraybackslash}m{0.33\textwidth} |}
         \hline
             \textbf{Exigences STB} & \textbf{Méthode de vérification} & \textbf{Procédures utilisées} & \textbf{Commentaire} \\
+        \hline
+            Plateforme de gestion fonctionnel
+            & Tests unitaires sur le modèle, puis tests d'intégration sur l'ensemble de la
+            plateforme
+            & 1, 2, 5 et 6
+            & \emph{Outils :} Jupiter \\
+        \hline
+            Logiciel d'activation fonctionnel
+            & Test de l'interface et du bon fonctionnement de l'activation (licence active dans
+            la BDD et possibilité de lancer le logiciel)
+            & 3
+            & Le protocole HTTPS garantit la confidentialité des données partagées, et
+            l'authenticité et garantit par la signature de la licence côté serveur \\
+        \hline
+            Vérification d'une licence
+            & Test de vérification, d'abord avec un script (bash), puis à l'aide des fonctions
+            que l'on aura implémentées (C/C\#)
+            & 4
+            & Les tests seront surtout pour la seconde partie, lorsque l'on créera les licences
+            avec nos propres fonctions. Au début nous utiliserons des outils comme \verb:openssl:
+            qui sont sûrs \\
+        \hline
+            Sécurité de l'application web
+            & Tests d'intrusion, injections, test de charges etc... Tester tout ce qu'il est
+            possible de faire pour exploiter les potentielles failles de sécurité
+            & 7 et 8
+            & Étant donné nos moyens pour ce projet, le test de charge ne pourra se faire
+            qu'avec quelques machines. Mais le projet ne sera pas disponible sur Internet,
+            il sera uniquement accessible depuis le réseau de la fac, donc c'est suffisant. \\
+        \hline
+            Sécurité de la protection via le système de licence
+            & Reverse-engineering, tentative d'éviter la vérification etc...
+            & 9
+            & Décompileur, dé-assembleur, désobfuscateur \\
+        \hline
+            Compatibilié avec Windows (plusieurs versions)
+            & Tests de l'ensemble de l'application sur plusieurs systèmes/versions de Windows
+            & Toutes les procédures
+            & L'environnement de développement utilisé sera dans la plupart des cas Linux, donc
+            des tests de compatibilité à tous les niveaux sont nécéssaires \\
         \hline
     \end{tabular}
     \label{tab:tab7}
