@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<!-- Ressource mapping -->
+	<servlet>
+		<servlet-name>ressource</servlet-name>
+		<servlet-class>Controller.RessourceController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ressource</servlet-name>
+		<url-pattern>/ressource</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Ressource printing mapping -->
+	<servlet>
+		<servlet-name>ressource-printer</servlet-name>
+		<servlet-class>Controller.RessourcePrinter</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ressource-printer</servlet-name>
+		<url-pattern>/ressource-printer</url-pattern>
+	</servlet-mapping>
+
+	<!-- Home mapping -->
+	<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>Controller.HomeController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- Login mapping -->
+	<servlet>
+		<servlet-name>login</servlet-name>
+		<servlet-class>Controller.LoginController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>login</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<!-- Register mapping -->
+	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>Controller.RegisterController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattern>/register</url-pattern>
+	</servlet-mapping>
+
+	<!-- Panel mapping -->
+
+	<servlet>
+		<servlet-name>PanelController</servlet-name>
+		<servlet-class>Controller.PanelController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PanelController</servlet-name>
+		<url-pattern>/PanelController</url-pattern>
+	</servlet-mapping>
+
+	<!-- Error Mapping -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/errors/NotFound404.jsp</location>
+	</error-page>
+	
+	<!-- Filter Mapping -->
+	<filter>
+		<filter-name>filter</filter-name>
+		<filter-class>Parser.SecurityFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>  
+	
+	<!-- CSS & JS -->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
