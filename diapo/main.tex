@@ -30,6 +30,21 @@
 
 \section{Présentation du sujet}
 
+\begin{frame}{Intitulé}
+    \centerline{\textbf{Protection et gestion des licences}}
+    \medskip
+    \pause
+    \emph{Objectifs :}
+    \pause
+    \begin{itemize}
+        \item Génération et vérification des licences
+        \pause
+        \item Plateforme de gestion pour le client, de demande pour les utilisateurs
+        \pause
+        \item Protection des logiciels du client
+    \end{itemize}
+\end{frame}
+
 \section{Analyse fonctionnel}
 
 \begin{frame}{Cas d'utilisations}
@@ -39,12 +54,51 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}{Exigences}
+    \begin{itemize}
+        \item Sécurité
+    \end{itemize}
+    \begin{tikzpicture}
+        \draw (0,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Chiffrement};
+        \draw (3,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{PBKDF};
+        \draw (7,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Base de données};
+        \draw (11,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Obfuscation};
+    \end{tikzpicture}
+    \pause
+
+    \begin{itemize}
+        \item Maintenabilité
+    \end{itemize}
+    \begin{tikzpicture}
+        \draw (5,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Documentation};
+        \draw (10,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Charte de code};
+    \end{tikzpicture}
+    \pause
+
+    \begin{itemize}
+        \item Compatibilité Windows
+    \end{itemize}
+     \begin{tikzpicture}
+        \draw (3,0) ellipse (2cm and 0.5cm) node[black,fill=white]{Tests sur Windows};
+        \draw (7,0) ellipse (1.2cm and 0.5cm) node[black,fill=white]{DLL};
+        \draw (10,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Injection PE};
+    \end{tikzpicture}
+\end{frame}
+
 \section{Solution technique}
 
-\begin{frame}{Architecture logicielle}
+\begin{frame}{Architecture logicielle - Serveur}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.4]{img/DAT_general.png}
+        \includegraphics[scale=0.7]{img/DAT-server.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Architecture logicielle - Client}
+    \begin{figure}
+        \centering
+        \vspace{-0.8cm}
+        \includegraphics[scale=0.72]{img/DAT-client.png}
     \end{figure}
 \end{frame}
 
@@ -57,21 +111,21 @@
 \begin{frame}{Affectation des rôles}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{img/schema_role_projet.png}
+        \includegraphics[scale=0.55]{img/schema_role_projet.png}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Découpage des tâches}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.2]{img/organi.png}
+        \includegraphics[scale=0.18]{img/organi.png}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Diagramme de Gantt}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.2]{img/Gantt.png}
+        \includegraphics[scale=0.22]{img/Gantt.png}
     \end{figure}
 \end{frame}
 
