@@ -57,32 +57,35 @@
 \begin{frame}{Exigences}
     \begin{itemize}
         \item Sécurité
-    \end{itemize}
-    \begin{tikzpicture}
-        \draw (0,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Chiffrement};
-        \draw (3,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{PBKDF};
-        \draw (7,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Base de données};
-        \draw (11,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Obfuscation};
-    \end{tikzpicture}
-    \pause
-
-    \begin{itemize}
+        \pause
         \item Maintenabilité
-    \end{itemize}
-    \begin{tikzpicture}
-        \draw (5,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Documentation};
-        \draw (10,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Charte de code};
-    \end{tikzpicture}
-    \pause
-
-    \begin{itemize}
+        \pause
         \item Compatibilité Windows
     \end{itemize}
-     \begin{tikzpicture}
-        \draw (3,0) ellipse (2cm and 0.5cm) node[black,fill=white]{Tests sur Windows};
-        \draw (7,0) ellipse (1.2cm and 0.5cm) node[black,fill=white]{DLL};
-        \draw (10,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Injection PE};
-    \end{tikzpicture}
+\end{frame}
+
+%    \begin{tikzpicture}
+%        \draw (0,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Chiffrement};
+%        \draw (3,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{PBKDF};
+%        \draw (7,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Base de données};
+%        \draw (11,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Obfuscation};
+%    \end{tikzpicture}
+%    \begin{tikzpicture}
+%        \draw (5,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Documentation};
+%        \draw (10,0) ellipse (1.8cm and 0.5cm) node[black,fill=white]{Charte de code};
+%    \end{tikzpicture}
+%     \begin{tikzpicture}
+%        \draw (3,0) ellipse (2cm and 0.5cm) node[black,fill=white]{Tests sur Windows};
+%        \draw (7,0) ellipse (1.2cm and 0.5cm) node[black,fill=white]{DLL};
+%        \draw (10,0) ellipse (1.5cm and 0.5cm) node[black,fill=white]{Injection PE};
+%    \end{tikzpicture}
+
+\begin{frame}{Fonctionnement globale}
+    \begin{figure}
+        \centering
+        \vspace{-0.1cm}
+        \includegraphics[scale=0.58]{img/STB.png}
+    \end{figure}
 \end{frame}
 
 \section{Solution technique}
@@ -102,9 +105,42 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}{Solutions techniques}
+    Solutions apportées en réponse aux exigences techniques :
+    \begin{description}
+        \item[Plateforme sûre : ] chiffrement, serveur d'authentification, PBKDF,
+            sécurisation des bases de données, API Rest avec utilisation de tokens
+        \item[Génération et vérification de licence : ] signature (El Gamal), obfuscation
+        \item[Maintenabilité : ] documentation, charte de code
+    \end{description}
+\end{frame}    
+
 \section{Risques}
 
+\begin{frame}{Risques principaux}
+    \begin{itemize}
+        \item Minimiser les failles de sécurité
+            \begin{itemize}
+                \item Configuration de la BDD
+                \item Requêtes préparées
+                \item Chiffrement/hashage des données
+                \item Serveur d'authentification isolée (configuration)
+            \end{itemize}
+        \item Injection dans un PE
+        \item Protéger le produit final par l'obfuscation
+    \end{itemize}
+\end{frame}
+
 \section{Stratégie qualité} % en réponse aux risques
+
+\begin{frame}{Actions à mettre en place}
+    \begin{itemize}
+        \item Gestion des anomalies et journalisation des bugs : MantisBT
+        \item Tests d'intrusion
+        \item Serveur de tests
+        \item Jupiter (tests unitaires sur le modèle Java)
+    \end{itemize}
+\end{frame}
 
 \section{Organisation du projet} % + planning
 
