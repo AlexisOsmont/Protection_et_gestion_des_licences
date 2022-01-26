@@ -33,19 +33,25 @@
 \begin{frame}{Intitulé}
     \centerline{\textbf{Protection et gestion des licences}}
     \medskip
-    \pause
     \emph{Objectifs :}
-    \pause
     \begin{itemize}
         \item Génération et vérification des licences
-        \pause
         \item Plateforme de gestion pour le client, de demande pour les utilisateurs
-        \pause
         \item Protection des logiciels du client
     \end{itemize}
 \end{frame}
 
 \section{Analyse fonctionnel}
+
+\begin{frame}{Besoin du client}
+    Comment distribuer les logiciels que le client a développé ?
+    \begin{itemize}
+        \item Créer une licence unique pour une machine et un logiciel donné
+        \item Une plateforme commune au client et aux utilisateurs
+        \item Une libraire lui permettant d'intégrer la vérification à ses logiciels ou
+            un outil permettant de greffer automatiquement
+    \end{itemize}
+\end{frame}
 
 \begin{frame}{Cas d'utilisations}
     \begin{figure}
@@ -57,10 +63,10 @@
 \begin{frame}{Exigences}
     \begin{itemize}
         \item Sécurité
-        \pause
-        \item Maintenabilité
-        \pause
+        \medskip
         \item Compatibilité Windows
+        \medskip
+        \item Maintenabilité
     \end{itemize}
 \end{frame}
 
@@ -106,39 +112,53 @@
 \end{frame}
 
 \begin{frame}{Solutions techniques}
-    Solutions apportées en réponse aux exigences techniques :
-    \begin{description}
-        \item[Plateforme sûre : ] chiffrement, serveur d'authentification, PBKDF,
-            sécurisation des bases de données, API Rest avec utilisation de tokens
-        \item[Génération et vérification de licence : ] signature (El Gamal), obfuscation
-        \item[Maintenabilité : ] documentation, charte de code
-    \end{description}
-\end{frame}    
-
-\section{Risques}
-
-\begin{frame}{Risques principaux}
+    \textbf{Plateforme sûre :}
     \begin{itemize}
-        \item Minimiser les failles de sécurité
-            \begin{itemize}
-                \item Configuration de la BDD
-                \item Requêtes préparées
-                \item Chiffrement/hashage des données
-                \item Serveur d'authentification isolée (configuration)
-            \end{itemize}
-        \item Injection dans un PE
-        \item Protéger le produit final par l'obfuscation
+        \item Chiffrement (HTTPS)
+        \item Serveur d'authentification (isolement, configuration)
+        \item Hashage des mots de passe (PBKDF)
+        \item Sécurisation des bases de données (configuration, requêtes préparées)
+        \item API Rest (utilisation de tokens d'authentification)
     \end{itemize}
-\end{frame}
+    \textbf{Génération et vérification de licence :}
+    \begin{itemize}
+        \item Signature (El Gamal)
+        \item Obfuscation
+    \end{itemize}
+\end{frame}    
 
 \section{Stratégie qualité} % en réponse aux risques
 
-\begin{frame}{Actions à mettre en place}
+\begin{frame}{Stratégie adoptée}
+    \begin{columns}
+        \begin{column}{0.54\textwidth}
+            \textbf{Actions}
+            \begin{itemize}
+                \item Gestion et journalisation des bugs
+                \item Serveur de tests
+                \item Tests unitaires sur le modèle
+                \item Tests d'intégration
+                \item Tests d'intrusion
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.46\textwidth}
+            \textbf{Outils}
+            \begin{itemize}
+                \item MantisBT
+                \item Docker
+                \item Jupiter
+                \item À définir
+                \item Scripts automatiques
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Vérification des exigences}
     \begin{itemize}
-        \item Gestion des anomalies et journalisation des bugs : MantisBT
-        \item Tests d'intrusion
-        \item Serveur de tests
-        \item Jupiter (tests unitaires sur le modèle Java)
+        \item Définition d'un ordre de priorité sur les erreurs
+        \item Rapport concernant les problèmes/failles généré régulièrement
+        \item Charte de code et documentation pour un suivi et une maintenabilité du projet
     \end{itemize}
 \end{frame}
 
@@ -162,6 +182,16 @@
     \begin{figure}
         \centering
         \includegraphics[scale=0.22]{img/Gantt.png}
+    \end{figure}
+\end{frame}
+
+\section{Risques}
+
+\begin{frame}{Risques principaux}
+    \begin{figure}
+        \centering
+        \vspace{-2mm}
+        \includegraphics[scale=0.22]{img/risques.png}
     \end{figure}
 \end{frame}
 
