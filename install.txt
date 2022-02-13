@@ -1,0 +1,40 @@
+mkdir /opt/tomcat
+cd /opt/tomcat
+sudo wget https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.75/bin/apache-tomcat-8.5.75.tar.gz
+sudo tar -xf apache-tomcat-8.5.75.tar.gz
+apt-get install default-jdk
+echo -e "# add PATH variable for tomcat\nexport JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64\nexport CATALINA_HOME=/opt/tomcat/apache-tomcat-8.5.75" >> ~/.bashrc
+. ~/.bashrc
+sudo $CATALINA_HOME/bin/startup.sh
+mkdir /opt/tomcat/cert
+sudo openssl req -newkey rsa:4096 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+
+# Country Name (2 letter code) [AU]:FR
+# State or Province Name (full name) [Some-State]:France
+# Locality Name (eg, city) []:Rouen
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]:Université de Rouen
+# Organizational Unit Name (eg, section) []:M1-SSI
+# Common Name (e.g. server FQDN or YOUR name) []:srv-dpi-proj-gestlic-web.univ-rouen.fr
+# Email Address []:none@gmail.com
+
+sudo openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12 -password pass:GestionDeLicence
+sudo cp certificate.p12 ../apache-tomcat-8.5.75/
+
+# modify $CATALINA_HOME/conf/server.xml
+
+#    <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+#               maxThreads="150" SSLEnabled="true">
+#        <SSLHostConfig>
+#                <Certificate certificateKeystoreFile="${catalina.home}/certificate.p12"
+#                         certificateKeystorePassword="GestionDeLicence"
+#                         type="RSA" />
+#        </SSLHostConfig>
+#    </Connector>
+
+sudo $CATALINA_HOME/bin/shutdown.sh
+sudo $CATALINA_HOME/bin/startup.sh
+
+# go to https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/
+
+# upload a war
+scp <path/to/file>.war <you>@10.130.163.100:/opt/tomcat/apache-tomcat-8.5.75/webapps/ROOT.war
