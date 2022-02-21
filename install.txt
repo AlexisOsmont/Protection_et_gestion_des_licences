@@ -7,6 +7,7 @@ echo -e "# add PATH variable for tomcat\nexport JAVA_HOME=/usr/lib/jvm/java-1.8.
 . ~/.bashrc
 sudo $CATALINA_HOME/bin/startup.sh
 mkdir /opt/tomcat/cert
+cd cert
 sudo openssl req -newkey rsa:4096 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
 
 # Country Name (2 letter code) [AU]:FR
