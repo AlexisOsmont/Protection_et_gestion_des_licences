@@ -20,7 +20,7 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// serve the login page, first check is the session exist
+		// serve the login page, first check if the session exist
 		HttpSession session = request.getSession(false);
 		if (session == null) {
 			// if not create it
@@ -63,20 +63,21 @@ public class LoginController extends HttpServlet {
 	}
 	
 	// Generate ticket
-	private String generateTicket(String email, String password) {
+	private String generateTicket() {
 		
 		/*
 		// Create a SecureRandom object (Java CSPRNG)
-		SecureRandom sr = new SecureRandom();
-    	byte b[] = new byte[32];
-    	// Generate next 32 bytes in b
-    	sr.nextBytes(b);
-    	*/
+    	SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[32];
+    	// Generate next 32 bytes in bytes
+        random.nextBytes(bytes);
+        */
+    	
+		byte bytes[] = {20,10,30,5,40,50,70,80};
 		
-		byte b[] = {20,10,30,5,40,50,70,80};
     	// Encode into string value with base64
     	Encoder encoder = Base64.getUrlEncoder();
-    	return encoder.encodeToString(b);
+    	return encoder.encodeToString(bytes);
 	}
 	
 	private boolean isValidTicket(String ticket) {
@@ -102,7 +103,7 @@ public class LoginController extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
 				String url = (String)session.getAttribute("service");
-				response.sendRedirect(url + "?ticket=" + generateTicket(email, password));	
+				response.sendRedirect(url + "?ticket=" + generateTicket());	
 			}
 		} else {
 			// send an error
