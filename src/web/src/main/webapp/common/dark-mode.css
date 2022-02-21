@@ -1,0 +1,166 @@
+
+/* General tweaking of bootstrap is included in this file */
+
+body {
+	min-height: 100vh;
+	max-height: 100vh;
+}
+
+body .bg-white {
+	background-color: rgb(230, 230, 230) !important;
+}
+
+* .card {
+  background-color: inherit;
+  /* border-color: inherit; */
+}
+
+.card-body-thin {
+	position: absolute;
+	background: transparent;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.card-body-top {
+	font-weight: bold;
+	font-size: 18px;
+	flex-grow: 1;
+	color: #fff;
+}
+
+.card-boy-bottom {
+	flex-grow: 0;
+}
+
+/* Card */
+.card-shadow-effect:hover {
+ 	border: 1px solid var(--bs-blue);
+  box-shadow: 0 0 5px var(--bs-blue);
+}
+
+
+/* darkmode theme */
+
+/* Background */
+
+[data-theme="dark"] {
+  background-color: #222222 !important;
+  color: #eee;
+}
+
+[data-theme="dark"] .bg-black {
+  background-color: #fff !important;
+}
+
+[data-theme="dark"] .bg-dark {
+  background-color: #eee !important;
+}
+
+[data-theme="dark"] .bg-light {
+  background-color: #222222 !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: #111111 !important;
+}
+
+/* Navigation */
+
+[data-theme="dark"] .nav-link {
+  color: white !important;
+}
+
+[data-theme="dark"] .nav-link:hover {
+  color: rgba(136, 88, 237, 0.9) !important;
+}
+
+[data-theme=dark] .nav-pills .nav-link.active {
+  background-color: rgba(136, 88, 237, 0.9) !important;
+}
+
+/* Form */
+
+[data-theme="dark"] .form-check-input:checked {
+  background-color: rgba(136, 88, 237, 0.9) !important;
+  border-color: rgba(136, 88, 237, 0.9) !important;
+}
+
+[data-theme="dark"] .form-check-input:focus {
+  box-shadow: 0 0 0 .25rem gba(136, 88, 237, 0.5) !important;
+}
+
+[data-theme="dark"] .form-control {
+	background-color: rgb(17, 17, 17);
+	border: 1px solid #222;
+	color: #bbb
+}
+
+[data-theme="dark"] .form-control:focus {
+	border-color: #b98fd0;
+	box-shadow: 0 0 0 .25rem rgba(115,31,161,0.25);
+}
+
+[data-theme="dark"] label {
+  color: rgb(187, 187, 187);
+}
+
+/* Button */
+
+[data-theme="dark"] .btn-primary {
+  color: #fff;
+  background-color: rgba(136, 88, 237, 0.9);
+  border-color: rgba(136, 88, 237, 0.9);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  color: #fff;
+  background-color: rgba(118, 86, 185, 0.9);
+  border-color: rgba(118, 86, 185, 0.9);
+}
+
+[data-theme="dark"] .btn-secondary {
+  color: #fff;	
+  background-color: rgba(168, 139, 228, 0.9);
+  border-color: rgba(166, 136, 229, 0.9);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+  color: #fff;
+  background-color: rgba(140, 121, 180, 0.9);
+  border-color: rgba(162, 149, 189, 0.9);
+}
+
+/* link */
+[data-theme="dark"] a {
+  color: rgba(136, 88, 237, 0.9);
+}
+
+[data-theme="dark"] a:hover {
+  color: rgba(118, 86, 185, 0.9);
+}
+
+/* text */
+[data-theme="dark"] .text-white {
+  color: var(--bs-body-color) !important;;
+}
+
+[data-theme="dark"] hr {
+  color: white;
+}
+
+/* Card */
+
+[data-theme="dark"] .card-shadow-effect:hover {
+	border: 1px solid #b78bd2;
+  box-shadow: 0 0 5px #b78bd2;
+}
+
+[data-theme="dark"] .card {
+  background-clip: border-box;
+  border: 1px solid rgba(255,255,255,.125);
+  border-radius: .25rem;
+}
+
