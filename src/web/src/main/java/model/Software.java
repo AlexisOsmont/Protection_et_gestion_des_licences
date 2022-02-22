@@ -21,7 +21,7 @@ public class Software {
 	 * 
 	 * @return the id of the software object
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -46,7 +46,7 @@ public class Software {
 	 * 
 	 * @param id new id for this software
 	 */
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

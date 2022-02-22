@@ -1,14 +1,16 @@
 package DAO;
 
+import model.Client;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-import database.Database;
-import model.Client;
+import DBUtils.Database;
 
+// Client Data Access Object
 public class ClientDAO {
 	
 	// constants
@@ -21,7 +23,9 @@ public class ClientDAO {
 	
 	// SQL requests
 	
-	private static String GET_CLIENT = "SELECT * FROM " + TABLE_NAME + " WHERE " + EMAIL_FIELD + " = ?;";
+	private static String GET_CLIENT_BY_MAIL = "SELECT * FROM " + TABLE_NAME + " WHERE " + EMAIL_FIELD + " = ?;";
+
+    private static String GET_CLIENT_BY_ID   = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";
 	
 	private static String INSERT_CLIENT = "INSERT INTO " + TABLE_NAME
 										+ "(" + USERNAME_FIELD + ", " + EMAIL_FIELD + ")"
@@ -38,8 +42,16 @@ public class ClientDAO {
 	private static String DELETE_CLIENT = "DELETE FROM " + TABLE_NAME
 										+ " WHERE " + ID_FIELD + " = ?;";
 	
-	// getters
-	
+	// methods
+
+	/**
+	 * Try to retrieve a client object filled with the data from the database
+	 * identified by the client's email.
+	 * 
+	 * @param email of the client to retrieve
+	 * @return null on error, a client object on success
+	 * @throws AssertionError
+	 */	
 	public static Client get(String email) {
 		checkEmail(email);
 		Client client = null;
@@ -48,7 +60,7 @@ public class ClientDAO {
 			// Get connection from database
 			Connection c = Database.getConnection();
 			// Create a prepared statement
-			PreparedStatement query = c.prepareStatement(GET_CLIENT);
+			PreparedStatement query = c.prepareStatement(GET_CLIENT_BY_MAIL);
 			// bind the parameter
 			query.setString(1, email);
 			// execute the query
@@ -67,14 +79,54 @@ public class ClientDAO {
 		}
 		return client;
 	}
+
+	/**
+	 * Try to retrieve a client object filled with the data from the database
+	 * identified by the client's clientId.
+	 * 
+	 * @param clientId of the client to retrieve
+	 * @return null on error, a client object on success
+	 */
+	public static Client get(int clientId) {
+		Client client = null;
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_CLIENT_BY_ID);
+			// bind the parameter
+			query.setInt(1, clientId);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			if (res.next()) {
+				// Client exists in the DB -> create object
+				client = new Client(res.getString(USERNAME_FIELD),
+						res.getString(EMAIL_FIELD));
+                client.setId(res.getInt(ID_FIELD));
+			}			
+            // close the connection
+			c.close();
+		} catch (SQLException e) {
+			client = null;
+			e.printStackTrace();
+		}
+		return client;
+	}
 	
+	/**
+	 * Insert the client object data into the database, throw an error on failure or
+	 * if arguments supplied were incorrect
+	 * 
+	 * @param client object to insert
+	 * @throws AssertionError, RuntimeException
+	 */
 	public static void insert(Client client) {
 		// Try to execute the request
 		try {
 			// Get connection from database
 			Connection c = Database.getConnection();
 			// Create the first prepared statement
-			PreparedStatement query = c.prepareStatement(GET_CLIENT);
+			PreparedStatement query = c.prepareStatement(GET_CLIENT_BY_MAIL);
 			// bind the parameter
 			query.setString(1, client.getEmail());
 			// execute first query (test)
@@ -98,7 +150,14 @@ public class ClientDAO {
 			throw new RuntimeException("Failed to insert user");
 		}
 	}
-	
+
+	/**
+	 * Update the client email from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param client object to update
+	 * @throws AssertionError, RuntimeException
+	 */	
 	public static void updateEmail(Client client)  {
         checkEmail(client.getEmail());
 		// Try to execute the request
@@ -119,7 +178,14 @@ public class ClientDAO {
 			throw new RuntimeException("Failed to update user's email");
 		}
 	}
-	
+
+    /**
+	 * Update the client username from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param client object to update
+	 * @throws RuntimeException
+	 */	
 	public static void updateUsername(Client client) {
 		// Try to execute the request
 		try {
@@ -139,7 +205,14 @@ public class ClientDAO {
 			throw new RuntimeException("Failed to update user's username");
 		}
 	}
-	
+
+    /**
+	 * delete the client data from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param client object to delete
+	 * @throws RuntimeException
+	 */
 	public static void delete(Client client) {
 		int affectedRows = 0;
 		// Try to execute the request
@@ -171,7 +244,12 @@ public class ClientDAO {
             "[a-zA-Z0-9_+&*-]+)*@" +
             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
             "A-Z]{2,7}$";
-	
+	/**
+	 * Check if it's a well formatted email.
+	 * 
+	 * @param email a email to verify
+	 * @throws AssertionError
+	 */	
 	private static void checkEmail(String email) {
 		Pattern pat = Pattern.compile(EMAIL_REGEX);
 		if (email == null || !pat.matcher(email).matches()) {

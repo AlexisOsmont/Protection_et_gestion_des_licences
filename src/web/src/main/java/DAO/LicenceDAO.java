@@ -1,14 +1,16 @@
 package DAO;
 
+import model.Licence;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import database.Database;
-import model.Licence;
+import DBUtils.Database;
 
+// Licence Data Access Model
 public class LicenceDAO {
 	
 	// constants
@@ -25,10 +27,13 @@ public class LicenceDAO {
 	// SQL requests
 	
 	// get licence by client and software ids
-	private static String GET_LICENCE = "SELECT * FROM " + TABLE_NAME
+	private static String GET_LICENCE_BY_EXT_ID = "SELECT * FROM " + TABLE_NAME
 							+ " WHERE " + CL_ID_FIELD + " = ?"
 							+ " AND " + SW_ID_FIELD + " = ?;";
-	
+
+    private static String GET_LICENCE_BY_OWN_ID = "SELECT * FROM " + TABLE_NAME
+                            + " WHERE " + ID_FIELD + " = ?;";
+ 	
 	private static String INSERT_LICENCE = "INSERT INTO " + TABLE_NAME
 							+ "(" + HW_ID_FIELD + ", " + STATUS_FIELD + ", " + VALID_FIELD + ", "
 							+ CL_ID_FIELD + ", " + SW_ID_FIELD + ")"
@@ -46,7 +51,15 @@ public class LicenceDAO {
 							+ " WHERE " + ID_FIELD + " = ?;";
 	
 	// methods
-	
+
+	/**
+	 * Try to retrieve a licence object filled with the data from the database
+	 * identified by a clientId and a softwareId
+	 * 
+	 * @param clientId   of the licence to retrieve
+	 * @param softwareId of the licence to retrieve
+	 * @return null on error, a licence object on success
+	 */	
 	public static Licence get(int clientId, int softwareId) {
 		Licence licence = null;
 		// Try to execute the request
@@ -54,7 +67,7 @@ public class LicenceDAO {
 			// Get connection from database
 			Connection c = Database.getConnection();
 			// Create a prepared statement
-			PreparedStatement query = c.prepareStatement(GET_LICENCE);
+			PreparedStatement query = c.prepareStatement(GET_LICENCE_BY_EXT_ID);
 			// bind parameters
 			query.setInt(1, clientId);
 			query.setInt(2, softwareId);
@@ -62,12 +75,11 @@ public class LicenceDAO {
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
 				// Licence exists in the DB -> create object
-				licence = new Licence(res.getInt(ID_FIELD),
-						res.getString(HW_ID_FIELD),
-						res.getInt(STATUS_FIELD),
-						new java.util.Date(res.getDate(VALID_FIELD).getTime()),
-						res.getInt(CL_ID_FIELD),
-						res.getInt(SW_ID_FIELD));
+                licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
+                licence.setId(res.getInt(ID_FIELD));
+                licence.setStatus(res.getInt(STATUS_FIELD));
+                licence.setValidity(new java.util.Date(res.getDate(VALID_FIELD).getTime()));
+                licence.setHardwareId(res.getString(HW_ID_FIELD));
 			}
 			// close connection
 			c.close();
@@ -77,14 +89,57 @@ public class LicenceDAO {
 		}
 		return licence;
 	}
-	
+
+	/**
+	 * Try to retrieve a licence object filled with the data from the database
+	 * identified by a it's id.
+	 * 
+	 * @param licenceId of the licence to retrieve
+	 * @return null on error, a licence object on success
+	 */	
+	public static Licence get(int licenceId) {
+		Licence licence = null;
+		// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_LICENCE_BY_OWN_ID);
+			// bind parameters
+			query.setInt(1, licenceId);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			if (res.next()) {
+				// Licence exists in the DB -> create object
+				licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
+                licence.setId(res.getInt(ID_FIELD));
+                licence.setStatus(res.getInt(STATUS_FIELD));
+                licence.setValidity(new java.util.Date(res.getDate(VALID_FIELD).getTime()));
+                licence.setHardwareId(res.getString(HW_ID_FIELD));
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			licence = null;
+			e.printStackTrace();
+		}
+		return licence;
+	}
+
+    /**
+	 * Insert the licence object data into the database, throw an error on failure or
+	 * if arguments supplied were incorrect
+	 * 
+	 * @param licence object to insert
+	 * @throws AssertionError, RuntimeException
+	 */
 	public static void insert(Licence licence) {
 		// Try to execute the request
 		try {
 			// Get connection from database
 			Connection c = Database.getConnection();
 			// Create the first prepared statement
-			PreparedStatement query = c.prepareStatement(GET_LICENCE);
+			PreparedStatement query = c.prepareStatement(GET_LICENCE_BY_EXT_ID);
 			// bind parameters
 			query.setInt(1, licence.getClientId());
 			query.setInt(2, licence.getSoftwareId());
@@ -98,9 +153,9 @@ public class LicenceDAO {
 			// Create the second prepared statement
 			query = c.prepareStatement(INSERT_LICENCE);
 			// bind parameters
-			query.setString(1, licence.getLicenceHardwareId());
-			query.setInt(2, licence.getLicenceStatus());
-			query.setDate(3, new Date(licence.getLicenceValidity().getTime()));
+			query.setString(1, licence.getHardwareId());
+			query.setInt(2, licence.getStatus());
+			query.setDate(3, new Date(licence.getValidity().getTime()));
 			query.setInt(4, licence.getClientId());
 			query.setInt(5, licence.getSoftwareId());
 			// execute second query (insert)
@@ -112,7 +167,14 @@ public class LicenceDAO {
 			throw new RuntimeException("Failed to insert this licence");
 		}
 	}
-	
+
+    /**
+	 * Update the licence status from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param licence object to update
+	 * @throws RuntimeException
+	 */	
 	public static void updateStatus(Licence licence) {
 		// Try to execute the request
 		try {
@@ -121,7 +183,7 @@ public class LicenceDAO {
 			// Create a prepared statement
 			PreparedStatement query = c.prepareStatement(UPDATE_STATUS);
 			// bind parameters
-			query.setInt(1, licence.getLicenceStatus());
+			query.setInt(1, licence.getStatus());
 			query.setInt(2, licence.getId());
 			// execute the query (update)
 			query.executeUpdate();
@@ -132,7 +194,14 @@ public class LicenceDAO {
 			throw new RuntimeException("Failed to update licence's status");
 		}
 	}
-	
+
+    /**
+	 * Update the licence validy from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param licence object to update
+	 * @throws RuntimeException
+	 */	
 	public static void updateValidity(Licence licence) {
 		// Try to execute the request
 		try {
@@ -141,7 +210,7 @@ public class LicenceDAO {
 			// Create a prepared statement
 			PreparedStatement query = c.prepareStatement(UPDATE_VALIDITY);
 			// bind parameters
-			query.setDate(1, new Date(licence.getLicenceValidity().getTime()));
+			query.setDate(1, new Date(licence.getValidity().getTime()));
 			query.setInt(2, licence.getId());
 			// execute the query (update)
 			query.executeUpdate();
@@ -152,7 +221,14 @@ public class LicenceDAO {
 			throw new RuntimeException("Failed to update licence's validity");
 		}
 	}
-	
+
+    /**
+	 * Delete the licence data from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param licence object to delete
+	 * @throws RuntimeException
+	 */
 	public static void delete(Licence licence) {
 		int affectedRows = 0;
 		// Try to execute the request

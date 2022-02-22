@@ -1,13 +1,15 @@
 package DAO;
 
+import model.Software;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import database.Database;
-import model.Software;
+import DBUtils.Database;
 
+// Software Data Access Object
 public class SoftwareDAO {
 	
 	// constants
@@ -24,9 +26,16 @@ public class SoftwareDAO {
     private static String UPDATE_SOFTWARE_DESC = "UPDATE " + TABLE_NAME + " SET " + DESC_FIELD + " = ?" + " WHERE " + ID_FIELD + " = ?;";
     private static String DELETE_SOFTWARE = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";
     
-    // getter
-    
-    public static Software get(int id) {
+    // methods
+
+ 	/**
+	 * Try to retrieve a software object filled with the data from the database
+	 * identified by a it's id.
+	 * 
+	 * @param softwareId of the software to retrieve
+	 * @return null on error, a software object on success
+	 */	   
+    public static Software get(int softwareId) {
     	Software software = null;
     	// Try to execute the request
 		try {
@@ -35,7 +44,7 @@ public class SoftwareDAO {
 			// Create a prepared statement
 			PreparedStatement query = c.prepareStatement(GET_SOFTWARE);
 			// bind the parameter
-			query.setInt(1, id);
+			query.setInt(1, softwareId);
 			// execute the query
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
@@ -52,7 +61,14 @@ public class SoftwareDAO {
 		}
 		return software;
     }
-    
+
+    /**
+	 * Insert the software object data into the database, throw an error on failure or
+	 * if arguments supplied were incorrect
+	 * 
+	 * @param software object to insert
+	 * @throws RuntimeException
+	 */   
     public static void insert(Software software) {
     	// Try to execute the request
 		try {
@@ -62,17 +78,25 @@ public class SoftwareDAO {
 			PreparedStatement query = c.prepareStatement(INSERT_SOFTWARE);
 			// bind the parameter
 			query.setString(1, software.getName());
-			query.setString(2, software.getDesc());
+			query.setString(2, software.getDescription());
 			// execute the query
 			query.executeQuery();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Failed to insert this software");
 		}
     }
-    
-    public static void updateSoftwareName(Software software) {
+
+    /**
+	 * Update the software name from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param software object to update
+	 * @throws RuntimeException
+	 */	
+    public static void updateName(Software software) {
     	// Try to execute the request
 		try {
 			// Get connection from database
@@ -88,10 +112,18 @@ public class SoftwareDAO {
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Failed to update this software");
 		}
     }
-    
-    public static void updateSoftwareDesc(Software software) {
+
+    /**
+	 * Update the software description from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param software object to update
+	 * @throws RuntimeException
+	 */	   
+    public static void updateDescription(Software software) {
     	// Try to execute the request
 		try {
 			// Get connection from database
@@ -100,17 +132,26 @@ public class SoftwareDAO {
 			PreparedStatement query = c.prepareStatement(UPDATE_SOFTWARE_DESC);
 			// bind the parameter
 			query.setInt(2, software.getId());
-			query.setString(1, software.getDesc());
+			query.setString(1, software.getDescription());
 			// execute the query
 			query.executeQuery();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Failed to update this software");
 		}
     }
-    
+
+    /**
+	 * Delete the software data from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param software object to delete
+	 * @throws RuntimeException
+	 */   
     public static void delete(Software software) {
+		int affectedRows = 0;
     	// Try to execute the request
 		try {
 			// Get connection from database
@@ -120,11 +161,16 @@ public class SoftwareDAO {
 			// bind the parameter
 			query.setInt(1, software.getId());
 			// execute the query
-			query.executeQuery();
+			affectedRows = query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException("Failed to delete this software");
+		}
+
+		if (affectedRows != 1) {
+			throw new RuntimeException("Failed to delete software : " + software.getId());
 		}
     }
 	

@@ -28,7 +28,7 @@ public class User {
 	 * 
 	 * @return the id of the user object
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -52,7 +52,7 @@ public class User {
 	 * 
 	 * @param id new id for this user
 	 */
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

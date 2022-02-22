@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Licence {
 
@@ -39,7 +39,7 @@ public class Licence {
 	 * 
 	 * @return the id of the licence object
 	 */
-	public int getID() {
+	public int getId() {
 		return id;
 	}
 
@@ -54,14 +54,14 @@ public class Licence {
 	 * @return the id of the software protected by this licence
 	 */
 	public int getSoftwareId() {
-		return clientId;
+		return softwareId;
 	}
 
 	/**
 	 * @return the status of the licence object
 	 */
-	public Status getState() {
-		return state;
+	public int getStatus() {
+		return state.ordinal();
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Licence {
 	 * 
 	 * @param id new id for this licence
 	 */
-	public void setID(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -112,9 +112,19 @@ public class Licence {
 	 * Update the status of this licence object
 	 * 
 	 * @param state the new state of this licence
+	 * @throws AssertionError
 	 */
-	public void setState(Status state) {
-		this.state = state;
+	public void setStatus(int integerCode) {
+		boolean valid = false;
+		for (Status s : Status.values()) {
+			if (s.ordinal() == integerCode) {
+				this.state = s;
+				valid = true;
+			}
+		}
+		if (!valid) {
+			throw new AssertionError("Invalid arguments !");
+		}
 	}
 
 	/**
