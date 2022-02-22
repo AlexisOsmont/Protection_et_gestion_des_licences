@@ -17,7 +17,17 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 public class LoginController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+	
+	private static final String CAS_SERVER_URL 		= "https://srv-dpi-proj-gestlic-auth.univ-rouen.fr:8443/";
+	private static final String CAS_SERVER_LOGIN 	= "login";
+	private static final String CAS_SERVER_VALIDATE = "validate";
+	private static final String CAS_SERVER_SERVICE 	= "service";
+	
+	private static final String WEB_SERVER_URL 		= "https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/";
+	private static final String WEB_SERVER_LOGIN 	= "login";
+	
 	/*
 	 * Such SSL context shall never be used in production environment.
 	 */
@@ -60,8 +70,8 @@ public class LoginController extends HttpServlet {
 		String ticket = (String) request.getParameter("ticket");
 		if (ticket == null) {
 			// redirect user to CAS server
-			response.sendRedirect("https://srv-dpi-proj-gestlic-auth.univ-rouen.fr:8443/login"
-					+ "?service=https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443");
+			response.sendRedirect(CAS_SERVER_URL + CAS_SERVER_LOGIN
+					+ "?" + CAS_SERVER_SERVICE + "=" + WEB_SERVER_URL + WEB_SERVER_LOGIN);
 		} else {
 
 			/* 
@@ -89,7 +99,7 @@ public class LoginController extends HttpServlet {
 
 			// make a request to the CAS server to validate the ticket
 			HttpRequest req = HttpRequest.newBuilder(
-					URI.create("https://srv-dpi-proj-gestlic-auth.univ-rouen.fr:8443/login?validate=" + ticket))
+					URI.create(CAS_SERVER_URL + CAS_SERVER_LOGIN + "?" + CAS_SERVER_VALIDATE + "=" + ticket))
 					.header("accept", "application/json").build();
 
 			HttpResponse<String> resp = null;
@@ -104,9 +114,8 @@ public class LoginController extends HttpServlet {
 
 				HttpSession session = request.getSession(false);
 				session.setAttribute("logged", true);
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/product-buy.jsp");
-				requestDispatcher.forward(request, response);
-
+				response.sendRedirect(request.getContextPath() + "/product-buy");
+				
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
 			}
