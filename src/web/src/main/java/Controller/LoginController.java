@@ -61,7 +61,7 @@ public class LoginController extends HttpServlet {
 		if (ticket == null) {
 			// redirect user to CAS server
 			response.sendRedirect("https://srv-dpi-proj-gestlic-auth.univ-rouen.fr:8443/login"
-					+ "?service=https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/login");
+					+ "?service=https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443");
 		} else {
 
 			/* 
