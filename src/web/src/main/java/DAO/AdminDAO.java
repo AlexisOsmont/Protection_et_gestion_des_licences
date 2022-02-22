@@ -55,9 +55,9 @@ public class AdminDAO {
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
 				// Admin exists in the DB -> create object
-				admin = new Admin(res.getInt(ID_FIELD),
-						res.getString(USERNAME_FIELD),
+				admin = new Admin(res.getString(USERNAME_FIELD),
 						res.getString(EMAIL_FIELD));
+                admin.setId(res.getInt(ID_FIELD));
 			}
 			// close connection
 			c.close();
@@ -99,7 +99,8 @@ public class AdminDAO {
 		}
 	}
 	
-	public static void updateEmail(Admin admin)  {
+	public static void updateEmail(Admin admin) {
+        checkEmail(admin.getEmail());
 		// Try to execute the request
 		try {
 			// Get connection from database

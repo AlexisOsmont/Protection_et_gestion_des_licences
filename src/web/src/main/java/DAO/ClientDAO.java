@@ -55,9 +55,9 @@ public class ClientDAO {
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
 				// Client exists in the DB -> create object
-				client = new Client(res.getInt(ID_FIELD),
-						res.getString(USERNAME_FIELD),
+				client = new Client(res.getString(USERNAME_FIELD),
 						res.getString(EMAIL_FIELD));
+                client.setId(res.getInt(ID_FIELD));
 			}
 			// close connection
 			c.close();
@@ -100,6 +100,7 @@ public class ClientDAO {
 	}
 	
 	public static void updateEmail(Client client)  {
+        checkEmail(client.getEmail());
 		// Try to execute the request
 		try {
 			// Get connection from database

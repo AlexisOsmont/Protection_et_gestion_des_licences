@@ -40,9 +40,9 @@ public class SoftwareDAO {
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
 				// Admin exists in the DB -> create object
-				software = new Software(res.getInt(ID_FIELD),
-						res.getString(NAME_FIELD),
+				software = new Software(res.getString(NAME_FIELD),
 						res.getString(DESC_FIELD));
+                software.setId(res.getInt(ID_FIELD));
 			}
 			// close connection
 			c.close();
