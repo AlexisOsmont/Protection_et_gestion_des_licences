@@ -32,4 +32,9 @@ create table Licence (
     constraint FK_LicenceSoftware foreign key (SoftwareId)
     references Software(SoftwareId)
 );
-    
+
+grant all privileges on web.Admin to tomcat;
+grant all privileges on web.Client to tomcat;
+grant all privileges on web.Software to tomcat;
+grant all privileges on web.Licence to tomcat;    
+flush privileges;
