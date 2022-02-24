@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		doLogin(request, response);
+		this.doLogin(request, response);
 	}
 	
 	// tools

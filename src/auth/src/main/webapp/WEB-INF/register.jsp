@@ -37,10 +37,26 @@
 		<div class="d-grid place-items-center h-100"
 			style="position: relative;">
 			<div class="card border-0 col-sm-9 col-lg-7">
+			
+				
+				<%if (request.getAttribute("registerCode") != null) {
+					int code = (int) request.getAttribute("registerCode");%>
+					<p>code = "<%= request.getAttribute("registerCode") %>"</p>	
+					<p>username = "<%= request.getParameter("username") %>"</p>
+					<p>password = "<%= request.getParameter("password") %>"</p>
+					<p>mail = "<%= request.getParameter("mail") %>"</p>				
+					<%if (code == 0) {%>
+						<p> Inscription réussie ! </p> <br/>
+					<%} else if (code == 1) {%>
+						<p> Echec de l'inscription ! </p> <br/>
+					<p> <%= request.getAttribute("errorMessage")%> </p>
+					<%}
+				  }%>
+			
 				<div class="card-body" style="padding: 30% 1rem">
 					<h1 class="fw-bold mb-4">Inscription</h1>
 
-					<form method="POST" action="login">
+					<form method="POST" action="register">
 
 						<div class="mb-3">
 							<label for="username">Identifiant</label> <input type="text"
@@ -52,7 +68,7 @@
 
 						<div class="mb-3">
 							<label for="email">Mail</label> <input type="email" id="email"
-								name="email" class="form-control " autocomplete="off"
+								name="mail" class="form-control " autocomplete="off"
 								autocapitalize="none" autocorrect="off" required="" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>

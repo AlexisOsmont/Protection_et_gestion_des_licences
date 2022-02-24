@@ -4,23 +4,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Pattern;
-
-import Database.Database;
+import Utils.Database;
+import Utils.Validator;
 import Entity.User;
 
 public class UserModel {
 		
-		private static String GET_QUERY= "SELECT * FROM auth WHERE email = ?;";
-		private static String INSERT_QUERY = "INSERT INTO auth (username, email, password) VALUES (?, ?, ?);";		
-		private static String DELETE_QUERY = "DELETE FROM auth WHERE username = ?;";
+		private static final String GET_QUERY= "SELECT * FROM users WHERE email = ?;";
+		private static final String INSERT_QUERY = "INSERT INTO auth (username, email, password) VALUES (?, ?, ?);";		
+		private static final String DELETE_QUERY = "DELETE FROM auth WHERE username = ? AND mail = ?;";
 
-		private static String UPDATE_MAIL= "UPDATE auth SET  email = ? WHERE mail = ?;";
-		private static String UPDATE_USERNAME = "UPDATE auth SET username = ? WHERE username = ?;";
-		private static String UPDATE_PASSWORD = "UPDATE auth SET password = ? WHERE username = ?;";
+		private static final String UPDATE_MAIL= "UPDATE auth SET mail = ? WHERE username = ?;";
+		private static final String UPDATE_USERNAME = "UPDATE auth SET username = ? WHERE mail = ?;";
+		private static final String UPDATE_PASSWORD = "UPDATE auth SET password = ? WHERE username = ?;";
+		
+		private static final String COUNT_ATTRIBUTE = "SELECT COUNT(*) FROM users WHERE ? = ?;";
 						
 		public static User getUserByMail(String mail) {
-			checkEmail(mail);
+			Validator.checkEmail(mail);
 			User user = null;
 			// Try to execute the request
 			try {
@@ -34,7 +35,7 @@ public class UserModel {
 				ResultSet res = query.executeQuery();
 				if (res.next()) {
 					// User exists in the DB -> create object
-					user = new User(Integer.parseInt(res.getString("id")), res.getString("username"),
+					user = new User(res.getString("username"),
 							res.getString("mail"), res.getString("password"));
 				}
 				// close connection
@@ -46,9 +47,7 @@ public class UserModel {
 			return user;
 		}
 		
-		public static void insertUser(User user) {
-			// Try to execute the request
-			try {
+		public static void insertUser(User user) throws SQLException {
 				// Get connection from database
 				Connection c = Database.getConnection();
 				// Create the first prepared statement
@@ -72,10 +71,6 @@ public class UserModel {
 				query.executeUpdate();
 				// close the connection
 				c.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new RuntimeException("Failed to insert user");
-			}
 		}
 		
 		public static void delete(User user) {
@@ -87,23 +82,24 @@ public class UserModel {
 				// Create a prepared statement
 				PreparedStatement query = c.prepareStatement(DELETE_QUERY);
 				// bind the parameter
-				query.setInt(1, user.getId());
+				query.setString(1, user.getUsername());
+				query.setString(2, user.getMail());
 				// execute the query
 				affectedRows = query.executeUpdate();
 				// close the connection
 				c.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
-				throw new RuntimeException("Failed to delete user " + user.getId());
+				throw new RuntimeException("Failed to delete user " + user.getUsername());
 			}
 			
 			if (affectedRows != 1) {
-				throw new RuntimeException("Failed to delete user " + user.getId());
+				throw new RuntimeException("Failed to delete user " + user.getUsername());
 			}
 		}
 		
 		public static void updateMail(User user)  {
-	        checkEmail(user.getMail());
+	        Validator.checkEmail(user.getMail());
 			// Try to execute the request
 			try {
 				// Get connection from database
@@ -112,7 +108,7 @@ public class UserModel {
 				PreparedStatement query = c.prepareStatement(UPDATE_MAIL);
 				// bind parameters
 				query.setString(1, user.getMail());
-				query.setInt(2, user.getId());
+				query.setString(2, user.getUsername());
 				// execute the query (update)
 				query.executeUpdate();
 				// close the connection
@@ -132,7 +128,7 @@ public class UserModel {
 				PreparedStatement query = c.prepareStatement(UPDATE_USERNAME);
 				// bind parameters
 				query.setString(1, user.getUsername());
-				query.setInt(2, user.getId());
+				query.setString(2, user.getMail());
 				// execute the query (update)
 				query.executeUpdate();
 				// close the connection
@@ -151,8 +147,8 @@ public class UserModel {
 				// Create a prepared statement
 				PreparedStatement query = c.prepareStatement(UPDATE_PASSWORD);
 				// bind parameters
-				query.setString(1, user.getUsername());
-				query.setInt(2, user.getId());
+				query.setString(1, user.getPassword());
+				query.setString(2, user.getUsername());
 				// execute the query (update)
 				query.executeUpdate();
 				// close the connection
@@ -163,34 +159,35 @@ public class UserModel {
 			}
 		}
 		
-		
-	// Validator 
-	// TODO: Faire une classe validator
-		
-		private static final String EMAIL_REGEX =
-				"^[a-zA-Z0-9_+&*-]+(?:\\."+
-	            "[a-zA-Z0-9_+&*-]+)*@" +
-	            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-	            "A-Z]{2,7}$";
-		
-		private static final String USERNAME_REGEX = null;
-		//TODO: USERNAME_REGEX
-		
-		private static final String PASSWORD_REGEX = null;
-		//TODO: PASSWORD_REGEX
-		
-		public static void checkEmail(String email) {
-			Pattern pat = Pattern.compile(EMAIL_REGEX);
-			if (email == null || !pat.matcher(email).matches()) {
-				throw new AssertionError("Invalid email !");
+		public static void checkUserAlreadyExist(User user) throws SQLException {
+			if (user == null) {
+				throw new AssertionError("Null user");
 			}
+			
+			// Get connection from database
+			Connection c = Database.getConnection();				
+							
+			PreparedStatement query = c.prepareStatement(COUNT_ATTRIBUTE);
+			
+			// Test if username is taken
+			query.setString(1, "username");
+			query.setString(2, user.getUsername());
+			ResultSet set = query.executeQuery();
+			if (set.getInt(1) > 0) {
+				throw new SQLException("Le nom d'utilisateur n'est pas disponible.");
+			}
+			
+			// Test if mail is taken
+			query = c.prepareStatement(COUNT_ATTRIBUTE);
+			query.setString(1, "mail");
+			query.setString(2, user.getMail());
+			set = query.executeQuery();
+			if (set.getInt(1) > 0) {
+				throw new SQLException("L'addresse mail n'est pas disponible.");
+			}
+			
+			// close the connection
+			c.close();
 		}
-		
-		public static void checkUsername(String password) {
-			//TODO: checkUsername
-		}
-		
-		public static void checkPassword(String password) {
-			//TODO: checkPassword
-		}
+	
 }

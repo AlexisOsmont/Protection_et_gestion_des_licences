@@ -1,4 +1,4 @@
-package Database;
+package Utils;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;

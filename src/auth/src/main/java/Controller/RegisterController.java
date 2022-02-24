@@ -1,8 +1,13 @@
 package Controller;
 
 import java.io.*;
+import java.sql.SQLException;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import Entity.User;
+import Model.UserModel;
 
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -14,22 +19,52 @@ public class RegisterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// serve the register page
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/register.jsp");
-		requestDispatcher.forward(request, response);
+		
+		// only for testing until all work
+		request.setAttribute("registerCode", 5);
+		
+		//render page
+		render(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		doRegister(request, response);
+				
+		// retrieving post params for registering user
+		String username = request.getParameter("username");
+		String mail = request.getParameter("mail");
+		String password = request.getParameter("password");
+		
+		// if one of params missing 
+		// no specific treatment
+		if (username == null || mail == null || password == null) {
+			render(request, response);
+		}
+		
+		// TODO: Check if user already exists.
+		// use UserModel.checkUserAlreadyExist
+		
+		// if not creating the new user
+		User newUser = new User(username, password, mail);
+		
+		try {
+			UserModel.insertUser(newUser);
+		} catch (SQLException e) {
+			// sending the error message to the view
+			request.setAttribute("registerCode", 1);
+			request.setAttribute("errorMessage", e.getMessage());
+			// calling the view
+			render(request, response);	
+		}
+		
+		// setting success code to the view
+		request.setAttribute("registerCode", 0);
+		// calling the view
+		render(request, response);
 	}
 	
-	private void doRegister(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// register a user
-		// for now every one get the the page they want
-		response.sendRedirect(request.getContextPath() + "/home");
+	private void render(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
 	}
+
 }
