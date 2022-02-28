@@ -16,7 +16,7 @@ public class RegisterController extends HttpServlet {
 	public RegisterController() {
 		super();
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -41,13 +41,12 @@ public class RegisterController extends HttpServlet {
 			render(request, response);
 		}
 		
-		// TODO: Check if user already exists.
-		// use UserModel.checkUserAlreadyExist
 		
 		// if not creating the new user
 		User newUser = new User(username, password, mail);
 		
 		try {
+			UserModel.checkUserAlreadyExist(newUser);
 			UserModel.insertUser(newUser);
 		} catch (SQLException e) {
 			// sending the error message to the view
@@ -59,6 +58,7 @@ public class RegisterController extends HttpServlet {
 		
 		// setting success code to the view
 		request.setAttribute("registerCode", 0);
+		request.setAttribute("errorMessage", "Inscription Réussie !");
 		// calling the view
 		render(request, response);
 	}

@@ -11,14 +11,14 @@ import Entity.User;
 public class UserModel {
 		
 		private static final String GET_QUERY= "SELECT * FROM users WHERE email = ?;";
-		private static final String INSERT_QUERY = "INSERT INTO auth (username, email, password) VALUES (?, ?, ?);";		
-		private static final String DELETE_QUERY = "DELETE FROM auth WHERE username = ? AND mail = ?;";
+		private static final String INSERT_QUERY = "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";		
+		private static final String DELETE_QUERY = "DELETE FROM users WHERE username = ? AND mail = ?;";
 
-		private static final String UPDATE_MAIL= "UPDATE auth SET mail = ? WHERE username = ?;";
-		private static final String UPDATE_USERNAME = "UPDATE auth SET username = ? WHERE mail = ?;";
-		private static final String UPDATE_PASSWORD = "UPDATE auth SET password = ? WHERE username = ?;";
+		private static final String UPDATE_MAIL= "UPDATE users SET mail = ? WHERE username = ?;";
+		private static final String UPDATE_USERNAME = "UPDATE users SET username = ? WHERE mail = ?;";
+		private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE username = ?;";
 		
-		private static final String COUNT_ATTRIBUTE = "SELECT COUNT(*) FROM users WHERE ? = ?;";
+		private static final String COUNT_ATTRIBUTE = "SELECT username FROM users WHERE ? = ?;";
 						
 		public static User getUserByMail(String mail) {
 			Validator.checkEmail(mail);
@@ -73,7 +73,7 @@ public class UserModel {
 				c.close();
 		}
 		
-		public static void delete(User user) {
+		public static void deleteUser(User user) {
 			int affectedRows = 0;
 			// Try to execute the request
 			try {
@@ -173,16 +173,18 @@ public class UserModel {
 			query.setString(1, "username");
 			query.setString(2, user.getUsername());
 			ResultSet set = query.executeQuery();
-			if (set.getInt(1) > 0) {
+			if (set.next()) {
 				throw new SQLException("Le nom d'utilisateur n'est pas disponible.");
 			}
 			
-			// Test if mail is taken
+			
 			query = c.prepareStatement(COUNT_ATTRIBUTE);
+			
+			// Test if mail is taken
 			query.setString(1, "mail");
 			query.setString(2, user.getMail());
 			set = query.executeQuery();
-			if (set.getInt(1) > 0) {
+			if (set.next()) {
 				throw new SQLException("L'addresse mail n'est pas disponible.");
 			}
 			

@@ -39,19 +39,17 @@
 			<div class="card border-0 col-sm-9 col-lg-7">
 			
 				
-				<%if (request.getAttribute("registerCode") != null) {
+				<%if (request.getAttribute("registerCode") != null && request.getAttribute("errorMessage") != null) { 
 					int code = (int) request.getAttribute("registerCode");%>
+					<!--
 					<p>code = "<%= request.getAttribute("registerCode") %>"</p>	
 					<p>username = "<%= request.getParameter("username") %>"</p>
 					<p>password = "<%= request.getParameter("password") %>"</p>
-					<p>mail = "<%= request.getParameter("mail") %>"</p>				
-					<%if (code == 0) {%>
-						<p> Inscription réussie ! </p> <br/>
-					<%} else if (code == 1) {%>
-						<p> Echec de l'inscription ! </p> <br/>
+					<p>mail = "<%= request.getParameter("mail") %>"</p>	 -->
+								
 					<p> <%= request.getAttribute("errorMessage")%> </p>
-					<%}
-				  }%>
+					
+				<%}%>
 			
 				<div class="card-body" style="padding: 30% 1rem">
 					<h1 class="fw-bold mb-4">Inscription</h1>

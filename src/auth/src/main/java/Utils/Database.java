@@ -9,7 +9,7 @@ import java.sql.Connection;
 
 public class Database {
     
-    private static String URL 	= "jdbc:mysql://localhsot:3306/auth";
+    private static String URL 	= "jdbc:mysql://localhost:3306/auth";
     private static String USERNAME 	= "tomcat";
     private static String PASSWORD 	= "tomcatpasswd";
     
