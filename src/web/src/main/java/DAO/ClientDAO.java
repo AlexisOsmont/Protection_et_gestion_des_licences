@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-import DBUtils.Database;
+import Utils.Database;
 
 // Client Data Access Object
 public class ClientDAO {

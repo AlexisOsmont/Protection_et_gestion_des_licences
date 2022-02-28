@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
-import DBUtils.Database;
+import Utils.Database;
 
 // Admin Data Access Object
 public class AdminDAO {
@@ -22,7 +22,6 @@ public class AdminDAO {
 	private static String EMAIL_FIELD 		= TABLE_NAME + "Email";
 	
 	// SQL requests
-	
 	private static String GET_ADMIN_BY_MAIL = "SELECT * FROM " + TABLE_NAME + " WHERE " + EMAIL_FIELD + " = ?;";
 	
     private static String GET_ADMIN_BY_ID   = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";

@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import DBUtils.Database;
+import Utils.Database;
 
 // Licence Data Access Model
 public class LicenceDAO {

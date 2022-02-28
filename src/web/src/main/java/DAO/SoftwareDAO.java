@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import DBUtils.Database;
+import Utils.Database;
 
 // Software Data Access Object
 public class SoftwareDAO {
