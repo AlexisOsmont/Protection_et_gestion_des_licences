@@ -1,0 +1,67 @@
+﻿<Window x:Name="wndMain" x:Class="ProjetAnnuel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetAnnuel"
+        mc:Ignorable="d"
+        Title="Activation software" Height="450" Width="800" Loaded="wndMain_Loaded">
+    <Grid x:Name="gridMainContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="127*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="stckpHeader">
+            <Label x:Name="lblConnectedAs" Content="Connected as : none" Background="#FFB6B6B6"/>
+            <Label x:Name="lblTitle" Content="Licence list :" HorizontalContentAlignment="Center" FontSize="24" FontFamily="Arial Black" Height="74" Background="#FFB6B6B6"/>
+        </StackPanel>
+        <ScrollViewer x:Name="scrlvList" Grid.Row="1">
+            <Grid x:Name="gridList">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Separator HorizontalAlignment="Center" VerticalAlignment="Center" Width="763"/>
+                <StackPanel x:Name="stckpList" Grid.Row="1" Margin="0,0,0,3" Grid.RowSpan="2">
+                    <Grid x:Name="gridFirstItemContainer">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="gridFirstItem" Margin="10,10,10,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="88*"/>
+                                <ColumnDefinition Width="109*"/>
+                                <ColumnDefinition Width="64*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="lblFirstItem" Grid.Column="1" Content="FirstItem" HorizontalAlignment="Center" VerticalAlignment="Top" Height="37" Width="310" FontSize="22" Margin="0,-5,0,0"/>
+                            <CheckBox x:Name="chkFirstItem" Content="" HorizontalAlignment="Left" Margin="225,10,0,0" VerticalAlignment="Top" Height="18" Width="18" RenderTransformOrigin="0.5,0.5">
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="1.5" ScaleX="1.5"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            </CheckBox>
+                            <Label x:Name="lblFirstItemRemaining" Grid.Column="2" Content="remaining : ~ days" HorizontalAlignment="Center" VerticalAlignment="Center" Height="28" Width="172" FontSize="14" FontWeight="Normal" FontStyle="Italic"/>
+                        </Grid>
+                        <Separator HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Bottom" Width="763" Margin="0,2,0,0"/>
+                    </Grid>
+                </StackPanel>
+                <Separator HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="2" VerticalAlignment="Top" Height="3" Width="763"/>
+            </Grid>
+        </ScrollViewer>
+        <Grid x:Name="gridFooter" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnAddLicence" Content="Add new licence" HorizontalAlignment="Center" VerticalAlignment="Center" Height="52" Width="380" FontSize="18" Click="btnAddLicence_Click"/>
+            <Button x:Name="btnDelLicence" Grid.Column="1" Content="Delete licence" HorizontalAlignment="Center" VerticalAlignment="Center" Height="52" Width="380" FontSize="18" Click="btnDelLicence_Click"/>
+        </Grid>
+    </Grid>
+</Window>
