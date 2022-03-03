@@ -11,12 +11,12 @@ import model.Client;
 public class UserConverter extends CASProtocol {
 
 	private static String USERNAME = "username";
-	private static String EMAIL    = "email";
+	private static String EMAIL    = "mail";
 	
 	private boolean isAdmin;
-	Client client;
-	Admin admin;
-	Map<String, String> map;
+	private Client client;
+	private Admin admin;
+	private Map<String, String> map;
 	
 	public UserConverter(String text) {
 		this.map = super.recieved(text);
@@ -27,6 +27,9 @@ public class UserConverter extends CASProtocol {
 		}
 		admin = AdminDAO.get(email);
 		client = ClientDAO.get(email);
+		if (admin == null && client == null) {
+			throw new RuntimeException("Error: unknown user");
+		}
 		isAdmin = admin != null;
 	}
 	

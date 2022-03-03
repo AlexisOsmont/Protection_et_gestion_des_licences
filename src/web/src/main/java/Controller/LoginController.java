@@ -16,6 +16,9 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import Utils.UserConverter;
+import Utils.UserSession;
+
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +27,7 @@ public class LoginController extends HttpServlet {
 	private static final String CAS_SERVER_LOGIN 	= "login";
 	private static final String CAS_SERVER_VALIDATE = "validate";
 	private static final String CAS_SERVER_SERVICE 	= "service";
+	private static final String CAS_SERVER_TICKET   = "ticket";
 	
 	private static final String WEB_SERVER_URL 		= "https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/";
 	private static final String WEB_SERVER_LOGIN 	= "login";
@@ -75,6 +79,7 @@ public class LoginController extends HttpServlet {
 		} else {
 
 			/* 
+			 * @TMP
 			 * Such SSL context shall never be used in production environment.
 			 */
 		    SSLContext sslContext = null;
@@ -96,10 +101,13 @@ public class LoginController extends HttpServlet {
 					.sslContext(sslContext) 
 					.connectTimeout(Duration.ofSeconds(10))
 					.build();
+			
+			// ticket = "123456789"; // ticket of admin
+			// ticket = "987654321"; // ticket of client
 
 			// make a request to the CAS server to validate the ticket
 			HttpRequest req = HttpRequest.newBuilder(
-					URI.create(CAS_SERVER_URL + CAS_SERVER_LOGIN + "?" + CAS_SERVER_VALIDATE + "=" + ticket))
+					URI.create(CAS_SERVER_URL + CAS_SERVER_VALIDATE + "?" + CAS_SERVER_TICKET + "=" + ticket))
 					.header("accept", "application/json").build();
 
 			HttpResponse<String> resp = null;
@@ -110,15 +118,21 @@ public class LoginController extends HttpServlet {
 			}
 
 			// check the status code
-			if (resp != null && resp.statusCode() == 200) {
-
-				HttpSession session = request.getSession(false);
-				session.setAttribute("logged", true);
-				response.sendRedirect(request.getContextPath() + "/product-buy");
+			if (resp != null && resp.statusCode() == 200 && resp.body() != null) {
 				
-			} else {
-				response.sendRedirect(request.getContextPath() + "/home");
-			}
+				UserConverter user = new UserConverter(resp.body());
+				UserSession s = null;
+				if (user.isAdmin()) {
+					s = new UserSession(true, user.getAdmin());
+				} else {
+					s = new UserSession(false, user.getClient());
+				}
+				
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user", s);
+				
+			} 
+			response.sendRedirect(request.getContextPath() + "/home");
 		}
 	}
 

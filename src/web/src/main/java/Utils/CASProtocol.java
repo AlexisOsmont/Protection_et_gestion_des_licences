@@ -43,6 +43,7 @@ public class CASProtocol {
 			result = (Map<String, String>) parser.parse(text);
 		} catch (ParseException e) {
 			result = null;
+			System.out.println(e);
 		}
 		return result;
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -11,7 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import Utils.UserSession;
+
 public class SessionFilter implements Filter {
+	
+	private static final String[] PUBLIC_ROUTE = {
+		"/home", "/login", "/register", "/common"
+	};
  
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -28,27 +35,41 @@ public class SessionFilter implements Filter {
     	// this class is here just to unsure that user have a session
     	HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false);
+        UserSession appSession = session == null ? null : (UserSession) session.getAttribute("user");
         
-        if (session != null && !session.isNew()) {
-        	// allow request to reach destination
+        String url = httpRequest.getRequestURL().toString();
+        
+        boolean isLoggedIn = (session != null && appSession != null);
+        boolean isAllowed = appSession == null ? false : appSession.isAllowedFor(url);
+        boolean isAuthRequired = isLoginRequired(url);
+        
+        if ((isLoggedIn && (isAllowed || !isAuthRequired)) || (!isLoggedIn && !isAuthRequired)) {
+        	// user is logged and is allowed to reach destination
         	chain.doFilter(request, response);
-        } else {
-        	// redirect request to the same page but this allow the browser to update the cookie  
-        	session = httpRequest.getSession(true);
-
-//    	    StringBuffer requestURL = httpRequest.getRequestURL();
-//        	String queryString = httpRequest.getQueryString();
-//        	String url = null;
-//        	
-//    	    if (queryString == null) {
-//    	    	url = requestURL.toString();
-//    	    } else {
-//        	    url = requestURL.append('?').append(queryString).toString();
-//    	    }
         	
+        } else if (isLoggedIn && !isAllowed) {
+        	// redirect user to home but doesn't destroy his session 
+        	((HttpServletResponse)response).sendRedirect(httpRequest.getContextPath() + "/home");
+        	
+        } else {
+        	// either user isn't allowed to go to this page, redirect him to the home page
+        	session = httpRequest.getSession(true);
         	((HttpServletResponse)response).sendRedirect(httpRequest.getContextPath() + "/home");
         }
         
+    }
+    
+    private boolean isLoginRequired(String url) {
+    	boolean result = true;
+    	
+	    for (String route : PUBLIC_ROUTE) {
+	        if (url.contains(route)) {
+	            result = false;
+	            break;
+	        }
+	    }
+	    
+    	return result;
     }
     
     
