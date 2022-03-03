@@ -26,6 +26,17 @@
 		<url-pattern>/register</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Validate mapping -->
+	<servlet>
+		<servlet-name>validate</servlet-name>
+		<servlet-class>Controller.ValidateController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>validate</servlet-name>
+		<url-pattern>/validate</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Filter Mapping -->
 	<filter>
 		<filter-name>securityFilter</filter-name>

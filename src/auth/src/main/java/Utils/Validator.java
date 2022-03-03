@@ -20,12 +20,15 @@ public class Validator {
             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
             "A-Z]{2,7}$";
 	
-	public static void checkUsername(String password) {
-		//TODO: checkUsername
+	private static final String TICKET_REGEX = null;
+	//TODO: TICKET_REGEXP
+	
+	public static void checkUsername(String password) throws AssertionError {
+		//TODO: Validator.checkUsername function
 	}
 	
 	// Check if password if strong enough.
-	public static void checkPasswordStrength(String password) {
+	public static void checkPasswordStrength(String password) throws AssertionError {
 		Pattern p = Pattern.compile(REGEXP);
 		if (password == null || !p.matcher(password).matches()) {
 			throw new AssertionError("Mot de passe invalide. "
@@ -33,11 +36,16 @@ public class Validator {
 		}
 	}
 	
-	public static void checkEmail(String email) {
+	public static void checkEmail(String email) throws AssertionError {
 		Pattern pat = Pattern.compile(EMAIL_REGEX);
 		if (email == null || !pat.matcher(email).matches()) {
 			throw new AssertionError("Adresse Email non valide.");
 		}
+	}
+
+	public static void checkTicket() throws AssertionError {
+		// TODO Validator.checkTicket function
+		
 	}
 	
 }

@@ -42,7 +42,7 @@
 
 					<form method="POST" action="login">
 						<div class="mb-3">
-							<label for="email">Mail</label> <input type="email" id="email"
+							<label for="email">Adresse Mail</label> <input type="email" id="email"
 								name="email" class="form-control " autocomplete="off"
 								autocapitalize="none" autocorrect="off" required="" value="">
 							<p class="invalid-feedback d-block"></p>

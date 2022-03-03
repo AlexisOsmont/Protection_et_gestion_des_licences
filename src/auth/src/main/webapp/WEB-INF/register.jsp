@@ -16,8 +16,7 @@
 
 	<div class="container d-flex p-3 mx-auto w-100 flex-column">
 		<header class="mb-auto">
-			<div class="float-md-start fw-bold fs-5">Projet - Gestionnaire
-				de Licence</div>
+			<div class="float-md-start fw-bold fs-5">Projet - Gestionnaire de Licence</div>
 			<nav class="nav justify-content-center float-md-end">
 				<a class="nav-link" href="<%=request.getContextPath()%>/home">Accueil</a>
 				<a class="nav-link" href="<%=request.getContextPath()%>/login">Connexion</a>
