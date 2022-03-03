@@ -47,16 +47,6 @@
 		<servlet-name>ProductBuyController</servlet-name>
 		<url-pattern>/product-buy</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ProductOwnedController</servlet-name>
-		<servlet-class>Controller.ProductOwnedController</servlet-class>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>ProductOwnedController</servlet-name>
-		<url-pattern>/product-owned</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ProductDetailController</servlet-name>

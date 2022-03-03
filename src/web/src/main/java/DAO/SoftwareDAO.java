@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import Utils.Database;
 
@@ -21,6 +23,7 @@ public class SoftwareDAO {
 	
 	// SQL requests
     private static String GET_SOFTWARE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";
+    private static String GET_SOFTWARE_LIST = "SELECT * FROM " + TABLE_NAME + ";";
     private static String INSERT_SOFTWARE = "INSERT INTO " + TABLE_NAME + "(" + NAME_FIELD + ", " + DESC_FIELD + ")" + " VALUES (?, ?);";
     private static String UPDATE_SOFTWARE_NAME = "UPDATE " + TABLE_NAME + " SET " + NAME_FIELD + " = ?" + " WHERE " + ID_FIELD + " = ?;";
     private static String UPDATE_SOFTWARE_DESC = "UPDATE " + TABLE_NAME + " SET " + DESC_FIELD + " = ?" + " WHERE " + ID_FIELD + " = ?;";
@@ -48,7 +51,6 @@ public class SoftwareDAO {
 			// execute the query
 			ResultSet res = query.executeQuery();
 			if (res.next()) {
-				// Admin exists in the DB -> create object
 				software = new Software(res.getString(NAME_FIELD),
 						res.getString(DESC_FIELD));
                 software.setId(res.getInt(ID_FIELD));
@@ -60,6 +62,35 @@ public class SoftwareDAO {
 			e.printStackTrace();
 		}
 		return software;
+    }
+    
+    /**
+     * Create a list of all the software present in the database
+     * @return the list
+     */
+    public static List<Software> list() {
+    	List<Software> li = new ArrayList<Software>();
+    	// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_SOFTWARE_LIST);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			while (res.next()) {
+				Software software = new Software(res.getString(NAME_FIELD),
+										res.getString(DESC_FIELD));
+                software.setId(res.getInt(ID_FIELD));
+                li.add(software);
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			li = null;
+			e.printStackTrace();
+		}
+    	return li;
     }
 
     /**

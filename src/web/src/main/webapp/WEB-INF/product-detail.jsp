@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.Software" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,13 +40,14 @@
 		<script src="<%=request.getContextPath()%>/common/dark-mode-switch.js"></script>
 	</div>
 
-	<main style="padding-left: 20%">
+	<main style="padding-left: 10%; width: 100%">
 
+		<% Software soft = (Software) request.getAttribute("product"); %>
+		
 		<div class="container" style="padding-top: 10%">
 			<div class="card">
 				<div class="card-body">
-					<h3 class="card-title">Nom du logiciel</h3>
-					<h6 class="card-subtitle">Fonction du logiciel</h6>
+					<h3 class="card-title"><%=soft.getName() %></h3>
 
 					<div class="container-fluid">
 						<div class="row">
@@ -60,17 +62,7 @@
 										data-holder-rendered="true">
 								</div>
 								<p>
-									Lorem ipsum dolor sit amet, <strong>consectetur
-										adipiscing elit</strong>. Aliquam eget sapien sapien. Curabitur in
-									metus urna. In hac habitasse platea dictumst. Phasellus eu sem
-									sapien, sed vestibulum velit. Nam purus nibh, lacinia non
-									faucibus et, pharetra in dolor. Sed iaculis posuere diam ut
-									cursus. <em>Morbi commodo sodales nisi id sodales. Proin
-										consectetur, nisi id commodo imperdiet, metus nunc consequat
-										lectus, id bibendum diam velit et dui.</em> Proin massa magna,
-									vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam
-										mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla
-										euismod ultrices massa, et feugiat ipsum consequat eu.</small>
+									
 								</p>
 							</div>
 
@@ -78,8 +70,6 @@
 
 
 								<%
-								/* Boolean isOwned = (Boolean) request.getAttribute("is-owned");
-								if (isOwned != null && isOwned) { */
 								String isOwned = (String) request.getParameter("is-owned");
 								if (isOwned != null) { 
 								%>
@@ -90,8 +80,7 @@
 											produit</h4>
 									</div>
 									<div class="card-body">
-										<p>Super logiciel! achetez le, garanti avec 50% de virus
-											en moins</p>
+										<p><%= soft.getDescription() %></p>
 										<h2 class="mt-5">Possédé</h2>
 										<a href="#" type="button"
 											class="btn btn-lg btn-block btn-primary">Demander une
@@ -117,8 +106,7 @@
 											produit</h4>
 									</div>
 									<div class="card-body">
-										<p>Super logiciel! achetez le, garanti avec 50% de virus
-											en moins</p>
+										<p><%= soft.getDescription() %></p>
 
 										<h4 class="mt-5">Durée de la licence</h4>
 

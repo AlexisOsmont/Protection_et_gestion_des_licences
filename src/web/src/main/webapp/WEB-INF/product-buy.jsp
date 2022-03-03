@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Software" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,14 +63,15 @@
 				<div class="row">
 
 					<%
-					for (int i = 0; i < 10; ++i) {
+						List<Software> li = (List<Software>)request.getAttribute("product-list");
+						for (Software soft : li) {
 					%>
 
 
 					<div class="col-md-4"
 						style="border: 3px solid transparent; border-radius: 5px;">
 
-						<a href="/product/<%=i%>">
+						<a href="/product/<%=soft.getId()%>">
 
 							<div class="card mb-4 box-shadow card-shadow-effect">
 								<img class="card-img-top"
@@ -80,11 +83,14 @@
 								<div class="card-body card-body-thin">
 									<div class="card-body-top">
 										<p class="card-text" style="margin-bottom: 0;">
-											Nom du logiciel n°<%=i%></p>
-										<span class="subtitle text-capitalize"
+											<%=soft.getName()%>
+										</p>
+										
+										<%-- <span class="subtitle text-capitalize"
 											style="position: relative; color: #989ea4"> <em>
-												Description du logiciel</em>
-										</span>
+												<%= soft.getDescription()%></em>
+										</span> --%>
+										
 									</div>
 
 									<div
