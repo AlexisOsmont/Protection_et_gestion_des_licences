@@ -2,6 +2,9 @@ package DAO;
 
 import model.Software;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,18 +19,50 @@ public class SoftwareDAO {
 	
 	// constants
 	
-	private static String TABLE_NAME = "Software";
-	private static String ID_FIELD = TABLE_NAME + "Id";
-	private static String NAME_FIELD = TABLE_NAME + "Name";
-	private static String DESC_FIELD = TABLE_NAME + "Desc";
+	private static String TABLE_NAME  	   = "Software";
+	private static String ID_FIELD   	   = TABLE_NAME + "Id";
+	private static String NAME_FIELD  	   = TABLE_NAME + "Name";
+	private static String DESC_FIELD  	   = TABLE_NAME + "Desc";
+	private static String PRICE_FIELD 	   = TABLE_NAME + "Price";
+	private static String PRICE_MULT_FIELD = TABLE_NAME + "PriceMultiplier";
+	private static String IMAGE_FIELD      = TABLE_NAME + "Img";
 	
 	// SQL requests
-    private static String GET_SOFTWARE = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";
-    private static String GET_SOFTWARE_LIST = "SELECT * FROM " + TABLE_NAME + ";";
-    private static String INSERT_SOFTWARE = "INSERT INTO " + TABLE_NAME + "(" + NAME_FIELD + ", " + DESC_FIELD + ")" + " VALUES (?, ?);";
-    private static String UPDATE_SOFTWARE_NAME = "UPDATE " + TABLE_NAME + " SET " + NAME_FIELD + " = ?" + " WHERE " + ID_FIELD + " = ?;";
-    private static String UPDATE_SOFTWARE_DESC = "UPDATE " + TABLE_NAME + " SET " + DESC_FIELD + " = ?" + " WHERE " + ID_FIELD + " = ?;";
-    private static String DELETE_SOFTWARE = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_FIELD + " = ?;";
+    private static String GET_SOFTWARE = "SELECT * FROM " 
+    								   + TABLE_NAME + " WHERE " 
+    								   + ID_FIELD + " = ?;";
+    
+    private static String GET_SOFTWARE_LIST = "SELECT * FROM " 
+    										+ TABLE_NAME + ";";
+    
+    private static String INSERT_SOFTWARE = "INSERT INTO " + TABLE_NAME 
+    									  + "(" + NAME_FIELD + ", " + DESC_FIELD 
+    									  + ", " + PRICE_FIELD + ", " + PRICE_MULT_FIELD 
+    									  + ", " + IMAGE_FIELD + ")" 
+    									  + " VALUES (?, ?, ?, ?, ?);";
+    
+    private static String UPDATE_SOFTWARE_NAME = "UPDATE " + TABLE_NAME 
+    										   + " SET " + NAME_FIELD + " = ?" 
+    										   + " WHERE " + ID_FIELD + " = ?;";
+    
+    private static String UPDATE_SOFTWARE_DESC = "UPDATE " + TABLE_NAME 
+    										   + " SET " + DESC_FIELD + " = ?" 
+    										   + " WHERE " + ID_FIELD + " = ?;";
+    
+    private static String UPDATE_SOFTWARE_PRICE = "UPDATE " + TABLE_NAME 
+    											+ " SET " + PRICE_FIELD + " = ?"
+    											+ " WHERE " + ID_FIELD + " = ?;";
+    
+    private static String UPDATE_SOFTWARE_PRICE_MULT = "UPDATE " + TABLE_NAME 
+													 + " SET " + PRICE_MULT_FIELD + " = ?"
+													 + " WHERE " + ID_FIELD + " = ?;";
+    
+    private static String UPDATE_SOFTWARE_IMAGE = "UPDATE " + TABLE_NAME 
+												+ " SET " + IMAGE_FIELD + " = ?"
+												+ " WHERE " + ID_FIELD + " = ?;";
+    
+    private static String DELETE_SOFTWARE = "DELETE FROM " + TABLE_NAME 
+    									  + " WHERE " + ID_FIELD + " = ?;";
     
     // methods
 
@@ -54,6 +89,15 @@ public class SoftwareDAO {
 				software = new Software(res.getString(NAME_FIELD),
 						res.getString(DESC_FIELD));
                 software.setId(res.getInt(ID_FIELD));
+                software.setPrice(res.getInt(PRICE_FIELD));
+                software.setPriceMultiplier(res.getInt(PRICE_MULT_FIELD));
+                
+                byte[] imgData = null;
+                Blob image = res.getBlob(IMAGE_FIELD);
+                if (image != null) {
+                	imgData = image.getBytes(1,(int)image.length());
+                }
+                software.setImg(imgData);
 			}
 			// close connection
 			c.close();
@@ -82,6 +126,15 @@ public class SoftwareDAO {
 				Software software = new Software(res.getString(NAME_FIELD),
 										res.getString(DESC_FIELD));
                 software.setId(res.getInt(ID_FIELD));
+                software.setPrice(res.getInt(PRICE_FIELD));
+                software.setPriceMultiplier(res.getInt(PRICE_MULT_FIELD));
+                
+                byte[] imgData = null;
+                Blob image = res.getBlob(IMAGE_FIELD);
+                if (image != null) {
+                	imgData = image.getBytes(1,(int)image.length());
+                }
+                software.setImg(imgData);
                 li.add(software);
 			}
 			// close connection
@@ -110,6 +163,17 @@ public class SoftwareDAO {
 			// bind the parameter
 			query.setString(1, software.getName());
 			query.setString(2, software.getDescription());
+			query.setInt(3, software.getPrice());
+			query.setInt(4, software.getPriceMultiplier());
+			byte[] data = software.getImg();
+			if (data == null) {
+				// inserting null value in a blob column type isn't allowed
+				// insert an empty string instead
+				data = "".getBytes();
+			}
+			InputStream in = new ByteArrayInputStream(data);
+			query.setBinaryStream(5, in, data.length);
+
 			// execute the query
 			query.executeQuery();
 			// close connection
@@ -164,6 +228,97 @@ public class SoftwareDAO {
 			// bind the parameter
 			query.setInt(2, software.getId());
 			query.setString(1, software.getDescription());
+			// execute the query
+			query.executeQuery();
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Failed to update this software");
+		}
+    }
+    
+    /**
+     * Update the software price from the database, throw an error on failure or if
+	 * arguments supplied were incorrect
+	 * 
+	 * @param software object to update
+	 * @throws RuntimeException
+     */
+    public static void updatePrice(Software software) {
+    	// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(UPDATE_SOFTWARE_PRICE);
+			// bind the parameter
+			query.setInt(2, software.getId());
+			query.setInt(1, software.getPrice());
+			// execute the query
+			query.executeQuery();
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Failed to update this software");
+		}
+    }
+    
+    /**
+     * Update the software price multiplier from the database, 
+     * throw an error on failure or if arguments supplied were incorrect
+	 * 
+	 * @param software object to update
+	 * @throws RuntimeException
+     */
+    public static void updatePriceMultiplier(Software software) {
+    	// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(UPDATE_SOFTWARE_PRICE_MULT);
+			// bind the parameter
+			query.setInt(2, software.getId());
+			query.setInt(1, software.getPriceMultiplier());
+			// execute the query
+			query.executeQuery();
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException("Failed to update this software");
+		}
+    }
+    
+    /**
+     * Update the software image data from the database, 
+     * throw an error on failure or if arguments supplied were incorrect
+	 * 
+	 * @param software object to update
+	 * @throws RuntimeException
+     */
+    public static void updateImage(Software software) {
+    	// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(UPDATE_SOFTWARE_IMAGE);
+			
+			byte[] data = software.getImg();
+			if (data == null) {
+				// inserting null value in a blob column type isn't allowed
+				// insert an empty string instead
+				data = "".getBytes();
+			}
+			InputStream in = new ByteArrayInputStream(data);
+			
+			// bind the parameter
+			query.setInt(2, software.getId());
+			query.setBinaryStream(1, in, data.length);
+			
 			// execute the query
 			query.executeQuery();
 			// close connection
