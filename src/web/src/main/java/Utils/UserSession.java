@@ -7,11 +7,11 @@ import model.User;
 public class UserSession {
 
 	private static final String[] USER_ALLOWED_URLS = {
-        "/product-buy", "/product-owned", "/product"
+        "/product-buy", "/product-owned", "/product", "/product-img"
 	};
 	
 	private static final String[] ADMIN_ALLOWED_URLS = {
-		"/product-buy", "/product-owned", "/product"
+		"/product-buy", "/product-owned", "/product", "/product-img"
 	};
 	
 	private boolean isAdmin;

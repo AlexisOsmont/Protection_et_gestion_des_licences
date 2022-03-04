@@ -1,20 +1,23 @@
 package Controller;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import DAO.SoftwareDAO;
 import model.Software;
 
-public class ProductDetailController extends HttpServlet {
+public class ProductImageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	// Controller
-	public ProductDetailController() {
+
+	public ProductImageController() {
 		super();
 	}
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -25,17 +28,16 @@ public class ProductDetailController extends HttpServlet {
 			int softwareId = Integer.valueOf(url.substring(idx+"/product/".length()));
 			Software soft = SoftwareDAO.get(softwareId);
 			if (soft != null) {
-				request.setAttribute("product", soft);
-				// @TMP
-				request.setAttribute("is-owned", false);
-				
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/product-detail.jsp");
-				requestDispatcher.forward(request, response);
+				byte[] imgData = soft.getImg();
+				response.setContentType("image/jpg");
+			    OutputStream o = response.getOutputStream();
+			    o.write(imgData);
+			    o.flush();
+			    o.close();
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/home");
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

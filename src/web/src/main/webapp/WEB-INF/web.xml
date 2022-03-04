@@ -87,6 +87,16 @@
 		<url-pattern>/product/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ProductImageController</servlet-name>
+		<servlet-class>Controller.ProductImageController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductImageController</servlet-name>
+		<url-pattern>/product-img/*</url-pattern>
+	</servlet-mapping>
+	
 	<!-- *********** -->
   	<!-- Admin Route --> 
   	<!-- *********** -->
