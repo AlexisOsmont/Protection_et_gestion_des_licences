@@ -33,7 +33,7 @@ create table Licence (
     LicenceId int primary key not null auto_increment,
     LicenceHardwareId varchar(100),
     LicenceStatus int not null,
-    LicenceValidy date,
+    LicenceValidity date,
     ClientId int not null,
     SoftwareId int not null,
     constraint FK_LicenceClient foreign key (ClientId)
