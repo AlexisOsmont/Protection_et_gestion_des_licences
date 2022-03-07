@@ -39,7 +39,14 @@ public class UserConverter extends CASProtocol {
 		admin = AdminDAO.get(email);
 		client = ClientDAO.get(email);
 		if (admin == null && client == null) {
-			throw new RuntimeException("Error: unknown user");
+			// unknown user, create a new one
+			client = new Client(username, email);
+			try {
+				ClientDAO.insert(client);
+			} catch (RuntimeException | AssertionError e) {
+				throw new RuntimeException("Error: failed to insert a new user");
+			}
+		
 		}
 		isAdmin = admin != null;
 	}

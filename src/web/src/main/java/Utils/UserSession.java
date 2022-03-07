@@ -10,7 +10,7 @@ public class UserSession {
 	private static final String[] USER_ALLOWED_URLS = { "/product-buy", "/product-owned", "/product", "/product-img" };
 
 	// list of all the routes an admin is allowed to take
-	private static final String[] ADMIN_ALLOWED_URLS = { "/product-buy", "/product-owned", "/product", "/product-img" };
+	private static final String[] ADMIN_ALLOWED_URLS = {  };
 
 	private boolean isAdmin;
 	private Client client;

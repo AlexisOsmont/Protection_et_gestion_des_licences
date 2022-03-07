@@ -15,6 +15,8 @@ import model.Software;
 
 public class ProductImageController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String IMG_ROUTE = "/product-img/";
 
 	public ProductImageController() {
 		super();
@@ -24,18 +26,20 @@ public class ProductImageController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String url = request.getRequestURL().toString();
-		int idx = url.indexOf("/product/");
+		int idx = url.indexOf(IMG_ROUTE);
 		
 		if (idx > 0) {
-			int softwareId = Integer.valueOf(url.substring(idx+"/product/".length()));
+			int softwareId = Integer.valueOf(url.substring(idx + IMG_ROUTE.length()));
 			Software soft = SoftwareDAO.get(softwareId);
 			if (soft != null) {
 				byte[] imgData = soft.getImg();
-				response.setContentType("image/jpg");
-			    OutputStream o = response.getOutputStream();
-			    o.write(imgData);
-			    o.flush();
-			    o.close();
+				if (imgData != null) {
+					response.setContentType("image/jpg");
+				    OutputStream o = response.getOutputStream();
+				    o.write(imgData);
+				    o.flush();
+				    o.close();					
+				}
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/home");
@@ -48,10 +52,10 @@ public class ProductImageController extends HttpServlet {
 		// @TMP
 		
 		String url = request.getRequestURL().toString();
-		int idx = url.indexOf("/product/");
+		int idx = url.indexOf(IMG_ROUTE);
 		
 		if (idx > 0) {
-			int softwareId = Integer.valueOf(url.substring(idx+"/product/".length()));
+			int softwareId = Integer.valueOf(url.substring(idx + IMG_ROUTE.length()));
 			Software soft = SoftwareDAO.get(softwareId);
 
 			InputStream inputStream = null ;

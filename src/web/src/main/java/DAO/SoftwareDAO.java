@@ -175,7 +175,7 @@ public class SoftwareDAO {
 			query.setBinaryStream(5, in, data.length);
 
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
@@ -202,7 +202,7 @@ public class SoftwareDAO {
 			query.setInt(2, software.getId());
 			query.setString(1, software.getName());
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
@@ -229,7 +229,7 @@ public class SoftwareDAO {
 			query.setInt(2, software.getId());
 			query.setString(1, software.getDescription());
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
@@ -256,7 +256,7 @@ public class SoftwareDAO {
 			query.setInt(2, software.getId());
 			query.setInt(1, software.getPrice());
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
@@ -283,7 +283,7 @@ public class SoftwareDAO {
 			query.setInt(2, software.getId());
 			query.setInt(1, software.getPriceMultiplier());
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {
@@ -320,7 +320,7 @@ public class SoftwareDAO {
 			query.setBinaryStream(1, in, data.length);
 			
 			// execute the query
-			query.executeQuery();
+			query.executeUpdate();
 			// close connection
 			c.close();
 		} catch (SQLException e) {

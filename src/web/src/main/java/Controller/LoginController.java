@@ -102,8 +102,6 @@ public class LoginController extends HttpServlet {
 					.connectTimeout(Duration.ofSeconds(10))
 					.build();
 			
-			// ticket = "123456789"; // ticket of admin
-			// ticket = "987654321"; // ticket of client
 
 			// make a request to the CAS server to validate the ticket
 			HttpRequest req = HttpRequest.newBuilder(
