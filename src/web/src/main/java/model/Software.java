@@ -12,6 +12,10 @@ public class Software {
 	private int price;
 	private int priceMultiplier;
 
+	/**
+	 * @param name
+	 * @param description
+	 */
 	public Software(String name, String description) {
 		this.id = ID_NOT_SET;
 		this.name = name;

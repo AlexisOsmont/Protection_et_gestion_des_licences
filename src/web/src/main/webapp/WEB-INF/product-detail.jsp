@@ -25,7 +25,7 @@
 		<hr>
 
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li><a href="<%=request.getContextPath()%>/product-buy"
+			<li><a href="<%=request.getContextPath()%>/product-list"
 				class="nav-link"> Achetez un logiciel </a></li>
 			<li><a href="<%=request.getContextPath()%>/product-owned"
 				class="nav-link"> Vos produits </a></li>
@@ -110,9 +110,11 @@
 								%>
 
 								<script type="text/javascript">
-									function updatePrice(target) {
+									function updatePrice(target, validity) {
 										if (target) {
 											document.getElementById("price").innerText = target.value;
+											elem = document.getElementById("buy-button");
+											elem.href = elem.href.split('?')[0] + "?validity=" + validity;
 										}
 									}
 								</script>
@@ -125,7 +127,6 @@
 									<div class="card-body">
 										<p><%=soft.getDescription()%></p>
 										
-										
 										<% 
 											int price = soft.getPrice();
 											int priceMult = soft.getPriceMultiplier();
@@ -136,26 +137,26 @@
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio1"
-												onclick="updatePrice(this)" value="<%=price %>" checked> <label
+												onclick="updatePrice(this,1)" value="<%=price %>" checked> <label
 												class="form-check-label" for="inlineRadio1">1 an</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio2"
-												onclick="updatePrice(this)" value="<%=price + price / priceMult%>"> <label
+												onclick="updatePrice(this,2)" value="<%=price + price / priceMult%>"> <label
 												class="form-check-label" for="inlineRadio2">2 an</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio3"
-												onclick="updatePrice(this)" value="<%= price + 2 * (price / priceMult) %>"> <label
+												onclick="updatePrice(this,3)" value="<%= price + 2 * (price / priceMult) %>"> <label
 												class="form-check-label" for="inlineRadio3">3 an</label>
 										</div>
 
 										<h2 class="mt-5">
 											$<span id="price"><%=price %></span><small class="text-success">(3.14%off)</small>
 										</h2>
-										<a href="#" type="button"
+										<a id="buy-button" href="/product-buy/<%=soft.getId()%>" type="button"
 											class="btn btn-lg btn-block btn-primary">Achetez</a>
 									</div>
 								</div>

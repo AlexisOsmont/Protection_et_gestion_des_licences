@@ -45,7 +45,7 @@
 				dolorem nulla doloribus reiciendis.</p>
 			<p>
 				<!-- tmp -->
-				<a href="product-buy" class="btn btn-lg btn-secondary"> C'est parti ! </a>
+				<a href="product-list" class="btn btn-lg btn-secondary"> C'est parti ! </a>
 			</p>
 		</main>
 

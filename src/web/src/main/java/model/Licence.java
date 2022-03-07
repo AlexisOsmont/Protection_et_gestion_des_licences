@@ -21,6 +21,10 @@ public class Licence {
 	private int clientId;
 	private int softwareId;
 
+	/**
+	 * @param clientId
+	 * @param softwareId
+	 */
 	public Licence(int clientId, int softwareId) {
 		// these attributes are mandatory
 		this.id = ID_NOT_SET;

@@ -58,13 +58,13 @@
 
 	<!-- product mapping -->
 	<servlet>
-		<servlet-name>ProductBuyController</servlet-name>
-		<servlet-class>Controller.ProductBuyController</servlet-class>
+		<servlet-name>ProductListController</servlet-name>
+		<servlet-class>Controller.ProductListController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>ProductBuyController</servlet-name>
-		<url-pattern>/product-buy</url-pattern>
+		<servlet-name>ProductListController</servlet-name>
+		<url-pattern>/product-list</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -100,6 +100,16 @@
 	<servlet-mapping>
 		<servlet-name>ProductImageController</servlet-name>
 		<url-pattern>/product-img/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProductBuyController</servlet-name>
+		<servlet-class>Controller.ProductBuyController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ProductBuyController</servlet-name>
+		<url-pattern>/product-buy/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- *********** -->

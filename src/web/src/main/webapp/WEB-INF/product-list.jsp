@@ -45,10 +45,12 @@
 	<main style="padding-left: 20%">
 		<section class="jumbotron text-center">
 			<div class="container">
-				<h1 class="jumbotron-heading">Listes des logiciels achetés</h1>
-				<p class="lead text-muted">Voici tous les logiciels que vous avez achetés</p>
+				<h1 class="jumbotron-heading">Listes des logiciels disponibles</h1>
+				<p class="lead text-muted">Voici tous les logiciels disponibles
+					à l'achat</p>
 				<div>
-						<input
+					<a href="#" class="btn btn-primary my-2">bouton inutile n°1</a> <a
+						href="#" class="btn btn-secondary my-2">bouton inutile n°2</a> <input
 						class="form-control" id="input" type="text"
 						placeholder="Recherchez..">
 				</div>
@@ -65,6 +67,7 @@
 					for (Software soft : li) {
 					%>
 
+
 					<div class="col-md-4"
 						style="border: 3px solid transparent; border-radius: 5px;">
 
@@ -75,7 +78,7 @@
 									data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
 									alt="Thumbnail [100%x225]"
 									style="height: 225px; width: 100%; display: block;"
-									<% byte[] data = soft.getImg();
+									<%byte[] data = soft.getImg();
 									if (data == null) {%>
 									src="data:image/svg+xml;charset=UTF-8,
 											%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20
@@ -116,6 +119,18 @@
 					</div>
 
 					<%}%>
+
+
+					<!-- <div class="row">
+						<p> @TMP </p>
+						<form action="/product-img/2" method="POST"
+							enctype="multipart/form-data">
+							<input type="file" id="image" placeholder="Enter image"
+								name="image">
+							<button type="submit">Submit</button>
+						</form>
+
+					</div> -->
 
 				</div>
 			</div>

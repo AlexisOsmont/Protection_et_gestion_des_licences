@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.List"%>
 <%@ page import="model.Software"%>
 <!DOCTYPE html>
 <html>
@@ -26,8 +25,8 @@
 		<hr>
 
 		<ul class="nav nav-pills flex-column mb-auto">
-			<li><a href="<%=request.getContextPath()%>/product-buy"
-				class="nav-link active"> Achetez un logiciel </a></li>
+			<li><a href="<%=request.getContextPath()%>/product-list"
+				class="nav-link"> Achetez un logiciel </a></li>
 			<li><a href="<%=request.getContextPath()%>/product-owned"
 				class="nav-link"> Vos produits </a></li>
 			<li><a href="#" class="nav-link"> Télécharger le logiciel
@@ -42,45 +41,29 @@
 		<script src="<%=request.getContextPath()%>/common/dark-mode-switch.js"></script>
 	</div>
 
-	<main style="padding-left: 20%">
-		<section class="jumbotron text-center">
-			<div class="container">
-				<h1 class="jumbotron-heading">Listes des logiciels disponibles</h1>
-				<p class="lead text-muted">Voici tous les logiciels disponibles
-					à l'achat</p>
-				<div>
-					<a href="#" class="btn btn-primary my-2">bouton inutile n°1</a> <a
-						href="#" class="btn btn-secondary my-2">bouton inutile n°2</a> <input
-						class="form-control" id="input" type="text"
-						placeholder="Recherchez..">
-				</div>
-			</div>
-		</section>
+	<main style="padding-left: 10%; width: 100%">
 
+		<%
+		Software soft = (Software) request.getAttribute("product");
+		%>
 
-		<div class="album py-5 bg-light">
-			<div class="container">
-				<div class="row">
+		<div class="container" style="padding-top: 10%">
+			<div class="card">
+				<div class="card-body">
+					<h3 class="card-title"><%=soft.getName()%></h3>
 
-					<%
-					List<Software> li = (List<Software>) request.getAttribute("product-list");
-					for (Software soft : li) {
-					%>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="white-box text-center">
 
-
-					<div class="col-md-4"
-						style="border: 3px solid transparent; border-radius: 5px;">
-
-						<a href="/product/<%=soft.getId()%>">
-
-							<div class="card mb-4 box-shadow card-shadow-effect">
-								<img class="card-img-top"
-									data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
-									alt="Thumbnail [100%x225]"
-									style="height: 225px; width: 100%; display: block;"
-									<%byte[] data = soft.getImg();
-									if (data == null) {%>
-									src="data:image/svg+xml;charset=UTF-8,
+									<img class="card-img-top"
+										data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
+										alt="Thumbnail [100%x225]"
+										style="height: 225px; width: 100%; display: block;"
+										<% byte[] data = soft.getImg();
+										   if (data == null) { %>
+										src="data:image/svg+xml;charset=UTF-8,
 											%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20
 											xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20
 											viewBox%3D%220%200%20348%20225%22%20preserveAspectRatio
@@ -94,47 +77,40 @@
 											%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22114.79166793823242
 											%22%20y%3D%22122.1%22%3EThumbnail%3C%2Ftext%3E%3C%2Fg%3E
 											%3C%2Fg%3E%3C%2Fsvg%3E"
-									<%} else {%> src="/product-img/<%=soft.getId()%>" <%}%>
-									data-holder-rendered="true">
-								<div class="card-body card-body-thin">
-									<div class="card-body-top">
-										<p class="card-text" style="margin-bottom: 0;">
-											<%=soft.getName()%>
-										</p>
+										<%} else {%> src="/product-img/<%=soft.getId()%>" <%}%>
+										data-holder-rendered="true">
+								</div>
+								<p></p>
+							</div>
 
-										<%-- <span class="subtitle text-capitalize"
-											style="position: relative; color: #989ea4"> <em>
-												<%= soft.getDescription()%></em>
-										</span> --%>
+							<div class="col-md-6">
 
+
+
+								<div class="card mb-4 box-shadow">
+									<div class="card-header">
+										<h4 class="my-0 font-weight-normal">Description du
+											produit</h4>
 									</div>
-
-									<div
-										class="d-flex justify-content-between align-items-center card-body-bottom">
-										<small style="color: #989ea4"><%=soft.getPrice()%></small>
+									<div class="card-body">
+										<p><%=soft.getDescription()%></p>
+										<h4 class="mt-5">Statut: En Attente</h4>
+										<p> 
+											Un mail a été envoyé à l'administrateur afin de valider votre demande,
+											cette opération peut prendre un certain temps, il vous recontactera 
+											dans les prochains jours.
+										</p>
 									</div>
 								</div>
+
 							</div>
-						</a>
+						</div>
 					</div>
-
-					<%}%>
-
-
-					<!-- <div class="row">
-						<p> @TMP </p>
-						<form action="/product-img/2" method="POST"
-							enctype="multipart/form-data">
-							<input type="file" id="image" placeholder="Enter image"
-								name="image">
-							<button type="submit">Submit</button>
-						</form>
-
-					</div> -->
 
 				</div>
 			</div>
 		</div>
+
 	</main>
 
 </body>
