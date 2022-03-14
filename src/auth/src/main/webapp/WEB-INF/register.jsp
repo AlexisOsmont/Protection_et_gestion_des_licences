@@ -40,14 +40,7 @@
 				
 				<%if (request.getAttribute("registerCode") != null && request.getAttribute("errorMessage") != null) { 
 					int code = (int) request.getAttribute("registerCode");%>
-					<!--
-					<p>code = "<%= request.getAttribute("registerCode") %>"</p>	
-					<p>username = "<%= request.getParameter("username") %>"</p>
-					<p>password = "<%= request.getParameter("password") %>"</p>
-					<p>mail = "<%= request.getParameter("mail") %>"</p>	 -->
-								
 					<p> <%= request.getAttribute("errorMessage")%> </p>
-					
 				<%}%>
 			
 				<div class="card-body" style="padding: 30% 1rem">
@@ -59,20 +52,20 @@
 							<label for="username">Identifiant</label> <input type="text"
 								id="username" name="username" class="form-control "
 								autocomplete="off" autocapitalize="none" autocorrect="off"
-								required="" value="">
+								required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 
 						<div class="mb-3">
 							<label for="email">Mail</label> <input type="email" id="email"
 								name="mail" class="form-control " autocomplete="off"
-								autocapitalize="none" autocorrect="off" required="" value="">
+								autocapitalize="none" autocorrect="off" required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 
 						<div class="mb-3">
 							<label for="password">Mot de passe</label> <input type="password"
-								class="form-control" id="password" name="password" required="">
+								class="form-control" id="password" name="password" required="required">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 						<div class="mb-3">

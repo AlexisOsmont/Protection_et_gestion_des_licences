@@ -16,6 +16,19 @@ CREATE TABLE users (
 	password varchar(50)
 );
 
+insert into users (username, email, password) values ('admin', 'admin@admin.fr', 'adminpasswd');
+insert into users (username, email, password) values ('client', 'client@client.fr', 'clientpasswd');
+
+-- Création de la table des tickets
+
+CREATE TABLE tickets (
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	hash varchar(30),
+	usr INT,
+	FOREIGN KEY (usr) REFERENCES users(id) ON DELETE CASCADE
+);
+
 -- Donnons les droits à tomcat sur users
 GRANT ALL PRIVILEGES ON auth.users TO tomcat;
+GRANT ALL PRIVILEGES ON auth.tickets TO tomcat;
 FLUSH PRIVILEGES;

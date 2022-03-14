@@ -11,40 +11,35 @@ import Entity.User;
 public class UserModel {
 	
 	private static final String INSERT_QUERY = "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";		
-	private static final String DELETE_QUERY = "DELETE FROM users WHERE username = ? AND mail = ?;";
+	private static final String DELETE_QUERY = "DELETE FROM users WHERE username = ? AND email = ?;";
 
-	private static final String UPDATE_MAIL= "UPDATE users SET mail = ? WHERE username = ?;";
+	private static final String UPDATE_MAIL= "UPDATE users SET email = ? WHERE username = ?;";
 	private static final String UPDATE_USERNAME = "UPDATE users SET username = ? WHERE mail = ?;";
 	private static final String UPDATE_PASSWORD = "UPDATE users SET password = ? WHERE username = ?;";
 	
 	private static final String CHECK_USERNAME = "SELECT username FROM users WHERE username = ?;";
 	private static final String CHECK_MAIL= "SELECT email FROM users WHERE email = ?;";
+	private static final String GET_BY_MAIL= "SELECT * FROM users WHERE email = ?;";
 
 					
-	public static User getUserByMail(String mail) {
+	public static User getUserByMail(String mail) throws SQLException {
 		Validator.checkEmail(mail);
 		User user = null;
-		// Try to execute the request
-		try {
-			// Get connection from database
-			Connection c = Database.getConnection();
-			// Create a prepared statement
-			PreparedStatement query = c.prepareStatement(CHECK_MAIL);
-			// bind the parameter
-			query.setString(1, mail);
-			// execute the query
-			ResultSet res = query.executeQuery();
-			if (res.next()) {
-				// User exists in the DB -> create object
-				user = new User(res.getString("username"),
-						res.getString("mail"), res.getString("password"));
-			}
-			// close connection
-			c.close();
-		} catch (SQLException e) {
-			user = null;
-			e.printStackTrace();
+		// Get connection from database
+		Connection c = Database.getConnection();
+		// Create a prepared statement
+		PreparedStatement query = c.prepareStatement(GET_BY_MAIL);
+		// bind the parameter
+		query.setString(1, mail);
+		// execute the query
+		ResultSet res = query.executeQuery();
+		if (res.next()) {
+			// User exists in the DB -> create object
+			user = new User(res.getString("username"),
+					res.getString("password"), res.getString("email"));
 		}
+		// close connection
+		c.close();
 		return user;
 	}
 	

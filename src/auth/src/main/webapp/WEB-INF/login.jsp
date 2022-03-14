@@ -39,18 +39,22 @@
 			<div class="card border-0 col-sm-9 col-lg-7">
 				<div class="card-body" style="padding: 30% 1rem">
 					<h1 class="fw-bold mb-4">Connexion</h1>
+					
+					<%if (request.getAttribute("errorMessage") != null) {%>
+					<p> <%= request.getAttribute("errorMessage")%> </p>
+					<%}%>
 
 					<form method="POST" action="login">
 						<div class="mb-3">
 							<label for="email">Adresse Mail</label> <input type="email" id="email"
 								name="email" class="form-control " autocomplete="off"
-								autocapitalize="none" autocorrect="off" required="" value="">
+								autocapitalize="none" autocorrect="off" required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 
 						<div class="mb-3">
 							<label for="password">Mot de passe</label> <input type="password"
-								class="form-control" id="password" name="password" required="">
+								class="form-control" id="password" name="password" required="required">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 						<div class="mb-3">
