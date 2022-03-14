@@ -115,7 +115,40 @@
 	<!-- *********** -->
 	<!-- Admin Route -->
 	<!-- *********** -->
+	
+	<servlet>
+		<servlet-name>AdminPanelController</servlet-name>
+		<servlet-class>Controller.AdminPanelController</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>AdminPanelController</servlet-name>
+		<url-pattern>/admin-panel</url-pattern>
+	</servlet-mapping>
+
+	<!-- ************ -->
+	<!-- API Route    -->
+	<!-- ************ -->
+	<servlet>
+		<servlet-name>APILicenceController</servlet-name>
+		<servlet-class>Controller.APILicenceController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>APILicenceController</servlet-name>
+		<url-pattern>/api/v1/Licence/requestLicence</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>APISoftwareController</servlet-name>
+		<servlet-class>Controller.APISoftwareController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>APISoftwareController</servlet-name>
+		<url-pattern>/api/v1/Software/getSoftwareList</url-pattern>
+	</servlet-mapping>
+	
 	<!-- ************ -->
 	<!-- Filter Route -->
 	<!-- ************ -->
