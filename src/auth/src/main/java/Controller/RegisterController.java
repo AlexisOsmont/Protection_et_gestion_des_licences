@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import Entity.User;
 import Model.UserModel;
+import Utils.Validator;
 
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,9 +20,6 @@ public class RegisterController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// only for testing until all work
-		request.setAttribute("registerCode", 5);
 		
 		//render page
 		render(request, response);
@@ -39,8 +37,19 @@ public class RegisterController extends HttpServlet {
 		// no specific treatment
 		if (username == null || mail == null || password == null) {
 			render(request, response);
+			return;
 		}
 		
+		// Validation 
+		try {
+			Validator.checkUsername(username);
+			Validator.checkEmail(mail);
+			Validator.checkPasswordStrength(password);
+		} catch (AssertionError e) {
+			request.setAttribute("errorMessage", "Inscription échouée. <br/> " + e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+			return;
+		}
 		
 		// if not creating the new user
 		User newUser = new User(username, password, mail);
@@ -50,14 +59,13 @@ public class RegisterController extends HttpServlet {
 			UserModel.insertUser(newUser);
 		} catch (SQLException e) {
 			// sending the error message to the view
-			request.setAttribute("registerCode", 1);
 			request.setAttribute("errorMessage", e.getMessage());
 			// calling the view
-			render(request, response);	
+			render(request, response);
+			return;
 		}
 		
 		// setting success code to the view
-		request.setAttribute("registerCode", 0);
 		request.setAttribute("errorMessage", "Inscription Réussie !");
 		// calling the view
 		render(request, response);

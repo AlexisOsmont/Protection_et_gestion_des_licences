@@ -37,16 +37,14 @@
 			style="position: relative;">
 			<div class="card border-0 col-sm-9 col-lg-7">
 			
-				
-				<%if (request.getAttribute("registerCode") != null && request.getAttribute("errorMessage") != null) { 
-					int code = (int) request.getAttribute("registerCode");%>
-					<p> <%= request.getAttribute("errorMessage")%> </p>
-				<%}%>
-			
 				<div class="card-body" style="padding: 30% 1rem">
 					<h1 class="fw-bold mb-4">Inscription</h1>
 
 					<form method="POST" action="register">
+					
+						<%if (request.getAttribute("errorMessage") != null) {%>
+							<p> <%= request.getAttribute("errorMessage")%> </p>
+						<%}%>
 
 						<div class="mb-3">
 							<label for="username">Identifiant</label> <input type="text"

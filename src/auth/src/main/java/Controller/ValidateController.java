@@ -37,7 +37,7 @@ public class ValidateController extends HttpServlet {
 		
 		// test ticket structure
 		try {
-			Validator.checkTicket();
+			Validator.checkTicket(ticket);
 		} catch (AssertionError e) {
 			response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
 			PrintWriter w = response.getWriter();
@@ -45,32 +45,6 @@ public class ValidateController extends HttpServlet {
 			return;
 		}
 		
-		
-		// Hardcode for now
-		if (ticket.equals("123456789")) {
-			//valid ticket
-			response.setStatus(HttpServletResponse.SC_OK);
-			
-			response.setHeader("Content-Type", "application/json");
-			
-			//set user information
-			PrintWriter w = response.getWriter();
-			w.write("{\"username\":\"admin\",\"mail\":\"admin@admin.fr\"}");
-			return;
-		}
-		if (ticket.equals("987654321")) {
-			//valid ticket
-			response.setStatus(HttpServletResponse.SC_OK);
-			
-			response.setHeader("Content-Type", "application/json");
-			
-			//set user information
-			PrintWriter w = response.getWriter();
-			w.write("{\"username\":\"client\",\"mail\":\"client@client.fr\"}");
-			return;
-		}
-		
-		// TODO : Récupérer le ticket si valide : recuperer info user.
 		try {
 			if (!TicketsModel.checkTicket(ticket)) {
 				response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
@@ -94,7 +68,7 @@ public class ValidateController extends HttpServlet {
 		} catch (SQLException e) {
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			PrintWriter w = response.getWriter();
-			w.write("Erreur interne lors de la validation du ticket " + ticket + ". " + e.getMessage());
+			w.write("Erreur interne lors de la validation du ticket. " + e.getMessage());
 			return;
 		}
 		

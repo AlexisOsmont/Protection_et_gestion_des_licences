@@ -3,11 +3,11 @@ import java.util.regex.Pattern;
 
 public class Validator {
 	
-	private static final String USERNAME_REGEX = null;
+	private static final String USERNAME_REGEX = "^[A-Za-z0-9]{0,25}$";
 	//TODO: USERNAME_REGEX
 	
 	// Regular expression to check the strength of password
-	private static final String REGEXP =
+	private static final String PASS_REGEXP =
 			"^(?=.*[A-Z])"		// at least one uppercase between A-Z
 			+ "(?=.*[!@#$&*])"	// at least one special character
 			+ "(?=.*[0-9])"		// at least one number
@@ -20,19 +20,23 @@ public class Validator {
             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
             "A-Z]{2,7}$";
 	
-	private static final String TICKET_REGEX = null;
+	private static final String TICKET_REGEX = "^[A-Za-z0-9]{0,25}$";
 	//TODO: TICKET_REGEXP
 	
-	public static void checkUsername(String password) throws AssertionError {
-		//TODO: Validator.checkUsername function
+	public static void checkUsername(String username) throws AssertionError {
+		Pattern pat = Pattern.compile(USERNAME_REGEX);
+		if (username == null || !pat.matcher(username).matches()) {
+			throw new AssertionError("Nom d'utilisateur non valide. "
+					+ "Sont requis au maximum 25 caratères alphanumériques. - et _ sont aussi autorisés");
+		}
 	}
 	
 	// Check if password if strong enough.
 	public static void checkPasswordStrength(String password) throws AssertionError {
-		Pattern p = Pattern.compile(REGEXP);
+		Pattern p = Pattern.compile(PASS_REGEXP);
 		if (password == null || !p.matcher(password).matches()) {
 			throw new AssertionError("Mot de passe invalide. "
-					+ "Sont requis : 8 Caractères minimum dont 1 Majuscule, 1 Minuscule, 1 Caractère spécial !@#$&* et 1 chiffre.");
+					+ "Sont requis au minimum 8 caractères dont 1 Majuscule, 1 Minuscule, 1 Caractère spécial !@#$&* et 1 chiffre.");
 		}
 	}
 	
@@ -43,9 +47,11 @@ public class Validator {
 		}
 	}
 
-	public static void checkTicket() throws AssertionError {
-		// TODO Validator.checkTicket function
-		
+	public static void checkTicket(String hash) throws AssertionError {
+		Pattern pat = Pattern.compile(TICKET_REGEX);
+		if (hash == null || !pat.matcher(hash).matches()) {
+			throw new AssertionError("Ticket non valide.");
+		}
 	}
 	
 }
