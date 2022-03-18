@@ -28,7 +28,7 @@ public class APILicenceController extends HttpServlet {
 		response.setHeader("Content-Type", "application/json");
 		PrintWriter w = response.getWriter();
 		JSONObject obj = new JSONObject();
-		obj.put("A", "b");
+		obj.put("Test", "value");
         w.write(obj.toJSONString());
 	}
 

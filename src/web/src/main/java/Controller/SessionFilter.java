@@ -15,10 +15,6 @@ import javax.servlet.http.HttpSession;
 import Utils.UserSession;
 
 public class SessionFilter implements Filter {
-	
-	private static final String[] PUBLIC_ROUTE = {
-		"/home", "/login", "/register", "/common"
-	};
  
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,7 +37,7 @@ public class SessionFilter implements Filter {
         
         boolean isLoggedIn = (session != null && appSession != null);
         boolean isAllowed = appSession == null ? false : appSession.isAllowedFor(url);
-        boolean isAuthRequired = isLoginRequired(url);
+        boolean isAuthRequired = appSession.isLoginRequired(url);
         
         if ((isLoggedIn && (isAllowed || !isAuthRequired)) || (!isLoggedIn && !isAuthRequired)) {
         	// user is logged and is allowed to reach destination
@@ -58,20 +54,4 @@ public class SessionFilter implements Filter {
         }
         
     }
-    
-    private boolean isLoginRequired(String url) {
-    	boolean result = true;
-    	
-	    for (String route : PUBLIC_ROUTE) {
-	        if (url.contains(route)) {
-	            result = false;
-	            break;
-	        }
-	    }
-	    
-    	return result;
-    }
-    
-    
- 
 }

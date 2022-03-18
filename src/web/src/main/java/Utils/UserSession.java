@@ -6,6 +6,12 @@ import model.User;
 
 public class UserSession {
 
+	// list of publics routes
+	private static final String[] PUBLIC_ROUTE = {
+			"/home", "/login", "/register", "/common",
+			"/api/v1/Software/getSoftwareList", "/api/v1/Licence/requestLicence"
+	};
+	
 	// list of all the routes a user is allowed to take
 	private static final String[] USER_ALLOWED_URLS = { "/product-list", "/product-owned", "/product", "/product-img" };
 
@@ -93,5 +99,18 @@ public class UserSession {
 		}
 		return result;
 	}
+	
+	public boolean isLoginRequired(String url) {
+    	boolean result = true;
+    	
+	    for (String route : PUBLIC_ROUTE) {
+	        if (url.contains(route)) {
+	            result = false;
+	            break;
+	        }
+	    }
+	    
+    	return result;
+    }
 
 }
