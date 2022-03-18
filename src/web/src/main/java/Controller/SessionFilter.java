@@ -37,7 +37,7 @@ public class SessionFilter implements Filter {
         
         boolean isLoggedIn = (session != null && appSession != null);
         boolean isAllowed = appSession == null ? false : appSession.isAllowedFor(url);
-        boolean isAuthRequired = appSession.isLoginRequired(url);
+        boolean isAuthRequired = UserSession.isLoginRequired(url);
         
         if ((isLoggedIn && (isAllowed || !isAuthRequired)) || (!isLoggedIn && !isAuthRequired)) {
         	// user is logged and is allowed to reach destination

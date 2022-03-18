@@ -100,7 +100,7 @@ public class UserSession {
 		return result;
 	}
 	
-	public boolean isLoginRequired(String url) {
+	public static boolean isLoginRequired(String url) {
     	boolean result = true;
     	
 	    for (String route : PUBLIC_ROUTE) {
