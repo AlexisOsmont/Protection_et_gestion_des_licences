@@ -18,6 +18,12 @@ namespace MachineID
             Console.WriteLine("--- Retrieving Processor Id Hash\n");
             string processorIDHash = ProcessorIdHash();
 
+            Console.WriteLine("--- Retrieving Bios Id Hash\n");
+            string biosHash = BiosHash();
+
+            Console.WriteLine("--- Retrieving Hdd Id Hash\n");
+            string hddHash = HddHash();
+
             Console.WriteLine("\n--- Retrieving Mac Address Hash");
             string macAddressHash = MacAddressHash();
 
@@ -27,6 +33,7 @@ namespace MachineID
 
             Console.WriteLine("\n--- Summary ---");
             Console.WriteLine("Processor ID hash is : " + processorIDHash);
+            Console.WriteLine("Bios ID hash is : " + macAddressHash);
             Console.WriteLine("Mac address(es) hash is : " + macAddressHash);
             Console.WriteLine("Baseboard Serial Number hash is : " + baseBoardHash);
 
@@ -109,6 +116,46 @@ namespace MachineID
             Console.WriteLine("Processor Informations can't be reached.");
             return "";
         }
+        static string BiosHash()
+        {
+            ManagementObjectSearcher bios = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
+
+             foreach (ManagementObject obj in bios.Get())
+            {
+                Console.WriteLine("bios version : " + obj["Version"]);
+
+                string? bios = obj["Version"].ToString();
+                if (bios != null)
+                {
+                    return bios;
+                }
+                
+            }
+            Console.WriteLine("Bios Informations can't be reached.");
+            return "";
+
+        }
+
+        static string HddHash()
+        {
+            ManagementObjectSearcher hdd = new ManagementObjectSearcher("SELECT * FROM Win32_DiskDrive");
+
+             foreach (ManagementObject obj in hdd.Get())
+            {
+                Console.WriteLine("hdd Signature : " + obj["Signature"]);
+
+                string? hdd = obj["Signature"].ToString();
+                if (hdd != null)
+                {
+                    return hdd;
+                }
+                
+            }
+            Console.WriteLine("Hdd Informations can't be reached.");
+            return "";
+
+        }
+
 
         static byte[]? XorBytesArray(byte[] first, byte[] second)
         {
