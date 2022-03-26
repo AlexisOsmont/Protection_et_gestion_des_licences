@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.Software"%>
+<%@ page import="Utils.ErrorMsg" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,9 @@
 </head>
 
 <body class="bg-light d-flex h-100">
+
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"

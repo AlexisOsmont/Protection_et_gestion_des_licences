@@ -16,6 +16,9 @@
 </head>
 
 <body class="bg-light d-flex h-100">
+
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"
@@ -27,9 +30,9 @@
 
 		<ul class="nav nav-pills flex-column mb-auto">
 			<li><a href="<%=request.getContextPath()%>/product-list"
-				class="nav-link active"> Achetez un logiciel </a></li>
+				class="nav-link"> Achetez un logiciel </a></li>
 			<li><a href="<%=request.getContextPath()%>/product-owned"
-				class="nav-link"> Vos produits </a></li>
+				class="nav-link active"> Vos produits </a></li>
 			<li><a href="#" class="nav-link"> Télécharger le logiciel
 					d'activation </a></li>
 		</ul>
@@ -42,7 +45,7 @@
 		<script src="<%=request.getContextPath()%>/common/dark-mode-switch.js"></script>
 	</div>
 
-	<main style="padding-left: 20%">
+	<main style="padding-left: 15%; width: 100%;">
 		<section class="jumbotron text-center">
 			<div class="container">
 				<h1 class="jumbotron-heading">Listes des logiciels achetés</h1>

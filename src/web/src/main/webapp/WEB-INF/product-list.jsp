@@ -16,6 +16,9 @@
 </head>
 
 <body class="bg-light d-flex h-100">
+
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"
@@ -42,7 +45,7 @@
 		<script src="<%=request.getContextPath()%>/common/dark-mode-switch.js"></script>
 	</div>
 
-	<main style="padding-left: 20%">
+	<main style="padding-left: 15%; width: 100%">
 		<section class="jumbotron text-center">
 			<div class="container">
 				<h1 class="jumbotron-heading">Listes des logiciels disponibles</h1>
@@ -119,18 +122,6 @@
 					</div>
 
 					<%}%>
-
-
-					<!-- <div class="row">
-						<p> @TMP </p>
-						<form action="/product-img/2" method="POST"
-							enctype="multipart/form-data">
-							<input type="file" id="image" placeholder="Enter image"
-								name="image">
-							<button type="submit">Submit</button>
-						</form>
-
-					</div> -->
 
 				</div>
 			</div>

@@ -6,8 +6,10 @@ import javax.servlet.http.*;
 
 import DAO.LicenceDAO;
 import DAO.SoftwareDAO;
+import Utils.ErrorMsg;
 import Utils.UserSession;
 import model.Client;
+import model.Licence;
 import model.Software;
 
 public class ProductDetailController extends HttpServlet {
@@ -38,11 +40,15 @@ public class ProductDetailController extends HttpServlet {
 				Client client = s.getClient();
 				
 				// check if the software is owned by the client
-				boolean isOwned = LicenceDAO.get(client.getId(), softwareId) != null;;
-				request.setAttribute("is-owned", isOwned);
+				Licence l = LicenceDAO.get(client.getId(), softwareId);
+				request.setAttribute("is-owned", l);
 				
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/product-detail.jsp");
 				requestDispatcher.forward(request, response);
+			} else {
+				// redirect user to the page but add an error msg 
+				ErrorMsg.setError(request, ErrorMsg.ERROR_LICENCE_INVALID_PARAMETERS);
+				response.sendRedirect(request.getContextPath() + PRODUCT_ROUTE);
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/home");

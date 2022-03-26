@@ -1,10 +1,8 @@
 package Controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Calendar;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import DAO.LicenceDAO;
 import DAO.SoftwareDAO;
 import Utils.UserSession;
+import Utils.ErrorMsg;
 import model.Client;
 import model.Licence;
 import model.Software;
@@ -32,10 +31,12 @@ public class ProductBuyController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String url = request.getRequestURL().toString();
-		int idx = url.indexOf(PRODUCT_BUY_ROUTE);
 		
-		if (idx > 0) {
-			int softwareId = Integer.valueOf(url.substring(idx + PRODUCT_BUY_ROUTE.length()));
+		int idx = url.indexOf(PRODUCT_BUY_ROUTE);
+		String val = url.substring(idx + PRODUCT_BUY_ROUTE.length());
+		
+		if (idx > 0 && val != null) {
+			int softwareId = Integer.valueOf(val);
 			Software soft = SoftwareDAO.get(softwareId);
 			if (soft != null) {
 				request.setAttribute("product", soft);
@@ -45,12 +46,13 @@ public class ProductBuyController extends HttpServlet {
 				UserSession s = (UserSession) session.getAttribute("user");
 				Client client = s.getClient();
 				
-				//@TODO: send email to admin
+				// @TODO: send email to admin
 				
 				// create an entry in the DB
 				
 				String validity = request.getParameter("validity");
-				int year = Integer.valueOf(validity);
+				int year = validity == null ? 0 : Integer.valueOf(validity);
+				
 				if (year > 0) {
 					Calendar calendar = Calendar.getInstance();
 					calendar.add(Calendar.YEAR, year);
@@ -59,11 +61,22 @@ public class ProductBuyController extends HttpServlet {
 					licence.setStatus(Licence.Status.PENDING.ordinal());
 					licence.setValidity(calendar.getTime());
 					
-					LicenceDAO.insert(licence);
+					try {
+						LicenceDAO.insert(licence);
+						// redirect user to the page but add a success msg 
+						ErrorMsg.setError(request, ErrorMsg.Severity.SUCCESS, ErrorMsg.MSG_LICENCE_REQUEST_SUCCESS);
+						response.sendRedirect(request.getContextPath() + "/product/" + val);
+						
+					} catch (AssertionError e) {
+						// redirect user to the page but add an error msg 
+						ErrorMsg.setError(request, ErrorMsg.ERROR_LICENCE_ALREADY_OWNED);
+						response.sendRedirect(request.getContextPath() + "/product/" + val);
+					}
+				} else {
+					// redirect user to the page but add an error msg 
+					ErrorMsg.setError(request, ErrorMsg.ERROR_LICENCE_INVALID_PARAMETERS);
+					response.sendRedirect(request.getContextPath() + "/product/" + val);
 				}
-				
-				RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/product-buy.jsp");
-				requestDispatcher.forward(request, response);
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/home");
