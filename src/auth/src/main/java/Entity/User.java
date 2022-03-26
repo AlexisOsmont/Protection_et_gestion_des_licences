@@ -1,7 +1,5 @@
 package Entity;
 
-import Utils.Validator;
-
 public class User {
 	
 	private String username;

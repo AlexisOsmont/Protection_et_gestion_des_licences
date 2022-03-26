@@ -23,8 +23,9 @@ insert into users (username, email, password) values ('client', 'client@client.f
 
 CREATE TABLE tickets (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	hash varchar(30),
-	usr INT,
+	hash varchar(30) NOT NULL,
+	usr INT NOT NULL,
+	epoch int(11),
 	FOREIGN KEY (usr) REFERENCES users(id) ON DELETE CASCADE
 );
 

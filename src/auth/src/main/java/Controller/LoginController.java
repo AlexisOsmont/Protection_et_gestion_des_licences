@@ -30,6 +30,9 @@ public class LoginController extends HttpServlet {
 		if (service != null) {
 			// we store it in the session
 			session.setAttribute("service", service);
+		} else {
+			// in case it is set from another connection
+			session.removeAttribute(service);
 		}
 		
 		// then serve the page
@@ -52,46 +55,52 @@ public class LoginController extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-				
-		String url = (String) session.getAttribute("service");
 		
-		if (url != null) {
-			String ticket = "";
+		String ticket = "";
+		
+		User user = null;
+		try {
+			user = UserModel.getUserByMail(mail);
+		} catch (SQLException e) {
+			request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			return;
+		}
+		
+		if (user == null) {
+			request.setAttribute("errorMessage", "Connexion échouée, vérifiez vos identifiants.");
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			return;
+		}
+		
+		// TODO : must implement becrypt check
+		if (password.equals(user.getPassword())) {
 			
-			User user = null;
+			String url = (String) session.getAttribute("service");
+			
+			if (url == null) {
+				session.setAttribute("logged", true);
+				session.setAttribute("username", user.getUsername());
+				session.setAttribute("mail", user.getMail());
+				response.sendRedirect(request.getScheme() + "://" +  request.getServerName() + ":" + request.getServerPort() + "/home");
+				return;
+			}
+			
+			// On créer un ticket pour cet utilisateur
 			try {
-				user = UserModel.getUserByMail(mail);
+				ticket = TicketsModel.newTicket(user);
 			} catch (SQLException e) {
 				request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
 				request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 				return;
 			}
 			
-			if (user == null) {
-				request.setAttribute("errorMessage", "Connexion échouée, vérifiez vos identifiants.");
-				request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-				return;
-			}
+			// better to remove service from session for other connections
+			session.removeAttribute("service");
 			
-			// TODO : must implement becrypt check
-			if (password.equals(user.getPassword())) {
-				
-				// On créer un ticket pour cet utilisateur
-				try {
-					ticket = TicketsModel.newTicket(user);
-				} catch (SQLException e) {
-					request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
-					request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-					return;
-				}
-				
-				// better to remove service from session for other connections
-				session.removeAttribute("service");
-				
-				// redirect to service url
-				response.sendRedirect(url + "?ticket=" + ticket);
-				return;
-			}
+			// redirect to service url
+			response.sendRedirect(url + "?ticket=" + ticket);
+			return;
 		}
 		
 		//TODO: set error login message or redirect to /home once created

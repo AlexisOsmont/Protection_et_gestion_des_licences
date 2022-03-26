@@ -48,7 +48,7 @@
 						<div class="mb-3">
 							<label for="email">Adresse Mail</label> <input type="email" id="email"
 								name="email" class="form-control " autocomplete="off"
-								autocapitalize="none" autocorrect="off" required="required" value="">
+								autocapitalize="none" required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 

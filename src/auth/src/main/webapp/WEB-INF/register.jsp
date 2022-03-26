@@ -49,7 +49,7 @@
 						<div class="mb-3">
 							<label for="username">Identifiant</label> <input type="text"
 								id="username" name="username" class="form-control "
-								autocomplete="off" autocapitalize="none" autocorrect="off"
+								autocomplete="off" autocapitalize="none"
 								required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
@@ -57,7 +57,7 @@
 						<div class="mb-3">
 							<label for="email">Mail</label> <input type="email" id="email"
 								name="mail" class="form-control " autocomplete="off"
-								autocapitalize="none" autocorrect="off" required="required" value="">
+								autocapitalize="none" required="required" value="">
 							<p class="invalid-feedback d-block"></p>
 						</div>
 

@@ -1,22 +1,24 @@
 package Model;
 
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.Random;
 
 import Entity.User;
 import Utils.Database;
-import Utils.Validator;
 
 public class TicketsModel {
 	
-	private static final String INSERT_TICKET = "INSERT INTO tickets (hash, usr) values (?, (SELECT id FROM users WHERE username = ?));";
+	// Temps d'expiration en seconde.
+	private static final long EXPIRACY_TIME = 5;
+	
+	private static final String INSERT_TICKET = "INSERT INTO tickets (hash, usr, epoch) values (?, (SELECT id FROM users WHERE username = ?), UNIX_TIMESTAMP());";
 	private static final String DELETE_TICKET = "DELETE FROM tickets WHERE hash = ?;";
 	
-	private static final String CHECK_TICKET = "SELECT hash FROM tickets WHERE hash = ?";
+	private static final String CHECK_TICKET = "SELECT hash, epoch FROM tickets WHERE hash = ?";
 	
 	private static final String GET_USER_BY_TICKET= "SELECT * FROM users WHERE id = (SELECT usr FROM tickets WHERE hash = ?);";
 	
@@ -63,10 +65,7 @@ public class TicketsModel {
 					res.getString("password"), res.getString("email"));
 		}
 		
-		// Now trying to delete the ticket
-		query = c.prepareStatement(DELETE_TICKET);
-		query.setString(1, hash);
-		query.execute();
+		deleteTicket(hash);
 				
 		// close connection
 		c.close();
@@ -86,10 +85,36 @@ public class TicketsModel {
 		ResultSet set = query.executeQuery();
 		// close the connection
 		boolean ticket_exists = set.next();
+		if (ticket_exists) {
+			String epoch = set.getString("epoch");
+			if (epoch == null) {
+				deleteTicket(set.getString("hash"));
+				c.close();
+				return false;
+			}
+			long ticket_creation = Long.parseLong(epoch);
+			long currentTimestamp = Instant.now().getEpochSecond();
+			
+			if (currentTimestamp - ticket_creation > EXPIRACY_TIME) {
+				deleteTicket(set.getString("hash"));
+				c.close();
+				throw new SQLException("Ticket expiré.");
+			}
+		}
 		c.close();
 		return ticket_exists;
 	}
 	
+	public static void deleteTicket(String hash) throws SQLException {
+		if (hash == null) {
+			return;
+		}
+		Connection c = Database.getConnection();
+		// Now trying to delete the ticket
+		PreparedStatement query = c.prepareStatement(DELETE_TICKET);
+		query.setString(1, hash);
+		query.execute();
+	}
 	
 	private static String generateTicketHash() {
 
