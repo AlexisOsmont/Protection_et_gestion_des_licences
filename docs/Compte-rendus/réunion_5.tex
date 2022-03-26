@@ -24,7 +24,7 @@
     \begin{description}
         \item Alexis Osmont
         \item Kaci Hammoudi
-        \item Louka  Boivin
+        \item Louka Boivin
         \item Sami Babigeon
     \end{description}
 \newpage
@@ -45,51 +45,35 @@ des futurs utilisateurs, la vérification de licence dans la DLL et les dates de
     \item Correspond aux besoins.
     \item Accélerer la DLL 
     \item Faire la vérification
-    \item 
-    \item Convention sur la forme.
-    \item 5.1.1 rôle : Serveur -> application (web).
-    \item Framework à utiliser pour la MVC : codeIgniter.
-    \item Spécifier ou modifier sur le schema API : ajouter la sécu d'authentification clairement(droit de lancer l'API).
-    \item Ajout hardwareID Figure 5.3.
-    \item Fonctions de protection dans le framework.
-    \item Revoir la forme du model page 18.
-    \item Spécification de l'API physique. 
-    \item schema général bon
 \end{itemize}
 
-\subsection{ADR}
+\subsection{Faille durée de licence}
 
 \begin{itemize}
-    \item La liste des points durs : rien à dire.
-    \item Bonne definition et ordre des points.
-    \item 3.1 : Application client serveur -> programmation serveur.
-    \item Précision sur les connaissances techniques (3.5).
-    \item Complexité des solutions techniques : tout les points dur et aucune experience.
-    \item 3.6 : Ajout obfuscation aussi.
-    \item Précision des points 3.7 dire ce que ca engendre. 
-    \item Revoir la mise en forme de certaines parties
-    \item Revoir l'ordre du tableau en fin de doc
+    \item Trouver une solution fiable et réalisable
+    \item Solutions :
+    \item Avec date d'activation et d'expiration
+    \item On verifie que la date de la machine est >= à l'activation
+    \item Limite l'utilisation du logiciel a 24h/24
+    \item Création d'un fichier date caché 
+    \item Regarder le nombre de lancement du logiciel
+    \item Borne en heure ou en jour (à reflechir)
 \end{itemize}
 
-\subsection{PDD}
+\subsection{Machine ID}
 
 \begin{itemize}
-    \item Pas le temps de faire une review de ce document.
+    \item Ne pas utiliser base de registre (optimisation)
+    \item car modifiable
+    \item Trouver un autre moyen, si on trouve pas, pas grave
 \end{itemize}
 
 \section{Discussions d'aspects technique}
-Certains points techniques ont été abordés durant cette réunion, tel que la gestion des API et leurs sécurités, l'importance de
-l'utilisation d'un framework simplifiant et structurant le travail. Le framework codeIgniter sera donc utilisé, de plus il
-possede nativement des fonctions de sécurisation.
-CodeIgniter peut permettre une mise en place serveur simplifié par exemple.
-\\
-
-La partie API et les fonctions principales ont été le points principales de la réunion
-la simplicité, leurs parametrages et leurs utilités a été precisé et redifinie pour certaine.
-Un seul controller sera mit en place.La partie 5 a été validé dans son ensemble il ne reste que des details de spécification à revoir.\\ \newline
-
-La greffe de code ne doit pas obligatoirement être implementer en sa totalité, un exemple et le minimum requis
-lors du projet et donc doit apparaitre sur les documents de besoin.
+Certains points techniques ont été abordés durant cette réunion, tel que la gestion de la licence par exemple, une démonstration
+du logiciel côté client a aussi été faite. Le point central de la réunion aura été la tentative de correction d'une faille de licence ui est la date
+de celle-ci. En effet générer une licence vise à limiter la durée d'utilisation d'un logiciel la durée de validité est donc le point essentiel de ces licences
+Nous avons donc essayé avec le client de trouver des solutions (partie faille de durée de licence). L'importance de l'injection de code a été remis au 
+centre de l'attention car très attendu par le client. Cependant, malgré des tests et beaucoup réflexions y compris avec le client, toutes tentatives se sont montrées infructueuses.
 
 \newpage
 
