@@ -1,6 +1,7 @@
 package Controller;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.*;
@@ -8,6 +9,7 @@ import javax.servlet.http.*;
 
 import Entity.User;
 import Model.UserModel;
+import Utils.Password;
 import Utils.Validator;
 
 public class RegisterController extends HttpServlet {
@@ -52,7 +54,16 @@ public class RegisterController extends HttpServlet {
 		}
 		
 		// if not creating the new user
-		User newUser = new User(username, password, mail);
+		String salt = Password.generateSalt();
+		String encryptedPass = null;
+		try {
+			encryptedPass = Password.cookPassword(salt, password);
+		} catch (NoSuchAlgorithmException e1) {
+			request.setAttribute("errorMessage", "Inscription échouée dû à une erreur interne. <br/> ");
+			request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+			return;
+		}
+		User newUser = new User(username, encryptedPass, mail);
 		
 		try {
 			UserModel.checkUserAlreadyExist(newUser);

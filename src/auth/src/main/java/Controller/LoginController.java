@@ -9,6 +9,7 @@ import javax.servlet.http.*;
 import Entity.User;
 import Model.TicketsModel;
 import Model.UserModel;
+import Utils.Password;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -73,8 +74,7 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		// TODO : must implement becrypt check
-		if (password.equals(user.getPassword())) {
+		if (Password.verifyPassword(user.getPassword(), password)) {
 			
 			String url = (String) session.getAttribute("service");
 			
@@ -103,7 +103,6 @@ public class LoginController extends HttpServlet {
 			return;
 		}
 		
-		//TODO: set error login message or redirect to /home once created
 		request.setAttribute("errorMessage", "Connexion échouée, vérifiez vos identifiants.");
 		request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 		return;

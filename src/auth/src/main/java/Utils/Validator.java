@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 public class Validator {
 	
 	private static final String USERNAME_REGEX = "^[A-Za-z0-9]{0,25}$";
-	//TODO: USERNAME_REGEX
 	
 	// Regular expression to check the strength of password
 	private static final String PASS_REGEXP =
@@ -12,7 +11,7 @@ public class Validator {
 			+ "(?=.*[!@#$&*])"	// at least one special character
 			+ "(?=.*[0-9])"		// at least one number
 			+ "(?=.*[a-z])"		// at least one lowercase between a-z
-			+ ".{8,}$";		// at least 8 characters
+			+ ".{8,50}$";		// at least 8 characters
 	
 	private static final String EMAIL_REGEX =
 			"^[a-zA-Z0-9_+&*-]+(?:\\."+
@@ -21,7 +20,6 @@ public class Validator {
             "A-Z]{2,7}$";
 	
 	private static final String TICKET_REGEX = "^[A-Za-z0-9]{0,25}$";
-	//TODO: TICKET_REGEXP
 	
 	public static void checkUsername(String username) throws AssertionError {
 		Pattern pat = Pattern.compile(USERNAME_REGEX);

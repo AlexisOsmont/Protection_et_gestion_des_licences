@@ -11,13 +11,16 @@ use auht;
 -- Création de la table utilisateurs auth
 CREATE TABLE users (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	username varchar(50),
-	email varchar(50),
-	password varchar(50)
+	username varchar(50) NOT NULL,
+	email varchar(50) NOT NULL,
+	password varchar(200) NOT NULL
 );
 
-insert into users (username, email, password) values ('admin', 'admin@admin.fr', 'adminpasswd');
-insert into users (username, email, password) values ('client', 'client@client.fr', 'clientpasswd');
+-- pass : adminpasswd
+insert into users (username, email, password) values ('admin', 'admin@admin.fr', '$2a$10$9WGaMnjPnz9Jf5XgUU.PhevWL1sB4t5abL/6bmB6mR/NeaPk4M10K');
+
+-- pass : clientpasswd
+insert into users (username, email, password) values ('client', 'client@client.fr', '$2a$10$t0wAB0/syD19wqEfk6Nq0uZkXOroZ9IB98taPs55fNcj8CIzVvYXC');
 
 -- Création de la table des tickets
 
@@ -25,7 +28,7 @@ CREATE TABLE tickets (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	hash varchar(30) NOT NULL,
 	usr INT NOT NULL,
-	epoch int(11),
+	epoch int(11) NOT NULL,
 	FOREIGN KEY (usr) REFERENCES users(id) ON DELETE CASCADE
 );
 

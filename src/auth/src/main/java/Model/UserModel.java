@@ -140,7 +140,7 @@ public class UserModel {
 			c.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Failed to update user's username");
+			throw new RuntimeException("Failed to update user's password");
 		}
 	}
 	
