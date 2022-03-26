@@ -15,6 +15,9 @@
 </head>
 
 <body class="bg-light d-flex h-100">
+
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"
@@ -39,6 +42,7 @@
 			</a></li>
 			<li><a href="#" class="nav-link"> Clients </a></li>
 			<li><a href="#" class="nav-link"> Licences </a></li>
+			<li><a href="#" class="nav-link"> Logiciels </a></li>
 		</ul>
 
 		<hr>
@@ -50,7 +54,7 @@
 	</div>
 
 
-	<main style="padding-left: 20%">
+	<main style="padding-left: 15%; width: 100%;">
 		<section class="jumbotron text-center">
 			<div class="container">
 				<h1 class="jumbotron-heading">Tableau de Notifications</h1>

@@ -35,6 +35,7 @@ public class ProductOwnedController extends HttpServlet {
 		List<Licence> ownedLicence = LicenceDAO.list(client.getId());
 		List<Software> softwareList = new ArrayList<Software>();
 
+		// create the list of the software
 		for (Licence licence : ownedLicence) {
 			int softwareId = licence.getSoftwareId();
 			Software soft = SoftwareDAO.get(softwareId);

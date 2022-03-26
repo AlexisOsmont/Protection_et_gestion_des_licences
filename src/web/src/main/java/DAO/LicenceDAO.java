@@ -150,7 +150,7 @@ public class LicenceDAO {
 			query.setInt(1, clientId);
 			// execute the query
 			ResultSet res = query.executeQuery();
-			if (res.next()) {
+			while (res.next()) {
 				Licence licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
                 licence.setId(res.getInt(ID_FIELD));
                 licence.setStatus(res.getInt(STATUS_FIELD));
@@ -182,7 +182,7 @@ public class LicenceDAO {
 			PreparedStatement query = c.prepareStatement(GET_LICENCE_LIST);
 			// execute the query
 			ResultSet res = query.executeQuery();
-			if (res.next()) {
+			while (res.next()) {
 				Licence licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
                 licence.setId(res.getInt(ID_FIELD));
                 licence.setStatus(res.getInt(STATUS_FIELD));
@@ -215,7 +215,7 @@ public class LicenceDAO {
 			PreparedStatement query = c.prepareStatement(GET_LICENCE_LIST);
 			// execute the query
 			ResultSet res = query.executeQuery();
-			if (res.next()) {
+			while (res.next()) {
 				// retrieve the status first
 				int status = res.getInt(STATUS_FIELD);
 				// check if the status is the same as the one specified

@@ -7,9 +7,20 @@ public class Licence {
 	// Inner private enum for the ressource status
 
 	public enum Status {
-		PENDING, 	// the licence was created but is not activated yet
-		ACTIVATED, 	// the licence is created and activated
-		EXPIRED; 	// the licence is expired
+		PENDING("En Attente"), 	// the licence was created but is not activated yet
+		ACTIVATED("Activé"), 	// the licence is created and activated
+		EXPIRED("Expiré"); 	    // the licence is expired
+		
+		String str;
+		Status(String reason) {
+			this.str = reason;
+		}
+		
+		//override the inherited method
+		@Override
+		public String toString() {
+			return str;
+		}
 	}
 
 	// Attributes
@@ -66,6 +77,10 @@ public class Licence {
 	 */
 	public int getStatus() {
 		return state.ordinal();
+	}
+	
+	public String getStatusString() {
+		return state.toString();
 	}
 
 	/**

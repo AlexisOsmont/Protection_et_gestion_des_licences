@@ -16,6 +16,7 @@ import javax.net.ssl.X509TrustManager;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import Utils.ErrorMsg;
 import Utils.UserConverter;
 import Utils.UserSession;
 
@@ -128,6 +129,7 @@ public class LoginController extends HttpServlet {
 				
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", s);
+				ErrorMsg.setError(request, ErrorMsg.Severity.SUCCESS, ErrorMsg.MSG_AUTHENTIFICATED);
 				
 			} 
 			response.sendRedirect(request.getContextPath() + "/home");

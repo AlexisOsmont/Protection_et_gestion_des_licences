@@ -14,6 +14,8 @@
 
 <body class="bg-white d-flex h-100">
 
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+
 	<div class="container d-flex p-3 mx-auto w-100 flex-column">
 		<header class="mb-auto">
 			<div class="float-md-start fw-bold fs-5">Projet - Gestionnaire

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.Software"%>
+<%@ page import="model.Licence" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +16,9 @@
 </head>
 
 <body class="bg-light d-flex h-100">
+
+	<%= Utils.ErrorMsg.printErrorMsg(request) %>
+	
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"
@@ -87,8 +91,8 @@
 
 
 								<%
-								String isOwned = (String) request.getParameter("is-owned");
-								if (isOwned != null) {
+								Licence li = (Licence) request.getAttribute("is-owned");
+								if (li != null) {
 								%>
 
 								<div class="card mb-4 box-shadow">
@@ -98,10 +102,36 @@
 									</div>
 									<div class="card-body">
 										<p><%=soft.getDescription()%></p>
-										<h2 class="mt-5">Possédé</h2>
-										<a href="#" type="button"
-											class="btn btn-lg btn-block btn-primary">Demander une
-											licence</a>
+										<%
+											int status = li.getStatus();
+											if (status == Licence.Status.PENDING.ordinal()) {
+											%>
+												<h2 class="mt-5">Status: 
+													<span class="btn btn-info my-2 disabled"><%= li.getStatusString()%></span>
+												</h2>
+												<p>
+													Un mail a été envoyé à l'administrateur afin de valider votre demande,
+													cette opération peut prendre un certain temps, il vous recontactera 
+													dans les prochains jours.
+												</p>
+											<% 
+											} else if (status == Licence.Status.ACTIVATED.ordinal()) {
+											%>
+												<span class="btn btn-success my-2 disabled"><%= li.getStatusString()%></span>
+												<p>
+													Votre licence est disponible pour etre telecharge ... ajouter un bouton
+												</p>
+											<% 
+											} else if (status == Licence.Status.EXPIRED.ordinal()) {
+											%>
+												<span class="btn btn-warning my-2 disabled"><%= li.getStatusString()%></span>
+												<p>
+													Votre licence a expiré vous devez la renouvler
+												</p>
+											<% 
+											}
+										
+										%>
 									</div>
 								</div>
 
@@ -156,7 +186,7 @@
 										<h2 class="mt-5">
 											$<span id="price"><%=price %></span><small class="text-success">(3.14%off)</small>
 										</h2>
-										<a id="buy-button" href="/product-buy/<%=soft.getId()%>" type="button"
+										<a id="buy-button" href="/product-buy/<%=soft.getId()%>?validity=1" type="button"
 											class="btn btn-lg btn-block btn-primary">Achetez</a>
 									</div>
 								</div>
