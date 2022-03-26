@@ -32,17 +32,16 @@
 					Notifications <%
 			List<List<String>> lu = (List<List<String>>) request.getAttribute("notification-list");
 			int size = lu.size();
-			if (size > 0) {
-			%> <span
+			if (size > 0) {%> 
+				<span
 					class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 						<%=size%><%=size > 99 ? "+" : ""%> <span class="visually-hidden">notifications</span>
-				</span> <%
- }
- %>
+				</span> 
+			<%}%>
 			</a></li>
-			<li><a href="#" class="nav-link"> Clients </a></li>
-			<li><a href="#" class="nav-link"> Licences </a></li>
-			<li><a href="#" class="nav-link"> Logiciels </a></li>
+			<li><a href="<%=request.getContextPath()%>/admin/client" class="nav-link"> Clients </a></li>
+			<li><a href="<%=request.getContextPath()%>/admin/licence" class="nav-link"> Licences </a></li>
+			<li><a href="<%=request.getContextPath()%>/admin/software" class="nav-link"> Logiciels </a></li>
 		</ul>
 
 		<hr>

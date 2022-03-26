@@ -41,6 +41,12 @@ body .bg-white {
   box-shadow: 0 0 5px var(--bs-blue);
 }
 
+/* Table */
+.table .thead-dark th {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e;
+}
 
 /* darkmode theme */
 
@@ -162,5 +168,18 @@ body .bg-white {
   background-clip: border-box;
   border: 1px solid rgba(255,255,255,.125);
   border-radius: .25rem;
+}
+
+/* Table */
+
+[data-theme="dark"] .table .thead-dark th {
+  color: white;
+  background-color: rgba(136, 88, 237, 0.9);
+  border-color: rgba(136, 88, 237, 0.9);
+}
+
+[data-theme="dark"] .table > :not(caption) > * > * {
+  background: #f7f5fb;
+  border-color: rgba(136, 88, 237, 0.9);
 }
 

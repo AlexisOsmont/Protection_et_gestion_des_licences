@@ -13,10 +13,17 @@ public class UserSession {
 	};
 	
 	// list of all the routes a user is allowed to take
-	private static final String[] USER_ALLOWED_URLS = { "/product-list", "/product-owned", "/product", "/product-img" };
+	private static final String[] USER_ALLOWED_URLS = { 
+			"/product-list", "/product-owned", "/product", "/product-img" 
+	};
 
 	// list of all the routes an admin is allowed to take
-	private static final String[] ADMIN_ALLOWED_URLS = { "/admin-panel" };
+	private static final String[] ADMIN_ALLOWED_URLS = { 
+			"/admin/notification",
+			"/admin/licence",
+			"/admin/client",
+			"/admin/software"
+	};
 
 	private boolean isAdmin;
 	private Client client;

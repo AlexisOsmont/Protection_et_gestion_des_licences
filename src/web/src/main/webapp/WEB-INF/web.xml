@@ -117,13 +117,43 @@
 	<!-- *********** -->
 	
 	<servlet>
-		<servlet-name>AdminPanelController</servlet-name>
-		<servlet-class>Controller.AdminPanelController</servlet-class>
+		<servlet-name>AdminPanelNotificationController</servlet-name>
+		<servlet-class>Controller.AdminPanelNotificationController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>AdminPanelController</servlet-name>
-		<url-pattern>/admin-panel</url-pattern>
+		<servlet-name>AdminPanelNotificationController</servlet-name>
+		<url-pattern>/admin/notification</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminPanelLicenceController</servlet-name>
+		<servlet-class>Controller.AdminPanelLicenceController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminPanelLicenceController</servlet-name>
+		<url-pattern>/admin/licence</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminPanelClientController</servlet-name>
+		<servlet-class>Controller.AdminPanelClientController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminPanelClientController</servlet-name>
+		<url-pattern>/admin/client</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>AdminPanelSoftwareController</servlet-name>
+		<servlet-class>Controller.AdminPanelSoftwareController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminPanelSoftwareController</servlet-name>
+		<url-pattern>/admin/software</url-pattern>
 	</servlet-mapping>
 
 	<!-- ************ -->
