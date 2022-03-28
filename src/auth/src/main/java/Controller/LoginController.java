@@ -77,7 +77,17 @@ public class LoginController extends HttpServlet {
 		if (Password.verifyPassword(user.getPassword(), password)) {
 			
 			String url = (String) session.getAttribute("service");
-			
+
+            // check is the service was gived before in the get, if not try to retrieve it 
+            // in the parameters of the post request 
+            if (url == null) {
+                url = (String) request.getParameter("service");
+                // if the service url was supplied, store it in the session
+                if (url != null) {
+                    session.setAttribute("service", url);
+                }
+            }
+  
 			if (url == null) {
 				session.setAttribute("logged", true);
 				session.setAttribute("username", user.getUsername());
