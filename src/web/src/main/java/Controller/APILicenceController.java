@@ -28,6 +28,24 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import DAO.ClientDAO;
+import DAO.LicenceDAO;
+import Utils.LicenceGenerator;
+import model.Client;
+import model.Licence;
+
+/*
+ *  URL : /api/v1/Licence/requestLicence
+ *  
+ *  Possibles status codes return :
+ *  	- 200 : OK, return the license file.
+ *  	- 400 : Bad request, badly formatted JSON or incorrect JSON attributes
+ *  			in the body.
+ *  	- 401 : Unauthorized, authentication failed due to invalid credentials.
+ *  	- 404 : Not found, no license with this client/software was found.
+ *  	- 500 : Internal Server Error, while reading request body or sending the
+ *  			request to CAS server for authentication, or idk.
+ */
 public class APILicenceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -36,8 +54,10 @@ public class APILicenceController extends HttpServlet {
 	private static final String SOFT_ID 	= "SoftwareId";
 	private static final String HW_HASH 	= "HardwareHash";
 	
+	private static final String WEB_SERVER_URL 		= "https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/";
 	private static final String CAS_SERVER_URL 		= "https://srv-dpi-proj-gestlic-auth.univ-rouen.fr:8443/";
 	private static final String CAS_SERVER_LOGIN 	= "login";
+	private static final String CAS_SERVER_SERVICE 	= "service";
 	
 	/*
 	 * Such SSL context shall never be used in production environment.
@@ -65,47 +85,96 @@ public class APILicenceController extends HttpServlet {
 			throws ServletException, IOException {
 	}
 
+	/*
+	 * curl -vv --insecure -X POST -H 'Content-Type: application/json'
+	 * -d '[{"UserMail": "client@client.fr", "UserPassword": "clientpasswd", "SoftwareId": 1, "HardwareHash": "SBAYIDIFHBUZEFYGCJE"}]'
+	 * https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/api/v1/Licence/requestLicence
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
  
 		PrintWriter w = response.getWriter();
 		
 		// read request body
-		StringBuffer req = new StringBuffer();
-		String line = null;
-		try {
-			BufferedReader reader = request.getReader();
-			while ((line = reader.readLine()) != null) {
-				req.append(line);
-			}
-		} catch (Exception e) {
-			w.write("Error while reading body");
-		}
-		
-		// expected JSON format, so parse body
-		JSONObject result = null;
-		try {
-			JSONArray array = null;
-			array = (JSONArray) new JSONParser().parse(req.toString());
-			result = (JSONObject) array.get(0);
-		} catch (ParseException e) {
-			result = null;
-			w.write("JSON parsing error");
+		JSONObject result = readBody(request, response);
+		if (result == null) {
+			return;
 		}
 		
 		// get and encode the attributes
-		String email = URLEncoder.encode((String) result.get(EMAIL),
-				Charset.defaultCharset());
-		String password = URLEncoder.encode((String) result.get(PASSWORD),
-				Charset.defaultCharset());
-		long softId = (long) result.get(SOFT_ID);
-		String hardwareHash = (String) result.get(HW_HASH);
+		String email = "", password = "", hardwareHash = "";
+		long softId = 0;
+		try {
+			email = (String) result.get(EMAIL);
+			password = (String) result.get(PASSWORD);
+			softId = (long) result.get(SOFT_ID);
+			hardwareHash = (String) result.get(HW_HASH);
+		}
+		// problem with request format
+		catch (NullPointerException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
 		
 		// build body of the 2nd request
-		String requestBody = "email=" + email
-				+ "&password=" + password
+		String requestBody = "email=" + URLEncoder.encode(email, Charset.defaultCharset())
+				+ "&password=" + URLEncoder.encode(password, Charset.defaultCharset())
 				+ "&action=login";
+		
+	    // Create the HTTP client
+		HttpClient httpClient = createClient(); 
+		
+		// create the request with the CAS server to check the ticket
+		HttpRequest authReq = createRequest(requestBody); 
 
+		HttpResponse<String> resp = null;
+		try {
+			resp = httpClient.send(authReq, HttpResponse.BodyHandlers.ofString());
+		} catch (IOException | InterruptedException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		
+		// check the status code
+		// redirection to home due to invalid credentails
+		if (resp != null && resp.statusCode() == HttpServletResponse.SC_OK) {
+			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		}
+		// Got a 302 found, OK
+		else if (resp != null && resp.statusCode() == HttpServletResponse.SC_FOUND) {
+			// check if the query contain the ticket
+			String location = resp.headers().map().get("Location").get(0);
+			String ticket = URI.create(location).getQuery().split("=")[1];
+			if (ticket != null) {
+				// ok, authenticated user
+				Client clt = ClientDAO.get(email);
+				if (clt != null) {
+					Licence license = LicenceDAO.get(clt.getId(), (int) softId);
+					
+					if (license == null) {
+						response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+					} else {
+						license.setHardwareId(hardwareHash);
+						String licenseFile = LicenceGenerator.generate(license);
+						w.write(licenseFile);
+					}
+				}
+			}
+		}
+	}
+	
+	// Private methods
+
+	private HttpRequest createRequest(String body) {
+		return HttpRequest.newBuilder()
+				.POST(BodyPublishers.ofString(body))
+				.uri(URI.create(CAS_SERVER_URL + CAS_SERVER_LOGIN + "?" + CAS_SERVER_SERVICE + "="
+						+ (String) URLEncoder.encode(WEB_SERVER_URL, Charset.defaultCharset())))
+				.setHeader("User-Agent", "API Licence Request")
+				.header("Content-Type", "application/x-www-form-urlencoded")
+				.build();
+	}
+
+	private HttpClient createClient() {
 		/* 
 		 * @TMP
 		 * Such SSL context shall never be used in production environment.
@@ -117,34 +186,35 @@ public class APILicenceController extends HttpServlet {
 		} catch (NoSuchAlgorithmException | KeyManagementException e) {
 			e.printStackTrace();
 		}
-	    
-		HttpClient httpClient = HttpClient.newBuilder()
+		
+		return HttpClient.newBuilder()
 				.version(HttpClient.Version.HTTP_1_1)
 				.sslContext(sslContext) 
 				.connectTimeout(Duration.ofSeconds(10))
 				.build();
-		
-		// make a request to the CAS server to validate the ticket
-		HttpRequest authReq = HttpRequest.newBuilder(
-				URI.create(CAS_SERVER_URL + CAS_SERVER_LOGIN))
-				.header("accept", "application/json")
-				.POST(BodyPublishers.ofString(requestBody))
-				.build();
-
-		HttpResponse<String> resp = null;
-		try {
-			resp = httpClient.send(authReq, HttpResponse.BodyHandlers.ofString());
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		// check the status code
-		if (resp != null && resp.statusCode() == 200) {
-			// check if the query contain the ticket
-			w.write("ça marche po");
-		}
-		
-		// response.setHeader("Content-Type", "application/json");
 	}
 
+	private JSONObject readBody(HttpServletRequest request, HttpServletResponse response) {
+		StringBuffer req = new StringBuffer();
+		String line = null;
+		JSONObject result = null;
+		
+		try {
+			BufferedReader reader = request.getReader();
+			while ((line = reader.readLine()) != null) {
+				req.append(line);
+			}
+			
+			JSONArray array = null;
+			array = (JSONArray) new JSONParser().parse(req.toString());
+			result = (JSONObject) array.get(0);
+		} catch (IOException e) {
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			result = null;
+		} catch (NullPointerException | ParseException e) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			result = null;
+		}
+		return result;
+	}
 }
