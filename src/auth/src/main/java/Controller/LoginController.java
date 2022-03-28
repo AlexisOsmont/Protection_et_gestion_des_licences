@@ -77,7 +77,6 @@ public class LoginController extends HttpServlet {
 		if (Password.verifyPassword(user.getPassword(), password)) {
 			
 			String url = (String) session.getAttribute("service");
-
             // check is the service was gived before in the get, if not try to retrieve it 
             // in the parameters of the post request 
             if (url == null) {
@@ -95,7 +94,7 @@ public class LoginController extends HttpServlet {
 				response.sendRedirect(request.getScheme() + "://" +  request.getServerName() + ":" + request.getServerPort() + "/home");
 				return;
 			}
-			
+			System.out.println("doPost:106");
 			// On créer un ticket pour cet utilisateur
 			try {
 				ticket = TicketsModel.newTicket(user);
