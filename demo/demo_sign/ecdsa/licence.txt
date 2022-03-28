@@ -1,0 +1,4 @@
+licence : {
+	"validity" : "infinity",
+	"machineId" : "3JH324KJH324HJ23K"
+}
