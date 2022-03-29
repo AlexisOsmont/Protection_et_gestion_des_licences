@@ -28,6 +28,8 @@ public class AdminPanelNotificationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		// create a list of list of all the informations we are going to show
+		// in the notification board
 		List<List<String>> li = new ArrayList<List<String>>();
 		List<Licence> licences = LicenceDAO.list(Licence.Status.PENDING);
 		for (Licence licence : licences) {

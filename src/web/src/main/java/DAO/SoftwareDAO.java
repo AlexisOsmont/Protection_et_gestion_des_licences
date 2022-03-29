@@ -32,6 +32,10 @@ public class SoftwareDAO {
     								   + TABLE_NAME + " WHERE " 
     								   + ID_FIELD + " = ?;";
     
+    private static String GET_SOFTWARE_BY_NAME = "SELECT * FROM "
+											   + TABLE_NAME + " WHERE "
+											   + NAME_FIELD + " = ?;";
+								    
     private static String GET_SOFTWARE_LIST = "SELECT * FROM " 
     										+ TABLE_NAME + ";";
     
@@ -83,6 +87,48 @@ public class SoftwareDAO {
 			PreparedStatement query = c.prepareStatement(GET_SOFTWARE);
 			// bind the parameter
 			query.setInt(1, softwareId);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			if (res.next()) {
+				software = new Software(res.getString(NAME_FIELD),
+						res.getString(DESC_FIELD));
+                software.setId(res.getInt(ID_FIELD));
+                software.setPrice(res.getInt(PRICE_FIELD));
+                software.setPriceMultiplier(res.getInt(PRICE_MULT_FIELD));
+                
+                byte[] imgData = null;
+                Blob image = res.getBlob(IMAGE_FIELD);
+                if (image != null) {
+                	imgData = image.getBytes(1,(int)image.length());
+                }
+                software.setImg(imgData);
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			software = null;
+			e.printStackTrace();
+		}
+		return software;
+    }
+    
+ 	/**
+	 * Try to retrieve a software object filled with the data from the database
+	 * identified by a it's name.
+	 * 
+	 * @param softwareId of the software to retrieve
+	 * @return null on error, a software object on success
+	 */	   
+    public static Software get(String name) {
+    	Software software = null;
+    	// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_SOFTWARE_BY_NAME);
+			// bind the parameter
+			query.setString(1, name);
 			// execute the query
 			ResultSet res = query.executeQuery();
 			if (res.next()) {

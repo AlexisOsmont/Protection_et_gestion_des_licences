@@ -43,6 +43,8 @@ public class UserConverter extends CASProtocol {
 			client = new Client(username, email);
 			try {
 				ClientDAO.insert(client);
+				// fetch the user from the database so we update it's id
+				client = ClientDAO.get(email);
 			} catch (RuntimeException | AssertionError e) {
 				throw new RuntimeException("Error: failed to insert a new user");
 			}

@@ -97,7 +97,7 @@
 											<span class="btn btn-warning my-2 disabled"><%= Licence.Status.EXPIRED.toString()%></span>
 										<% 
 										}
-									
+										
 									%>
 								</td>
 							</tr>
