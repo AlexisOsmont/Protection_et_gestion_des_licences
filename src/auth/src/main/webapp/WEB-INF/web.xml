@@ -4,6 +4,17 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
   	
+  	<!-- Homr mapping -->
+	<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>Controller.HomeController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>/home</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Login mapping -->
 	<servlet>
 		<servlet-name>login</servlet-name>
