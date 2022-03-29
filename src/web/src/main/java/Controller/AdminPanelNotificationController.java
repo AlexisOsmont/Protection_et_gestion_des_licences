@@ -31,7 +31,7 @@ public class AdminPanelNotificationController extends HttpServlet {
 		// create a list of list of all the informations we are going to show
 		// in the notification board
 		List<List<String>> li = new ArrayList<List<String>>();
-		List<Licence> licences = LicenceDAO.list(Licence.Status.PENDING);
+		List<Licence> licences = LicenceDAO.listByStatus(Licence.Status.PENDING);
 		for (Licence licence : licences) {
 			Software soft = SoftwareDAO.get(licence.getSoftwareId());
 			Client client = ClientDAO.get(licence.getClientId());

@@ -32,7 +32,7 @@ public class ProductOwnedController extends HttpServlet {
 		UserSession s = (UserSession) session.getAttribute("user");
 		Client client = s.getClient();
 		
-		List<Licence> ownedLicence = LicenceDAO.list(client.getId());
+		List<Licence> ownedLicence = LicenceDAO.listByClient(client.getId());
 		List<Software> softwareList = new ArrayList<Software>();
 
 		// create the list of the software

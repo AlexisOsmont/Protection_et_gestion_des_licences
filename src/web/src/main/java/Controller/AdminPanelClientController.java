@@ -23,7 +23,7 @@ public class AdminPanelClientController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		List<Licence> licences = LicenceDAO.list(Licence.Status.PENDING);
+		List<Licence> licences = LicenceDAO.listByStatus(Licence.Status.PENDING);
 		request.setAttribute("notification-list-size", licences.size());
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/admin-client.jsp");

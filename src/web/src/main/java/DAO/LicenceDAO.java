@@ -40,6 +40,9 @@ public class LicenceDAO {
     
     private static String GET_LICENCE_LIST_BY_CLIENT_ID = "SELECT * FROM " + TABLE_NAME
     						+ " WHERE " + CL_ID_FIELD + " = ?;";
+    
+    private static String GET_LICENCE_LIST_BY_SOFTWARE_ID = "SELECT * FROM " + TABLE_NAME
+							+ " WHERE " + SW_ID_FIELD + " = ?;";
  	
 	private static String INSERT_LICENCE = "INSERT INTO " + TABLE_NAME
 							+ "(" + HW_ID_FIELD + ", " + STATUS_FIELD + ", " + VALID_FIELD + ", "
@@ -134,41 +137,6 @@ public class LicenceDAO {
 	}
 	
 	/**
-	 * Return a list of the licence owned by a client, identified by it's id
-	 * @param clientId the id of a client
-	 * @return a list of licence owned by the client, null on failure 
-	 */
-	public static List<Licence> list(int clientId) {
-		List<Licence> li = new ArrayList<Licence>();
-		// Try to execute the request
-		try {
-			// Get connection from database
-			Connection c = Database.getConnection();
-			// Create a prepared statement
-			PreparedStatement query = c.prepareStatement(GET_LICENCE_LIST_BY_CLIENT_ID);
-			// bind parameters
-			query.setInt(1, clientId);
-			// execute the query
-			ResultSet res = query.executeQuery();
-			while (res.next()) {
-				Licence licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
-                licence.setId(res.getInt(ID_FIELD));
-                licence.setStatus(res.getInt(STATUS_FIELD));
-                licence.setValidity(new java.util.Date(res.getDate(VALID_FIELD).getTime()));
-                licence.setHardwareId(res.getString(HW_ID_FIELD));
-                
-                li.add(licence);
-			}
-			// close connection
-			c.close();
-		} catch (SQLException e) {
-			li = null;
-			e.printStackTrace();
-		}
-		return li;
-	}
-	
-	/**
 	 * Return a list of all the licence present in the database 
 	 * @return the list of all licence on success, null otherwise
 	 */
@@ -201,11 +169,76 @@ public class LicenceDAO {
 	}
 	
 	/**
+	 * Return a list of the licence owned by a client, identified by it's id
+	 * @param clientId the id of a client
+	 * @return a list of licence owned by the client, null on failure 
+	 */
+	public static List<Licence> listByClient(int clientId) {
+		List<Licence> li = new ArrayList<Licence>();
+		// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_LICENCE_LIST_BY_CLIENT_ID);
+			// bind parameters
+			query.setInt(1, clientId);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			while (res.next()) {
+				Licence licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
+                licence.setId(res.getInt(ID_FIELD));
+                licence.setStatus(res.getInt(STATUS_FIELD));
+                licence.setValidity(new java.util.Date(res.getDate(VALID_FIELD).getTime()));
+                licence.setHardwareId(res.getString(HW_ID_FIELD));
+                
+                li.add(licence);
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			li = null;
+			e.printStackTrace();
+		}
+		return li;
+	}
+	
+	public static List<Licence> listBySoftware(int softwareId) { 
+		List<Licence> li = new ArrayList<Licence>();
+		// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_LICENCE_LIST_BY_SOFTWARE_ID);
+			// bind parameters
+			query.setInt(1, softwareId);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			while (res.next()) {
+				Licence licence = new Licence(res.getInt(CL_ID_FIELD), res.getInt(SW_ID_FIELD));
+                licence.setId(res.getInt(ID_FIELD));
+                licence.setStatus(res.getInt(STATUS_FIELD));
+                licence.setValidity(new java.util.Date(res.getDate(VALID_FIELD).getTime()));
+                licence.setHardwareId(res.getString(HW_ID_FIELD));
+                
+                li.add(licence);
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			li = null;
+			e.printStackTrace();
+		}
+		return li; 
+	}
+	
+	/**
 	 * Return a list of all the licence present in the database which 
 	 * have the state state
 	 * @return the list of all licence on success, null otherwise
 	 */
-	public static List<Licence> list(Licence.Status state) {
+	public static List<Licence> listByStatus(Licence.Status state) {
 		List<Licence> li = new ArrayList<Licence>();
 		// Try to execute the request
 		try {

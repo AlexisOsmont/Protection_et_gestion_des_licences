@@ -119,20 +119,27 @@ public class LoginController extends HttpServlet {
 			// check the status code
 			if (resp != null && resp.statusCode() == 200 && resp.body() != null) {
 				
+				String route = null;
 				UserConverter user = new UserConverter(resp.body());
 				UserSession s = null;
 				if (user.isAdmin()) {
 					s = new UserSession(true, user.getAdmin());
+					route = "/admin/notification";
 				} else {
 					s = new UserSession(false, user.getClient());
+					route = "/product-list";
 				}
 				
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", s);
 				ErrorMsg.setError(request, ErrorMsg.Severity.SUCCESS, ErrorMsg.MSG_AUTHENTIFICATED);
+				response.sendRedirect(request.getContextPath() + route);
 				
-			} 
-			response.sendRedirect(request.getContextPath() + "/home");
+			} else {
+				// @TODO set an error 
+				response.sendRedirect(request.getContextPath() + "/home");
+			}
+			
 		}
 	}
 
