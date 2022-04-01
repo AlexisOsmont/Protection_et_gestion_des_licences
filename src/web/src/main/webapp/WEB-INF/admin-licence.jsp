@@ -66,6 +66,10 @@
 				%>
 				<script>
 				
+					function licenceDetail(elem) {
+						document.location = elem.dataset.href;
+					}
+					
 					function getParameterByName(name) {
 					    let match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
 					    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
@@ -223,7 +227,7 @@
 						
 						items[3].children[0].textContent = (pageNumber < 2 ? 3 : (count != 10 ? pageNumber : pageNumber + 1));
 						
-						if (count == 10 || pageNumber == 1) {
+						if (count == 10) {
 							// add the onclick if the item isn't disabled
 							items[3].onclick = function (event) {
 								pageElem.value = pageNumber + 1 + (pageNumber == 0);
@@ -299,7 +303,7 @@
 							int status = Integer.valueOf(tuple.get(3));
 						%>
 
-						<tr>
+						<tr onclick="licenceDetail(this)" data-href="/admin/licence/<%=licenceId%>">
 							<th scope="row"><%=licenceId%></th>
 							<td><%=tuple.get(1)%></td>
 							<td><%=tuple.get(2)%></td>

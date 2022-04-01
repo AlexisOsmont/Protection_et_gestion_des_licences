@@ -75,7 +75,7 @@
 					<div class="col-md-4"
 						style="border: 3px solid transparent; border-radius: 5px;">
 
-						<a href="/licence/<%=licenceId%>"> 
+						<a href="/admin/licence/<%=licenceId%>"> 
 
 							<div class="card mb-4 box-shadow card-shadow-effect" style="width: 18rem;">
 							 	<svg

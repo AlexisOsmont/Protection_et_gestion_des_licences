@@ -48,9 +48,10 @@ public class ProductDetailController extends HttpServlet {
 			} else {
 				// redirect user to the page but add an error msg 
 				ErrorMsg.setError(request, ErrorMsg.ERROR_LICENCE_INVALID_PARAMETERS);
-				response.sendRedirect(request.getContextPath() + PRODUCT_ROUTE);
+				response.sendRedirect(request.getContextPath() + "/home");
 			}
 		} else {
+			ErrorMsg.setError(request, ErrorMsg.ERROR_LICENCE_INVALID_PARAMETERS);
 			response.sendRedirect(request.getContextPath() + "/home");
 		}
 

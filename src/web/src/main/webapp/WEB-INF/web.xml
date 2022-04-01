@@ -137,6 +137,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AdminPanelLicenceDetailController</servlet-name>
+		<servlet-class>Controller.AdminPanelLicenceDetailController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminPanelLicenceDetailController</servlet-name>
+		<url-pattern>/admin/licence/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>AdminPanelClientController</servlet-name>
 		<servlet-class>Controller.AdminPanelClientController</servlet-class>
 	</servlet>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="model.Software"%>
-<%@ page import="model.Licence" %>
+<%@ page import="model.Licence"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +17,8 @@
 
 <body class="bg-light d-flex h-100">
 
-	<%= Utils.ErrorMsg.printErrorMsg(request) %>
-	
+	<%=Utils.ErrorMsg.printErrorMsg(request)%>
+
 	<div class="d-flex flex-column flex-shrink-0 p-3 text-black bg-white"
 		style="width: 15%; position: fixed; height: 100%;">
 		<a href="/"
@@ -53,8 +53,10 @@
 
 		<div class="container" style="padding-top: 10%">
 			<div class="card">
+				<div class="card-header">
+					<h4 class="my-0 font-weight-normal"><%=soft.getName()%></h4>
+				</div>
 				<div class="card-body">
-					<h3 class="card-title"><%=soft.getName()%></h3>
 
 					<div class="container-fluid">
 						<div class="row">
@@ -65,8 +67,8 @@
 										data-src="holder.js/100px225?theme=thumb&amp;bg=55595c&amp;fg=eceeef&amp;text=Thumbnail"
 										alt="Thumbnail [100%x225]"
 										style="height: 225px; width: 100%; display: block;"
-										<% byte[] data = soft.getImg();
-										   if (data == null) { %>
+										<%byte[] data = soft.getImg();
+										  if (data == null) {%>
 										src="data:image/svg+xml;charset=UTF-8,
 											%3Csvg%20width%3D%22348%22%20height%3D%22225%22%20
 											xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20
@@ -103,34 +105,32 @@
 									<div class="card-body">
 										<p><%=soft.getDescription()%></p>
 										<%
-											int status = li.getStatus();
-											if (status == Licence.Status.PENDING.ordinal()) {
-											%>
-												<h2 class="mt-5">Status: 
-													<span class="btn btn-info my-2 disabled"><%= li.getStatusString()%></span>
-												</h2>
-												<p>
-													Un mail a été envoyé à l'administrateur afin de valider votre demande,
-													cette opération peut prendre un certain temps, il vous recontactera 
-													dans les prochains jours.
-												</p>
-											<% 
-											} else if (status == Licence.Status.ACTIVATED.ordinal()) {
-											%>
-												<span class="btn btn-success my-2 disabled"><%= li.getStatusString()%></span>
-												<p>
-													Votre licence est disponible pour etre telecharge ... ajouter un bouton
-												</p>
-											<% 
-											} else if (status == Licence.Status.EXPIRED.ordinal()) {
-											%>
-												<span class="btn btn-warning my-2 disabled"><%= li.getStatusString()%></span>
-												<p>
-													Votre licence a expiré vous devez la renouvler
-												</p>
-											<% 
-											}
-										
+										int status = li.getStatus();
+										if (status == Licence.Status.PENDING.ordinal()) {
+										%>
+										<h2 class="mt-5">
+											Status: <span class="btn btn-info my-2 disabled"><%=li.getStatusString()%></span>
+										</h2>
+										<p>Un mail a été envoyé à l'administrateur afin de valider
+											votre demande, cette opération peut prendre un certain temps,
+											il vous recontactera dans les prochains jours.</p>
+										<%
+										} else if (status == Licence.Status.ACTIVATED.ordinal()) {
+										%>
+										<h2 class="mt-5">
+											Status: <span class="btn btn-success my-2 disabled"><%=li.getStatusString()%></span>
+										</h2>
+										<p>Votre licence est disponible pour etre telecharge ...
+											ajouter un bouton</p>
+										<%
+										} else if (status == Licence.Status.EXPIRED.ordinal()) {
+										%>
+										<h2 class="mt-5">
+											Status: <span class="btn btn-warning my-2 disabled"><%=li.getStatusString()%></span>
+										</h2>
+										<p>Votre licence a expiré vous devez la renouveler</p>
+										<%
+										}
 										%>
 									</div>
 								</div>
@@ -143,8 +143,10 @@
 									function updatePrice(target, validity) {
 										if (target) {
 											document.getElementById("price").innerText = target.value;
-											elem = document.getElementById("buy-button");
-											elem.href = elem.href.split('?')[0] + "?validity=" + validity;
+											elem = document
+													.getElementById("buy-button");
+											elem.href = elem.href.split('?')[0]
+													+ "?validity=" + validity;
 										}
 									}
 								</script>
@@ -156,10 +158,10 @@
 									</div>
 									<div class="card-body">
 										<p><%=soft.getDescription()%></p>
-										
-										<% 
-											int price = soft.getPrice();
-											int priceMult = soft.getPriceMultiplier();
+
+										<%
+										int price = soft.getPrice();
+										int priceMult = soft.getPriceMultiplier();
 										%>
 
 										<h4 class="mt-5">Durée de la licence</h4>
@@ -167,27 +169,32 @@
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio1"
-												onclick="updatePrice(this,1)" value="<%=price %>" checked> <label
-												class="form-check-label" for="inlineRadio1">1 an</label>
+												onclick="updatePrice(this,1)" value="<%=price%>" checked>
+											<label class="form-check-label" for="inlineRadio1">1
+												an</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio2"
-												onclick="updatePrice(this,2)" value="<%=price + price / priceMult%>"> <label
+												onclick="updatePrice(this,2)"
+												value="<%=price + price / priceMult%>"> <label
 												class="form-check-label" for="inlineRadio2">2 an</label>
 										</div>
 										<div class="form-check form-check-inline">
 											<input class="form-check-input" type="radio"
 												name="inlineRadioOptions" id="inlineRadio3"
-												onclick="updatePrice(this,3)" value="<%= price + 2 * (price / priceMult) %>"> <label
+												onclick="updatePrice(this,3)"
+												value="<%=price + 2 * (price / priceMult)%>"> <label
 												class="form-check-label" for="inlineRadio3">3 an</label>
 										</div>
 
 										<h2 class="mt-5">
-											$<span id="price"><%=price %></span><small class="text-success">(3.14%off)</small>
+											$<span id="price"><%=price%></span><small
+												class="text-success">(3.14%off)</small>
 										</h2>
-										<a id="buy-button" href="/product-buy/<%=soft.getId()%>?validity=1" type="button"
-											class="btn btn-lg btn-block btn-primary">Achetez</a>
+										<a id="buy-button"
+											href="/product-buy/<%=soft.getId()%>?validity=1"
+											type="button" class="btn btn-lg btn-block btn-primary">Achetez</a>
 									</div>
 								</div>
 

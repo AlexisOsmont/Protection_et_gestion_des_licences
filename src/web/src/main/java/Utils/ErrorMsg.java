@@ -11,6 +11,8 @@ public class ErrorMsg {
 	public static final String MSG_AUTHENTIFICATED 				= "Authentification reussie";
 	
 	public static final String MSG_LICENCE_REQUEST_SUCCESS 		= "Votre demande de licence à été transmise";
+	public static final String MSG_LICENCE_UPDATED 				= "Les paramètres de la licence on été mis à jour";
+	public static final String ERROR_LICENCE_UPDATE_FAILED      = "Impossible de mettre à jour les paramètres de cette licence";
 	public static final String ERROR_LICENCE_ALREADY_OWNED 		= "Vous possédez déjà ce logiciel";
 	public static final String ERROR_LICENCE_INVALID_PARAMETERS = "Les paramètres envoyés sont invalides";
 	

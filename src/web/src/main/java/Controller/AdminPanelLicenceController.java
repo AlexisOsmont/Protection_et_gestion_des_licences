@@ -125,7 +125,12 @@ public class AdminPanelLicenceController extends HttpServlet {
 			// check for the page number, if no page number are supplied return the first one
 			if (page != null) {
 				// check for the page number (a page contains ROW_NUMBER result)
-				cut = Integer.valueOf(page);
+				try {
+					cut = Integer.valueOf(page);
+				} catch (NumberFormatException e) {
+					// if the conversion failed, the default value is zero
+					cut = 0;
+				}
 				cut = cut < 0 ? 0 : cut * ROW_NUMBER;
 			} 
 			
