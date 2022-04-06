@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{fontawesome}
+\usepackage[margin=3.8cm]{geometry}
+\usepackage[french]{babel}
+\usepackage[backend=bibtex8]{biblatex}
+
+\title{
+    \Huge
+    Compte-rendu\\
+    Réunion numéro 6\\
+}
+\date{\huge 04 Avril 2022}
+\author{\huge Alexis Osmont\\}
+
+\newcommand{\arrow}{$\rightarrow$ }
+
+\begin{document}
+
+\maketitle
+\vspace{5cm}
+    Présent à la réunion :
+    \begin{description}
+        \item Alexis Osmont
+        \item Kaci Hammoudi
+        \item Louka Boivin
+        \item Sami Babigeon
+    \end{description}
+\newpage
+
+\section{Sujet de réunion}   
+
+Le but de cette réunion était de présenter puis d'avoir un retour sur le troisième livrable et d'attester de la bonne conduite du projet.\\
+
+Nous avons abordé quelques sujets, tels que la protection contre les attaques de licences infinies liées aux dates de la machines
+des futurs utilisateurs, la vérification de licence dans la DLL, quelques spécifications quant aux licences et aux éléments principaux du
+projet.  
+\vspace{0.5cm}
+
+\section{Sujets abordés}
+\subsection{DLL}
+
+\begin{itemize}
+    \item Proposer un livrable clef en main
+    \item Livraison du livrable Lundi 11/04/2022
+    \item Testes a réaliser par le client avant la prochaine réunion de fin de sprint (avant le 16/04/2022)
+\end{itemize}
+
+\subsection{Faille durée de licence}
+
+\begin{itemize}
+    \item Trouver une solution fiable et réalisable 
+    \item Pas forcement à implementer mais à proposer dans le rapport/présentation dans la partie rechecher
+    \item Demon qui tourne h24
+\end{itemize}
+
+\subsection{Livrable à fournir}
+
+\begin{itemize}
+    \item Fournir pour le test un licence expirée et une valide 
+    \item + la DLL + petit prog client pour tester le tout
+    \item A faire la vérification de validité : (date expi; (nombre d'instance) ;nombre d'exécution)
+    \item Gethardware hash ajouter un sel aléatoire (en option)
+    \item Mettre la clef publique de signature en dur dans la DLL
+\end{itemize}
+\newpage
+
+\section{A Valider par le client}
+\subsection{Teste de licence}
+
+Livré le : 11/04/2022
+
+Tester avant le : 16/04/2022\\
+
+\begin{itemize}
+     \item Tester la licence valide avec la DLL sur le logiciel de teste
+     \item Tester la licence invalide avec la DLL sur le logiciel de teste
+\end{itemize}
+
+\subsection{Exploration du site}
+
+Livré le : 04/04/2022
+
+Tester avant le : 11/04/2022\\
+
+\begin{itemize}
+     \item Tester la création de comptes utilisateurs
+     \item Tester l'achat de logiciels
+     \item Tester l'activation de logiciels
+     \item Tester l'interface administrateur
+     \item Tester les affichages des pages de navigation\newline
+\end{itemize}
+Compte client deja existant : client@client.fr clientpasswd\\
+Compte administrateur : admin@admin.fr adminpasswd\\
+
+Lien d'accés site web : \href{https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/home}{https://srv-dpi-proj-gestlic-web.univ-rouen.fr:8443/home}
+\end{document}
