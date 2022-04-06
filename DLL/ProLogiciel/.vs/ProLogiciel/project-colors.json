@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e6f91bbb-bd7f-4374-920c-397bb4118a59": {
+      "ProjectGuid": "e6f91bbb-bd7f-4374-920c-397bb4118a59",
+      "DisplayName": "ProLogiciel",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Fichiers divers",
+      "ColorIndex": -1
+    },
+    "43914368-8d57-4101-b8b8-3bac4899bd55": {
+      "ProjectGuid": "43914368-8d57-4101-b8b8-3bac4899bd55",
+      "DisplayName": "ProLicence",
+      "ColorIndex": 1
+    },
+    "1574b0ad-92a4-4408-b1a8-c6586cef7323": {
+      "ProjectGuid": "1574b0ad-92a4-4408-b1a8-c6586cef7323",
+      "DisplayName": "ProLicence",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

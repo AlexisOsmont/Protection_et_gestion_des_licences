@@ -1,44 +1,50 @@
-//  C:\Windows\Microsoft.NET\Framework\v3.5\csc.exe /target:library /out:MachineHardware.dll .\test.cs
-using System;
-using System.Collections;
-using System.Management;
+﻿using System.Management;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.IO;
-  
-namespace Licence
+
+namespace ProLicence
 {
-    public class HardwareID
+    internal class MachineHardware
     {
-        public static string ReturnHardwareID(Boolean bmac, Boolean bbd, Boolean bhdd, Boolean bbios, Boolean bproc) {
+        public MachineHardware()
+        {
+        }
+
+        public static string getHardwareId(Boolean mac, Boolean baseBoard, Boolean hdd, Boolean bios, Boolean proc)
+        {
             string hash = "";
 
-            if (bmac) {
+            if (mac)
+            {
                 hash += MacAddressHash();
             }
-            if (bbd) {
+            if (baseBoard)
+            {
                 hash += "-" + BaseBoardHash();
             }
-            if (bhdd) {
+            if (hdd)
+            {
                 hash += "-" + HddHash();
             }
-            if (bbios) {
+            if (bios) 
+            {
                 hash += "-" + BiosHash();
             }
-            if (bproc) {
+            if (proc)
+            {
                 hash += "-" + ProcessorIdHash();
             }
 
             return hash;
         }
-        
+
         private static string MacAddressHash()
         {
             const int MAC_ADDR_LENGTH = 12;
 
-            byte[] mac_bytes = new byte[MAC_ADDR_LENGTH];
+            byte[]? mac_bytes = new byte[MAC_ADDR_LENGTH];
             // Console.WriteLine("mac_bytesL = " + mac_bytes.Length);
-                
+
             foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
             {
                 if (nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet || nic.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
@@ -58,9 +64,13 @@ namespace Licence
                     }
                 }
             }
+            
+            if (mac_bytes == null)
+            {
+                return "";
+            }
 
             string hash = BitConverter.ToString(mac_bytes).Replace("-", "");
-
             // Console.WriteLine("\nFinal Mac Hash = " + hash);
             return hash;
         }
@@ -76,7 +86,7 @@ namespace Licence
                 //Console.WriteLine("Manufacturer : " + item["Manufacturer"]);
                 //Console.WriteLine("SerialNumber : " + item["SerialNumber"]);
 
-                string serialNo = item["SerialNumber"] == null ? null : item["SerialNumber"].ToString();
+                string? serialNo = (item["SerialNumber"] == null) ? null : item["SerialNumber"].ToString();
                 if (serialNo != null)
                 {
                     return serialNo;
@@ -97,31 +107,31 @@ namespace Licence
                 //Console.WriteLine("Name : " + item["Name"]);
                 //Console.WriteLine("Processor Id : " + item["processorID"]);
 
-                string processorId = item["processorID"] == null ? null : item["processorID"].ToString();
+                string? processorId = item["processorID"] == null ? null : item["processorID"].ToString();
                 if (processorId != null)
                 {
                     return processorId;
                 }
-                
+
             }
             //Console.WriteLine("Processor Informations can't be reached.");
             return "";
         }
-        
+
         private static string BiosHash()
         {
             ManagementObjectSearcher bios = new ManagementObjectSearcher("SELECT * FROM Win32_BIOS");
 
-             foreach (ManagementObject obj in bios.Get())
+            foreach (ManagementObject obj in bios.Get())
             {
                 //Console.WriteLine("bios version : " + obj["Version"]);
 
-                string sbios =  obj["Version"] == null ? null : obj["Version"].ToString();
+                string? sbios = obj["Version"] == null ? null : obj["Version"].ToString();
                 if (sbios != null)
                 {
                     return sbios;
                 }
-                
+
             }
             //Console.WriteLine("Bios Informations can't be reached.");
             return "";
@@ -135,20 +145,20 @@ namespace Licence
             {
                 //Console.WriteLine("hdd Signature : " + obj["Signature"]);
 
-                string shdd = obj["Signature"] == null ? null : obj["Signature"].ToString();
+                string? shdd = obj["Signature"] == null ? null : obj["Signature"].ToString();
                 if (shdd != null)
                 {
                     return shdd;
                 }
-                
+
             }
             //Console.WriteLine("Hdd Informations can't be reached.");
             return "";
         }
 
-        private static byte[] XorBytesArray(byte[] first, byte[] second)
+        private static byte[]? XorBytesArray(byte[] first, byte[] second)
         {
-            if (first == null || second == null 
+            if (first == null || second == null
                 || first.Length != second.Length)
             {
                 return null;
@@ -161,19 +171,6 @@ namespace Licence
                 xored[i] = (byte)(first[i] ^ second[i]);
             }
             return xored;
-        }
-    }
-
-    public class EvaluationMonitor
-    {
-        string content;
-
-        public EvaluationMonitor(string licencePath) {
-            content = File.ReadAllText(licencePath);
-        }
-
-        public bool isLicenceValid() {
-            return true;
         }
     }
 }

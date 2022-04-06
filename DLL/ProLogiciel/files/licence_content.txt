@@ -1,0 +1,4 @@
+{
+        "validity":"31/12/2022",
+        "hardwareid":"fk9dj7S0di9dnrjU8DlFxfqo"
+}

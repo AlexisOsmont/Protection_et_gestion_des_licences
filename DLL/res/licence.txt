@@ -1,0 +1,8 @@
+###licence#
+licence : {
+	"validity" : "infinity",
+	"machineId" : "3JH324KJH324HJ23K"
+}
+###signature#
+0ˆB Åª5Ö¤ÝÐZ2ÕàÕÊl»@Ù_¦µ+»Ü:žª¶¯ˆ!ðÂÎ}´áº>"•{è¼ýo}‡´—§8•ÉÿîÇ¿ÛBgtþÂIŸÖÉkbbÈ6Ë sÓà×f¦^ü ¨ŠÝÍöãÇ×AI‰>­¡/ðmÓñC‘¾/à¿«Ø¡˜3[˜…
+###eof#
