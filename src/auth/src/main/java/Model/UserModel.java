@@ -22,7 +22,7 @@ public class UserModel {
 	private static final String GET_BY_MAIL= "SELECT * FROM users WHERE email = ?;";
 
 					
-	public static User getUserByMail(String mail) throws SQLException {
+	public static User getUserByMail(String mail) throws SQLException, AssertionError {
 		Validator.checkEmail(mail);
 		User user = null;
 		// Get connection from database

@@ -23,6 +23,14 @@ public class RegisterController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		// retrieve session
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("logged") != null) {
+			response.sendRedirect(request.getScheme() + "://" +  request.getServerName() + ":" + request.getServerPort() + "/home");
+			return;
+		}
+
 		//render page
 		render(request, response);
 	}

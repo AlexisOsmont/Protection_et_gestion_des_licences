@@ -10,6 +10,7 @@ import Entity.User;
 import Model.TicketsModel;
 import Model.UserModel;
 import Utils.Password;
+import Utils.Validator;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,10 +26,47 @@ public class LoginController extends HttpServlet {
 		// retrieve session
 		HttpSession session = request.getSession();
 		
+		if (request.getParameter("disconnect") != null) {
+			session.invalidate();
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+			requestDispatcher.forward(request, response);
+		}
+		
+		if (session.getAttribute("logged") != null) {
+			response.sendRedirect(request.getScheme() + "://" +  request.getServerName() + ":" + request.getServerPort() + "/home");
+			return;
+		}
+		
 		// retrieve service parameter
 		String service = request.getParameter("service");
 		
 		if (service != null) {
+			
+			// Si l'utilisateur est déjà connecté on lui génère un ticket de suite
+			Boolean logged = (Boolean) session.getAttribute("logged");
+			if (logged != null && logged.booleanValue()) {
+				String ticket = null;
+				try {
+					ticket = TicketsModel.newTicket(new User((String)session.getAttribute("username"),
+													null, (String)session.getAttribute("mail")));
+				} catch (SQLException e) {
+					session.invalidate();
+					request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
+					request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+					return;
+				}
+				
+				if (ticket == null) {
+					session.invalidate();
+					request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
+					request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+					return;
+				}
+				
+				response.sendRedirect(service + "?ticket=" + ticket);
+				return;
+			}
+			
 			// we store it in the session
 			session.setAttribute("service", service);
 		} else {
@@ -66,6 +104,18 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("errorMessage", "Connexion échouée dû à une erreur interne.");
 			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
 			return;
+		} catch (AssertionError e) {
+			request.setAttribute("errorMessage", "Connexion échouée. " + e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			return;
+		}
+		
+		try {
+			Validator.checkPasswordStrength(password);
+		} catch (AssertionError e) {
+			request.setAttribute("errorMessage", "Connexion échouée, vérifiez vos identifiants.");
+			request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+			return;
 		}
 		
 		if (user == null) {
@@ -77,7 +127,7 @@ public class LoginController extends HttpServlet {
 		if (Password.verifyPassword(user.getPassword(), password)) {
 			
 			String url = (String) session.getAttribute("service");
-            // check is the service was gived before in the get, if not try to retrieve it 
+            // check is the service was given before in the get, if not try to retrieve it 
             // in the parameters of the post request 
             if (url == null) {
                 url = (String) request.getParameter("service");
@@ -94,7 +144,6 @@ public class LoginController extends HttpServlet {
 				response.sendRedirect(request.getScheme() + "://" +  request.getServerName() + ":" + request.getServerPort() + "/home");
 				return;
 			}
-			System.out.println("doPost:106");
 			// On créer un ticket pour cet utilisateur
 			try {
 				ticket = TicketsModel.newTicket(user);
