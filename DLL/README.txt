@@ -4,7 +4,7 @@ Protection et Gestion des Licences DLL
 	------ Les Sources ------
 
 
-Ce sont les sources des projets VisualStudio2022 généré sur ma machine.
+Ce sont les sources des projets VisualStudio2022 générés sur ma machine.
 Il est possible lorsque vous les ouvrez sur votre machine que les liens vers
 les bilbiothèques soient cassés et/ou que les package nécessaires 
 ne soient pas installés.
@@ -47,9 +47,9 @@ System.Management
 Il faut inclure la dll ProLicence.dll.
 
 
---- create_licence.sh ---
+--- create_licence ---
 
-C'est un script bash utilisant openssl. Il se lance donc sous linux.
+create_licence.sh est un script bash utilisant openssl. Il se lance donc sous linux.
 Permet de manière intéractive de créer un nouveau fichier de licence.
 En prenant compte d'une date de validité et d'un hardware machine.
 

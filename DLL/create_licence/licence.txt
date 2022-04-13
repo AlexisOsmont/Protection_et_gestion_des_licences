@@ -1,0 +1,5 @@
+###licence#
+eyAiaGFyZHdhcmVpZCI6InNkZmtqc2RmIiwgInZhbGlkaXR5IjoiZHNrZmpzZCIgfQ==
+###signature#
+MEQCIDHjkIPrvdAt4DnEJ1zdFgWh1XLbicByJyMVnh2jIG2PAiAwJKMsVk5FuvA4n9/iLWR6vIPzXaHIKgqxrnqi3ocOew==
+###eof#
