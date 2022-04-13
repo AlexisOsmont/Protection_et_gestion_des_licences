@@ -3,7 +3,7 @@ using ProLicence;
 
 public class ProLogiciel
 {
-    private const string LICENCE_FILE_PATH = @"..\..\..\files\licence.txt";
+    private const string LICENCE_FILE_PATH = @"..\..\..\licence.txt";
 
     static public void Main()
     {
