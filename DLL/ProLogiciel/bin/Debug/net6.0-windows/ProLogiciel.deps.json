@@ -8,7 +8,9 @@
     ".NETCoreApp,Version=v6.0": {
       "ProLogiciel/1.0.0": {
         "dependencies": {
-          "ProLicence": "1.0.0"
+          "System.Management": "6.0.0",
+          "starkbank-ecdsa": "1.3.3",
+          "ProLicence": "1.0.0.0"
         },
         "runtime": {
           "ProLogiciel.dll": {}
@@ -49,13 +51,12 @@
           }
         }
       },
-      "ProLicence/1.0.0": {
-        "dependencies": {
-          "System.Management": "6.0.0",
-          "starkbank-ecdsa": "1.3.3"
-        },
+      "ProLicence/1.0.0.0": {
         "runtime": {
-          "ProLicence.dll": {}
+          "ProLicence.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
@@ -87,8 +88,8 @@
       "path": "system.management/6.0.0",
       "hashPath": "system.management.6.0.0.nupkg.sha512"
     },
-    "ProLicence/1.0.0": {
-      "type": "project",
+    "ProLicence/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

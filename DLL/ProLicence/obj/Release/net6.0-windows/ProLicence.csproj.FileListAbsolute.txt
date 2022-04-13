@@ -1,0 +1,12 @@
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\bin\Release\net6.0-windows\ProLicence.deps.json
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\bin\Release\net6.0-windows\ProLicence.dll
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\bin\Release\net6.0-windows\ref\ProLicence.dll
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\bin\Release\net6.0-windows\ProLicence.pdb
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.csproj.AssemblyReference.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.AssemblyInfoInputs.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.AssemblyInfo.cs
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.csproj.CoreCompileInputs.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.dll
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ref\ProLicence.dll
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLicence\obj\Release\net6.0-windows\ProLicence.pdb

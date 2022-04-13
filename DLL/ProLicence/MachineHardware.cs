@@ -20,22 +20,22 @@ namespace ProLicence
             }
             if (baseBoard)
             {
-                hash += "-" + BaseBoardHash();
+                hash += BaseBoardHash();
             }
             if (hdd)
             {
-                hash += "-" + HddHash();
+                hash += HddHash();
             }
             if (bios) 
             {
-                hash += "-" + BiosHash();
+                hash += BiosHash();
             }
             if (proc)
             {
-                hash += "-" + ProcessorIdHash();
+                hash += ProcessorIdHash();
             }
 
-            return hash;
+            return hash.Replace(" ", "").Replace("-", "");
         }
 
         private static string MacAddressHash()
@@ -82,9 +82,6 @@ namespace ProLicence
             foreach (ManagementObject item in myProcessorObject.Get())
             {
                 // https://docs.microsoft.com/fr-fr/windows/win32/cimwin32prov/win32-baseboard
-                //Console.WriteLine("\nName : " + item["Name"]);
-                //Console.WriteLine("Manufacturer : " + item["Manufacturer"]);
-                //Console.WriteLine("SerialNumber : " + item["SerialNumber"]);
 
                 string? serialNo = (item["SerialNumber"] == null) ? null : item["SerialNumber"].ToString();
                 if (serialNo != null)

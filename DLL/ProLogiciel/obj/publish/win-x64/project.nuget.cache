@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "5ONMnhaZC9dnmjJL59N88vH0OwAwHgH7qoUwNGYkgFU+tyPEb5eeJRlMod9ZQpgz1hPc0rDSXYi6s8eIAyYmSw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLogiciel\\ProLogiciel.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kacih\\.nuget\\packages\\starkbank-ecdsa\\1.3.3\\starkbank-ecdsa.1.3.3.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\6.0.1\\microsoft.netcore.app.runtime.win-x64.6.0.1.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\6.0.1\\microsoft.windowsdesktop.app.runtime.win-x64.6.0.1.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\6.0.1\\microsoft.aspnetcore.app.runtime.win-x64.6.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

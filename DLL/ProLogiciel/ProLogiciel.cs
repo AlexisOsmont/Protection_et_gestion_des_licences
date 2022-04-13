@@ -18,16 +18,26 @@ public class ProLogiciel
             Console.WriteLine(ex.Message + "\n");
             return;
         }
+
+        licenceChecker.setHardwareHashComposent(true, true, true, true, true);
         
         // Test de la licence.
         if (!licenceChecker.isValid())
         {
             Console.WriteLine("Integrité ou Validité de la licence non valide.\nRefus de lancer le logiciel.\n");
+            exitConsole();
             return;
         }
 
         // La licence est valide. Le logiciel peut se lancer.
         Console.WriteLine("ProLogiciel peut se lancer à présent.\nHello World !\n");
+        exitConsole();
         return;
+    }
+
+    static private void exitConsole()
+    {
+        Console.WriteLine("\n\n\nAppuyez sur une touche pour fermer la console...");
+        Console.ReadKey();
     }
 }

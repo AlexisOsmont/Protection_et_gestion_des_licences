@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "m+gxBfpz8UN5VfLc+P7V1HVq0NVI4LOU20oH5mOlG9jHcvFIux5ewa/pgxR04T2L8J/FbVU92wuiNTTF+cU+Mg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\MachineHardware\\MachineHardware.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kacih\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
+    "C:\\Users\\kacih\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

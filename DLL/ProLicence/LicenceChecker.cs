@@ -12,6 +12,8 @@ namespace ProLicence
 
         private Licence licence;
 
+        private bool[] hardwareHashComposent;
+
         /**
          * <summary>
          *      <c>LicenceChecker</c> permet de vérifier l'intégrité et la validité d'une licence donnée.
@@ -19,11 +21,23 @@ namespace ProLicence
          * <param name="path">Le chemin vers un fichier de licence de format valide.</param>
          */
         public LicenceChecker(string path)
-        {
+        { 
+            hardwareHashComposent = new bool[5];
+            for (int i = 0; i < hardwareHashComposent.Length; i++)
+            {
+                hardwareHashComposent[i] = true;
+            }
+
             licence = new Licence(path);
-            Console.Write("Licence : " + licence.getLicence().Trim() + "\n");
-            Console.Write("Raw Licence : " + licence.getRawLicence() + "\n");
-            Console.Write("Signature : " + licence.getSignature() + "\n");
+        }
+
+        public void setHardwareHashComposent(bool mac, bool board, bool hdd, bool bios, bool proc)
+        {
+            hardwareHashComposent[0] = mac;
+            hardwareHashComposent[1] = board;
+            hardwareHashComposent[2] = hdd;
+            hardwareHashComposent[3] = bios;
+            hardwareHashComposent[4] = proc;
         }
 
         public bool isValid()
@@ -38,9 +52,9 @@ namespace ProLicence
          *      Hardware Id afin d'assurer qu'elle soit bien utilisée sur la bonne machine.
          *  </summary>
          */
-        private bool checkIntegrity()
+        public bool checkIntegrity()
         {
-            return checkSignature() && checkHardware();
+            return checkSignature();
         }
 
         /**
@@ -54,29 +68,59 @@ namespace ProLicence
          */
         public bool checkValidity()
         {
-            return true;
+            return checkHardwareHash() && checkExpirationDate();
         }
 
         /**
          * <summary>
-         *      Vérifie la signature de la licence assurant qu'elle n'ai pas été modifiée.
+         *      Vérifie la signature de la licence, assurant qu'elle n'ai pas été modifiée.
          * </summary>
          * 
          * <returns><c>True</c> si la signature est valide, <c>False</c> sinon.</returns>
          */
-        private bool checkSignature()
+        public bool checkSignature()
         {
             PublicKey publicKey = PublicKey.fromPem(PUBLIC_KEY);
             Signature sign = Signature.fromBase64(licence.getSignature());
 
+            Console.WriteLine("Licence b64 : " + licence.getRawLicence());
+            Console.WriteLine("Signature b64 : " + licence.getSignature());
+
             bool isVerified = Ecdsa.verify(licence.getRawLicence(), sign, publicKey);
-            Console.WriteLine("\nSignature verification : " + isVerified);
+            Console.WriteLine("Signature vérification : " + isVerified + "\n");
             return isVerified;
         }
 
-        private bool checkHardware()
+        public bool checkHardwareHash()
         {
-            return true;
+            string machineHardwareHash = MachineHardware.getHardwareId(hardwareHashComposent[0], 
+                hardwareHashComposent[1], hardwareHashComposent[2], hardwareHashComposent[3], hardwareHashComposent[4]);
+
+            Console.WriteLine("Licence Hardware Hash : " + licence.getHardwareHash());
+            Console.WriteLine("Machine Hardware Hash : " + machineHardwareHash);
+            
+            bool isChecked = licence.getHardwareHash().Equals(machineHardwareHash);
+            Console.WriteLine("Vérification HardwareHash : " + isChecked + "\n");
+            return isChecked;
+        }
+
+        public bool checkExpirationDate()
+        {
+            DateTime? validityDate = licence.getValidityDate();
+            if (validityDate == null) 
+            {
+                Console.WriteLine("Validity Date is null");
+                return false;
+            }
+
+            DateTime nowDate = DateTime.Now;
+
+            Console.WriteLine("Validity Date : " + validityDate);
+            Console.WriteLine("Current Date : " + nowDate);
+
+            bool isChecked = validityDate > nowDate;
+            Console.WriteLine("Date Validity : " + isChecked + "\n");
+            return isChecked;
         }
     }
 }

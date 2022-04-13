@@ -5,10 +5,20 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Platforms>AnyCPU</Platforms>
+    <UseWindowsForms>False</UseWindowsForms>
+    <StartupObject>ProLogiciel.ProLogiciel</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProLicence\ProLicence.csproj" />
+    <PackageReference Include="starkbank-ecdsa" Version="1.3.3" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ProLicence">
+      <HintPath>..\ProLicence\bin\Debug\net6.0-windows\ProLicence.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

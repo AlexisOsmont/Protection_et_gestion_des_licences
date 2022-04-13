@@ -1,0 +1,3 @@
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLogiciel\bin\publish\ProLogiciel.pdb
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLogiciel\bin\publish\ProLicence.pdb
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\ProLogiciel\bin\publish\ProLogiciel.exe
