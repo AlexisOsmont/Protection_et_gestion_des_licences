@@ -7,7 +7,6 @@ C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHa
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\bin\Debug\net6.0-windows\System.CodeDom.dll
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\bin\Debug\net6.0-windows\System.Management.dll
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Management.dll
-C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.csproj.AssemblyReference.cache
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.AssemblyInfoInputs.cache
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.AssemblyInfo.cs
@@ -17,3 +16,4 @@ C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHa
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\ref\MachineHardware.dll
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.pdb
 C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.genruntimeconfig.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net6.0-windows\MachineHardware.csproj.AssemblyReference.cache

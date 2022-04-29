@@ -1,4 +1,5 @@
-﻿using System.Management;
+﻿using Microsoft.Win32;
+using System.Management;
 using System.Net.NetworkInformation;
 using System.Text;
 
@@ -6,10 +7,15 @@ namespace HardwareHash
 {
     internal class MachineHardware
     {
+
+        private const int ANTICHEAT_CODE_LEN = 10;
+        private const string ALPHABET = "aA1bB2cC3dD4eE5fF6gG7hH8iI9jJ0kKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
         public static string getHardwareId(Boolean mac, Boolean baseBoard, Boolean hdd, Boolean bios, Boolean proc)
         {
-            string hash = "";
+            // Anti cheating process
+            string hash = assureAntiCheating();  
 
+            // generating keys
             if (mac)
             {
                 hash += MacAddressHash();
@@ -32,6 +38,32 @@ namespace HardwareHash
             }
 
             return hash.Replace(" ", "").Replace("-", "");
+        }
+
+        private static string assureAntiCheating()
+        {
+            RegistryKey key;
+            key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+
+            String? anticheatcode = key.GetValue("anticheating_CODE")?.ToString();
+            if (anticheatcode == null)
+            {
+                // Génération d'une clé aléatoire
+                Random random = new Random();
+                string newcode = "";
+                for (var i = 0; i < ANTICHEAT_CODE_LEN; i++)
+                {
+                    int r = random.Next(ALPHABET.Length);
+                    newcode += ALPHABET[r];
+                }
+
+                key.SetValue("anticheating_CODE", newcode);
+                key.Close();
+                return newcode;
+            }
+
+            key.Close();
+            return anticheatcode;
         }
 
         private static string MacAddressHash()

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using EllipticCurve;
+﻿using EllipticCurve;
+using HardwareHash;
+using Microsoft.Win32;
 
 namespace ProLicence
 
@@ -40,16 +39,21 @@ namespace ProLicence
             hardwareHashComposent[4] = proc;
         }
 
+        public string getHardwareId()
+        {
+            return MachineHardware.getHardwareId(hardwareHashComposent[0],
+                hardwareHashComposent[1], hardwareHashComposent[2], hardwareHashComposent[3], hardwareHashComposent[4]);
+        }
+
         public bool isValid()
         {
-            return checkIntegrity() && checkValidity();
+            return checkIntegrity() && checkValidity() && antiCheatTest();
         }
 
         /**
          *  <summary>
          *      Vérifie l'intégrité de la licence.
          *      Signature afin d'assurer qu'elle n'ai pas été modifiée.
-         *      Hardware Id afin d'assurer qu'elle soit bien utilisée sur la bonne machine.
          *  </summary>
          */
         public bool checkIntegrity()
@@ -121,6 +125,51 @@ namespace ProLicence
             bool isChecked = validityDate > nowDate;
             Console.WriteLine("Date Validity : " + isChecked + "\n");
             return isChecked;
+        }
+
+        // Regarde dans la clé de registre si la dernière date de
+        // lancement n'est pas ultérieur à la date courrante.
+        private bool antiCheatTest()
+        {
+            bool dateOk = true;
+            DateTime currDate = DateTime.Now;
+
+            RegistryKey key;
+            key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+            var value = key.GetValue("anticheating_LastDate");
+
+            if (value == null)
+            {
+                Console.WriteLine("Pas de dernière date de lancement.");
+            } 
+            else
+            {
+                DateTime? lastDate = DateTime.Parse((String)value);
+                Console.WriteLine("Date de dernier lancement : " + lastDate);
+                dateOk = currDate >= lastDate;
+            }
+
+            if (dateOk == false)
+            {
+                Console.WriteLine("La dernière date est ultérieur à la date actuelle. --- Suspicion de triche detectée ---\n");
+                invalidateLicence();
+                return false;
+            }
+
+            // Pas de dernière date => Premier lancement
+            // (Ou clé de registre supprimée...)
+            key.SetValue("anticheating_LastDate", currDate);
+            key.Close();
+            Console.WriteLine("Définissons la date de dernier lancement à aujourd'hui : " + currDate + "\n");
+            return true;
+        }
+
+        public void invalidateLicence()
+        {
+            RegistryKey key;
+            key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+            key.DeleteValue("anticheating_CODE");
+            Console.WriteLine("\nLa licence a été invalidée.\n");
         }
     }
 }
