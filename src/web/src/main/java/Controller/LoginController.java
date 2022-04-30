@@ -77,6 +77,44 @@ public class LoginController extends HttpServlet {
 			// redirect user to CAS server
 			response.sendRedirect(CAS_SERVER_URL + CAS_SERVER_LOGIN
 					+ "?" + CAS_SERVER_SERVICE + "=" + WEB_SERVER_URL + WEB_SERVER_LOGIN);
+		
+		// @TMP
+		} else if (ticket.equals("12345678")) {
+			
+			String route = null;
+			UserConverter user = new UserConverter("{ \"mail\" : \"admin@admin.fr\" , \"username\" : \"admin\" }");
+			UserSession s = null;
+			if (user.isAdmin()) {
+				s = new UserSession(true, user.getAdmin());
+				route = "/admin/notification";
+			} else {
+				s = new UserSession(false, user.getClient());
+				route = "/product-list";
+			}
+			
+			HttpSession session = request.getSession(true);
+			session.setAttribute("user", s);
+			ErrorMsg.setError(request, ErrorMsg.Severity.SUCCESS, ErrorMsg.MSG_AUTHENTIFICATED);
+			response.sendRedirect(request.getContextPath() + route);
+		// @TMP
+		} else if (ticket.equals("87654321")) {
+				
+				String route = null;
+				UserConverter user = new UserConverter("{ \"mail\" : \"client@client.fr\" , \"username\" : \"client\" }");
+				UserSession s = null;
+				if (user.isAdmin()) {
+					s = new UserSession(true, user.getAdmin());
+					route = "/admin/notification";
+				} else {
+					s = new UserSession(false, user.getClient());
+					route = "/product-list";
+				}
+				
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user", s);
+				ErrorMsg.setError(request, ErrorMsg.Severity.SUCCESS, ErrorMsg.MSG_AUTHENTIFICATED);
+				response.sendRedirect(request.getContextPath() + route);
+		
 		} else {
 
 			/* 

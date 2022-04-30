@@ -4,6 +4,10 @@
 <%@ page import="model.Software"%>
 <%@ page import="model.Licence"%>
 <%@ page import="model.Client"%>
+<%@ page import="java.util.Calendar"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +64,10 @@
 	Licence licence = (Licence) request.getAttribute("licence");
 	Software software = (Software) request.getAttribute("software");
 	Client client = (Client) request.getAttribute("client");
+	
+	Calendar calendar = Calendar.getInstance();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	int status = licence.getStatus();
 	%>
 
@@ -77,10 +85,7 @@
 				<div class="card-header">
 					<div class="row">
 						<div class="col-sm-10 align-self-center">
-							<h4 class="font-weight-normal">
-								<%=software.getName()%>
-								-
-								<%=client.getEmail()%></h4>
+							<h4 class="font-weight-normal">Récapitulatif de la demande</h4>
 						</div>
 						<div class="col-sm-2">
 							<%
@@ -104,34 +109,82 @@
 
 				<div class="card-body">
 
-					<p><%=software.getDescription()%></p>
-					<div class="text-center">
-						<%
-						if (status == Licence.Status.PENDING.ordinal()) {
-						%>
+					<div class="row g-3">
 
-						<a
-							href="?action=updateStatus&statusName=<%=Licence.Status.ACTIVATED.toString()%>"
-							class="btn btn-success btn-yes">Accepter</a> <a
-							href="?action=updateStatus&statusName=<%=Licence.Status.EXPIRED.toString()%>"
-							class="btn btn-danger btn-no">Refuser</a>
+						<div class="col-6">
+							<label for="username" class="form-label">Pseudo</label>
+							<div class="input-group has-validation">
+								<span class="input-group-text">@</span> <input type="text"
+									class="form-control" id="username" placeholder="Username"
+									readonly="" value="<%=client.getUsername()%>">
+							</div>
+						</div>
 
-						<%
-						} else if (status == Licence.Status.ACTIVATED.ordinal()) {
-						%>
+						<div class="col-6">
+							<label for="email" class="form-label">Email</label> <input
+								type="email" class="form-control" id="email"
+								placeholder="you@example.com" readonly=""
+								value="<%=client.getEmail()%>">
+						</div>
+
+						<div class="col-6">
+							<label for="software" class="form-label">Logiciel</label> <input
+								type="text" class="form-control" id="software"
+								placeholder="placeholder.exe" readonly=""
+								value="<%=software.getName()%>">
+						</div>
+
+						<div class="col-6">
+							<label for="software-desc" class="form-label">Description
+								du logiciel</label> <input type="text" class="form-control"
+								id="software-desc" placeholder="usefull" readonly=""
+								value="<%=software.getDescription()%>">
+						</div>
+
+						<div class="col-md-6">
+							<label for="date-start" class="form-label">Début
+								d'utilisation</label>
+							 <input type="date" class="form-control"
+								id="date-start" readonly=""
+								value="<%=sdf.format(calendar.getTime())%>">
+						</div>
+
+						<div class="col-md-6">
+							<label for="date-end" class="form-label">Fin
+								d'utilisation</label>
+							 <input type="date" class="form-control"
+								id="date-end" readonly=""
+								value="<%=sdf.format(licence.getValidity())%>">
+
+						</div>
+
+						<div class="text-center">
+							<%
+							if (status == Licence.Status.PENDING.ordinal()) {
+							%>
+
+							<a
+								href="?action=updateStatus&statusName=<%=Licence.Status.ACTIVATED.toString()%>"
+								class="btn btn-success btn-yes">Accepter</a> <a
+								href="?action=updateStatus&statusName=<%=Licence.Status.EXPIRED.toString()%>"
+								class="btn btn-danger btn-no">Refuser</a>
+
+							<%
+							} else if (status == Licence.Status.ACTIVATED.ordinal()) {
+							%>
 							<p class="text-muted">@TODO</p>
-						<%
-						} else if (status == Licence.Status.EXPIRED.ordinal()) {
-						%>
+							<%
+							} else if (status == Licence.Status.EXPIRED.ordinal()) {
+							%>
 							<p class="text-muted">@TODO</p>
-						<%
-						}
-						%>
+							<%
+							}
+							%>
+						</div>
 					</div>
-				</div>
 
+				</div>
 			</div>
-		</div>
 	</main>
 
 </body>
