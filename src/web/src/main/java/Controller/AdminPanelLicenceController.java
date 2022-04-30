@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import DAO.ClientDAO;
 import DAO.LicenceDAO;
 import DAO.SoftwareDAO;
+import Utils.DynamicTableHelper;
 import model.Client;
 import model.Licence;
 import model.Licence.Status;
@@ -21,9 +22,6 @@ import model.Software;
 public class AdminPanelLicenceController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static final int 	ROW_NUMBER                = 10; 
-	
-	private static final String PAGE_ATTRIBUTE 			  = "page";
 	private static final String FILTER_ATTRIBUTE 		  = "filter";
 	
 	private static final String FILTER_BY_NONE 			  = "none";
@@ -64,7 +62,7 @@ public class AdminPanelLicenceController extends HttpServlet {
 		List<Licence> licences = getFilteredList(request);
 				
 		// then select the specified interval
-		licences = getPageList(licences, request);
+		licences = DynamicTableHelper.getPageList(licences, request);
 
 		// check if the list is empty or not
 		if (licences != null && licences.size() > 0) {
@@ -109,50 +107,6 @@ public class AdminPanelLicenceController extends HttpServlet {
 	}
 
 	// tools 
-	
-	private List<Licence> getPageList(List<Licence> licences, HttpServletRequest request) {
-		
-		int cut 	  		 = 0;
-		int fromIndex 		 = 0;
-		int toIndex   		 = 0;
-		int listSize         = 0;
-		List<Licence> result = null;
-		String page   		 = request.getParameter(PAGE_ATTRIBUTE);
-		
-		if (licences != null) {
-
-			listSize = licences.size();
-			// check for the page number, if no page number are supplied return the first one
-			if (page != null) {
-				// check for the page number (a page contains ROW_NUMBER result)
-				try {
-					cut = Integer.valueOf(page);
-				} catch (NumberFormatException e) {
-					// if the conversion failed, the default value is zero
-					cut = 0;
-				}
-				cut = cut < 0 ? 0 : cut * ROW_NUMBER;
-			} 
-			
-			fromIndex = Math.min(cut, listSize);
-			toIndex = Math.min(cut + ROW_NUMBER, listSize);
-			
-			// check if the interval is empty
-			if (fromIndex == toIndex) {
-				// show the first match
-				fromIndex = 0;
-				toIndex = Math.min(ROW_NUMBER, listSize);
-			}
-			
-			// set the current page number
-			request.setAttribute("current-page", fromIndex / ROW_NUMBER);
-			
-			// get the sublist corresponding to the page asked
-			result = licences.subList(fromIndex, toIndex);
-		}
-		
-		return result; 
-	}
 	
 	private List<Licence> getFilteredList(HttpServletRequest request) {
 		String filter 		   = request.getParameter(FILTER_ATTRIBUTE);

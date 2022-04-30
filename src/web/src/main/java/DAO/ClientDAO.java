@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import Utils.Database;
@@ -41,6 +43,8 @@ public class ClientDAO {
 	
 	private static String DELETE_CLIENT = "DELETE FROM " + TABLE_NAME
 										+ " WHERE " + ID_FIELD + " = ?;";
+	
+	private static String GET_CLIENT_LIST = "SELECT * FROM " + TABLE_NAME + ";";
 	
 	// methods
 
@@ -111,6 +115,36 @@ public class ClientDAO {
 			e.printStackTrace();
 		}
 		return client;
+	}
+	
+	/**
+	 * Return a list of all the clients present in the database 
+	 * @return the list of all clients on success, null otherwise
+	 */
+	public static List<Client> list() {
+		List<Client> li = new ArrayList<Client>();
+		// Try to execute the request
+		try {
+			// Get connection from database
+			Connection c = Database.getConnection();
+			// Create a prepared statement
+			PreparedStatement query = c.prepareStatement(GET_CLIENT_LIST);
+			// execute the query
+			ResultSet res = query.executeQuery();
+			while (res.next()) {
+				Client client = new Client(res.getString(USERNAME_FIELD),
+						res.getString(EMAIL_FIELD));
+                client.setId(res.getInt(ID_FIELD));
+                
+                li.add(client);
+			}
+			// close connection
+			c.close();
+		} catch (SQLException e) {
+			li = null;
+			e.printStackTrace();
+		}
+		return li;
 	}
 	
 	/**

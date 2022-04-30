@@ -64,10 +64,10 @@
 	Licence licence = (Licence) request.getAttribute("licence");
 	Software software = (Software) request.getAttribute("software");
 	Client client = (Client) request.getAttribute("client");
-	
+
 	Calendar calendar = Calendar.getInstance();
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	int status = licence.getStatus();
 	%>
 
@@ -143,16 +143,14 @@
 
 						<div class="col-md-6">
 							<label for="date-start" class="form-label">Début
-								d'utilisation</label>
-							 <input type="date" class="form-control"
+								d'utilisation</label> <input type="date" class="form-control"
 								id="date-start" readonly=""
 								value="<%=sdf.format(calendar.getTime())%>">
 						</div>
 
 						<div class="col-md-6">
 							<label for="date-end" class="form-label">Fin
-								d'utilisation</label>
-							 <input type="date" class="form-control"
+								d'utilisation</label> <input type="date" class="form-control"
 								id="date-end" readonly=""
 								value="<%=sdf.format(licence.getValidity())%>">
 
@@ -182,9 +180,9 @@
 							%>
 						</div>
 					</div>
-
 				</div>
 			</div>
+		</div>
 	</main>
 
 </body>

@@ -49,25 +49,7 @@ public class ProductImageController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// @TMP
-		
-		String url = request.getRequestURL().toString();
-		int idx = url.indexOf(IMG_ROUTE);
-		
-		if (idx > 0) {
-			int softwareId = Integer.valueOf(url.substring(idx + IMG_ROUTE.length()));
-			Software soft = SoftwareDAO.get(softwareId);
+		doGet(request, response);
 
-			InputStream inputStream = null ;
-			Part part = request.getPart("image");
-			
-			if (part != null && soft != null) {
-				inputStream = part.getInputStream();
-				byte[] data = inputStream.readAllBytes();
-				soft.setImg(data);
-				SoftwareDAO.updateImage(soft);
-			}
-			
-		}
 	}
 }

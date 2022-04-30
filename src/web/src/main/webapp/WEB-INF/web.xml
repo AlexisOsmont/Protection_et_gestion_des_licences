@@ -156,7 +156,7 @@
 		<url-pattern>/admin/client</url-pattern>
 	</servlet-mapping>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>AdminPanelSoftwareController</servlet-name>
 		<servlet-class>Controller.AdminPanelSoftwareController</servlet-class>
 	</servlet>
@@ -164,6 +164,21 @@
 	<servlet-mapping>
 		<servlet-name>AdminPanelSoftwareController</servlet-name>
 		<url-pattern>/admin/software</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminPanelNewSoftwareController</servlet-name>
+		<servlet-class>Controller.AdminPanelNewSoftwareController</servlet-class>
+		<multipart-config>
+			<max-file-size>100000</max-file-size>
+			<max-request-size>200000</max-request-size>
+			<file-size-threshold>50000</file-size-threshold>
+		</multipart-config>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AdminPanelNewSoftwareController</servlet-name>
+		<url-pattern>/admin/new-software</url-pattern>
 	</servlet-mapping>
 
 	<!-- ************ -->

@@ -5,16 +5,28 @@ import javax.servlet.http.HttpSession;
 
 public class ErrorMsg {
 
+	/* General Attributes*/
+	
 	private static final String ERROR_ATTRIBUTE = "error-msg";
 	private static final String MSG_TIMER 		= "4000";
 	
-	public static final String MSG_AUTHENTIFICATED 				= "Authentification reussie";
+	public static final String MSG_AUTHENTIFICATED 				 = "Authentification reussie";
 	
-	public static final String MSG_LICENCE_REQUEST_SUCCESS 		= "Votre demande de licence à été transmise";
-	public static final String MSG_LICENCE_UPDATED 				= "Les paramètres de la licence on été mis à jour";
-	public static final String ERROR_LICENCE_UPDATE_FAILED      = "Impossible de mettre à jour les paramètres de cette licence";
-	public static final String ERROR_LICENCE_ALREADY_OWNED 		= "Vous possédez déjà ce logiciel";
-	public static final String ERROR_LICENCE_INVALID_PARAMETERS = "Les paramètres envoyés sont invalides";
+	/* Software Messages */
+	
+	public static final String MSG_SOFTWARE_CREATED              = "Nouveau logiciel crée avec succès";
+	
+	public static final String ERROR_SOFTWARE_INVALID_PARAMETERS = "Les paramètres envoyés sont invalides";
+	public static final String ERROR_SOFTWARE_CREATION_FAILED    = "Impossible de créer un nouveau logiciel";
+	
+	/* Licence Messages */
+	
+	public static final String MSG_LICENCE_REQUEST_SUCCESS 		 = "Votre demande de licence à été transmise";
+	public static final String MSG_LICENCE_UPDATED 				 = "Les paramètres de la licence on été mis à jour";
+	
+	public static final String ERROR_LICENCE_UPDATE_FAILED       = "Impossible de mettre à jour les paramètres de cette licence";
+	public static final String ERROR_LICENCE_ALREADY_OWNED 		 = "Vous possédez déjà ce logiciel";
+	public static final String ERROR_LICENCE_INVALID_PARAMETERS  = "Les paramètres envoyés sont invalides";
 	
 	public enum Severity {
 		SUCCESS, INFO, WARNING, ERROR;

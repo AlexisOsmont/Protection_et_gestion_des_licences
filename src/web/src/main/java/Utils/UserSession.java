@@ -8,13 +8,20 @@ public class UserSession {
 
 	// list of publics routes
 	private static final String[] PUBLIC_ROUTE = {
-			"/home", "/login", "/register", "/common",
-			"/api/v1/Software/getSoftwareList", "/api/v1/Licence/requestLicence"
+			"/home", 
+			"/login", 
+			"/register", 
+			"/common",
+			"/api/v1/Software/getSoftwareList",
+			"/api/v1/Licence/requestLicence"
 	};
 	
 	// list of all the routes a user is allowed to take
 	private static final String[] USER_ALLOWED_URLS = { 
-			"/product-list", "/product-owned", "/product", "/product-img" 
+			"/product-list", 
+			"/product-owned", 
+			"/product", 
+			"/product-img" 
 	};
 
 	// list of all the routes an admin is allowed to take
@@ -22,7 +29,8 @@ public class UserSession {
 			"/admin/notification",
 			"/admin/licence",
 			"/admin/client",
-			"/admin/software"
+			"/admin/software",
+			"/admin/new-software"
 	};
 
 	private boolean isAdmin;

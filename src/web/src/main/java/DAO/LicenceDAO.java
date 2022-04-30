@@ -36,7 +36,7 @@ public class LicenceDAO {
     private static String GET_LICENCE_BY_OWN_ID = "SELECT * FROM " + TABLE_NAME
                             + " WHERE " + ID_FIELD + " = ?;";
     
-    private static String GET_LICENCE_LIST = "SELECT * FROM " + TABLE_NAME;
+    private static String GET_LICENCE_LIST = "SELECT * FROM " + TABLE_NAME + ";";
     
     private static String GET_LICENCE_LIST_BY_CLIENT_ID = "SELECT * FROM " + TABLE_NAME
     						+ " WHERE " + CL_ID_FIELD + " = ?;";
@@ -203,6 +203,11 @@ public class LicenceDAO {
 		return li;
 	}
 	
+	/**
+	 * Return a list of all the licence present in the database which 
+	 * have the software of id softwareId
+	 * @return the list of all licence on success, null otherwise
+	 */
 	public static List<Licence> listBySoftware(int softwareId) { 
 		List<Licence> li = new ArrayList<Licence>();
 		// Try to execute the request
