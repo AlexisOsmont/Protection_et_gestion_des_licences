@@ -111,7 +111,7 @@ namespace HardwareHash
             {
                 // https://docs.microsoft.com/fr-fr/windows/win32/cimwin32prov/win32-baseboard
 
-                string? serialNo = (item["SerialNumber"] == null) ? null : item["SerialNumber"].ToString();
+                string? serialNo = item["SerialNumber"]?.ToString();
                 if (serialNo != null)
                 {
                     return serialNo;
@@ -132,7 +132,7 @@ namespace HardwareHash
                 //Console.WriteLine("Name : " + item["Name"]);
                 //Console.WriteLine("Processor Id : " + item["processorID"]);
 
-                string? processorId = item["processorID"] == null ? null : item["processorID"].ToString();
+                string? processorId = item["processorID"]?.ToString();
                 if (processorId != null)
                 {
                     return processorId;
@@ -151,7 +151,7 @@ namespace HardwareHash
             {
                 //Console.WriteLine("bios version : " + obj["Version"]);
 
-                string? sbios = obj["Version"] == null ? null : obj["Version"].ToString();
+                string? sbios = obj["Version"]?.ToString();
                 if (sbios != null)
                 {
                     return sbios;
@@ -170,7 +170,7 @@ namespace HardwareHash
             {
                 //Console.WriteLine("hdd Signature : " + obj["Signature"]);
 
-                string? shdd = obj["Signature"] == null ? null : obj["Signature"].ToString();
+                string? shdd = obj["Signature"]?.ToString();
                 if (shdd != null)
                 {
                     return shdd;

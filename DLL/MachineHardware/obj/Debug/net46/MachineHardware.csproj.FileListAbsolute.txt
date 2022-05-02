@@ -1,0 +1,6 @@
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.csproj.AssemblyReference.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.csproj.SuggestedBindingRedirects.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.AssemblyInfoInputs.cache
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.AssemblyInfo.cs
+C:\Users\kacih\Documents\GitHub\Protection_et_gestion_des_licences\DLL\MachineHardware\obj\Debug\net46\MachineHardware.csproj.CoreCompileInputs.cache

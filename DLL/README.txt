@@ -47,33 +47,29 @@ System.Management
 Il faut inclure la dll ProLicence.dll.
 
 
---- create_licence ---
+--- LicenceMaker ---
 
-create_licence.sh est un script bash utilisant openssl. Il se lance donc sous linux.
-Permet de manière intéractive de créer un nouveau fichier de licence.
-En prenant compte d'une date de validité et d'un hardware machine.
+LicenceMaker est un programme permettant de manière intéractive de créer 
+un nouveau fichier de licence. En prenant compte d'une date de validité, 
+il calcule l'identifiant machine et créer la licence dans un fichier licence.txt.
 
-Il faut avoir installé sur sa machine:
-openssl
+Dans ce projet il faut installer les packages nugget:
+starkbank-ecdsa
+System.Management
+system.IO
+
+Le package System.Security.Cryptography étant plus complexe à utiliser 
+nous avons préférer garder starkbank-ecdsa.
 
 
 	------ L'exécution ------
 
 
-
---- Génération de l'identifiant machine
-
-Lancer dans un premier temps MachineHardware.exe en définissant 
-quels composants materiel utiliser.
-Récupérez l'identifiant, nottons le $ID.
-
-
 --- Création du fichier de licence
 
-Lancez create_licence.sh. Définissez la date de validité que vous souhaitez
+Lancez LicenceMaker.exe Définissez la date de validité que vous souhaitez
 en respectant la syntaxe (exemple 25/10/2022) Attention aucune vérification
 de format n'a été mis en place.
-Entrez $ID, puis validez.
 Le fichier de licence a maintenant été crée. Il est visible dans l'ouput
 mais vous trouverez le fichier licence.txt dans le dossier courant.
 
