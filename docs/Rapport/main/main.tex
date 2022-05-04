@@ -109,6 +109,22 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 
 \chapter{Système}
 
+Nous avons choisi en accord avec monsieur Macadré de créer 2 machines virtuelle qui heberge donc nos serveur. L'une est utilisée en tant que machine de gestion de licence 
+et l'autre en tant que serveur de web qui gere toute cette partie afin d'acheter ces même licences par exemple.\newline
+
+Les machines virtuelles d'authentification et de web se composent donc de quelques éléments :\newline
+
+\begin{itemize}
+	\item Un serveur Tomcat pour heberger notre site
+	\item Une architecture au format MVC soutenue par le model DAO (vu au premier semestre)
+	\item Une connexion en ssh pour pouvoir gérer ce périphérique
+	\item Un nom de domaine valide. (Pour etre disponible en acces à l'université ou depuis un poste exeterieur grâce au VPN)\newline
+\end{itemize}
+
+Etant en M1 sécurité des systèmes d'information il était de notre devoir d'administrer ces machines de manière sécurisée.
+C'est pourquoi nous avons donc défini des comptes ayant des droits restreint pour limiter les accès en contenant les développer au strict nécessaire.
+De plus au moment de la création des comptes les normes données par l'ANSI ont été respectées.
+
 \section{Machine virtuelle d'authentification}
 
 \section{Machine virtuelle web}
