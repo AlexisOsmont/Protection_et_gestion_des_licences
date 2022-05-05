@@ -12,9 +12,48 @@
 
 \chapter{Problèmes de date}
 
-\section{Failles}
+Aujourd'hui au cours de notre projet nous nous sommes rendu compte que le bypass de 
+date de licence pouvait se faire assez facilement, par exemple en changeant la date de la machine 
+afin de revenir en arriere et profiter d'une licence infini dans le cas ou l'utilisateur
+ne possede pas de connexion internet (volontairement ou non).\newline
 
-\section{Solutions}
+Nous avons donc etudié se domaine un peu plus en profondeur ce qui nous a donné cette
+preuve de concept qui aborde les failles, les solutions et la manière de les mettre en place.\newline
+
+\section{Failles et solutions}
+
+	La premiere faille abordée plus haut, est celle du changement simple de date pour revenir en arriere
+	pour profiter d'un temps d'utilisation ilimité.\newline
+
+	Pour corriger cette faille potentielle il nous suiffit de stocker de manière chiffré la date de création de la licence
+	pour qu'a chaque utilisation du logiciel celui-ci vérifie que la date actuelle est bien superieur ou egale à celle
+	stockée.\newline
+
+	La seconde faille est celle de la date bloquée à un jour fixe et a une heure fixe. \newline
+
+  La solution de cette faille est pratiquement identique à celle de la premiere. Cependant pour cette fois il faut incrementer la date
+  a chaque utilisation du logiciel qui pourrait compter le temps par lui même. \newline
+
+  La troixieme faille qui decoule des 2 premiere nous montre un cas partculier. En effet dans le cas ou la date est incrementée, cela donne la prossibilité à l'utilisateur
+	d'utiliser la licence 24h sur 24. Plus précisement, dans le cas ou l'utilisateur utilise le logiciel et une fois arreté decide de remettre la derniere date a laquelle 
+	celui-ci l'avait utilisé. Cela donnerait une utilisation du logiciel  non plus en jours de licence mais en temps d'utilisation.\newline
+
+	L'unique solution trouvée pour cette faille est le fait de chercher dans les log ou dans un autre fichier une preuve de date modifiée.\newline
+
+\section{Solution globale}
+
+La solution globale trouvée consiste à combiner toutes les solutions abordées précedement en même temps pour rendre la tache plus compliqué aux fraudeurs.\newline
+
+\begin{itemize}
+	\item Création d'un demon
+	\item Création d'un fichier signé/chiffré pour stoker et incrementer une date  
+	\item Vérifier les logs pour identifier des changements de date
+	\item Constament chercher internet afin de vérifier la date actuelle\newline
+\end{itemize}
+
+Malgrés ça une erreur perciste, le cas de l'utilisation 24H/24 du logiciel dans le cas ou aucune preuve n'a été trouvée dans les logs.
+
+C'est pourquoi nous vous proposons cette solution :
 
 \chapter{Injection de code}
 
