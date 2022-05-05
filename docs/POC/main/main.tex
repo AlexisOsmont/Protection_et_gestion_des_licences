@@ -47,13 +47,95 @@ La solution globale trouvée consiste à combiner toutes les solutions abordées
 \begin{itemize}
 	\item Création d'un demon
 	\item Création d'un fichier signé/chiffré pour stoker et incrementer une date  
-	\item Vérifier les logs pour identifier des changements de date
+	\item Vérifier les logs events pour identifier des changements de date
 	\item Constament chercher internet afin de vérifier la date actuelle\newline
 \end{itemize}
 
-Malgrés ça une erreur perciste, le cas de l'utilisation 24H/24 du logiciel dans le cas ou aucune preuve n'a été trouvée dans les logs.
+Solution de recherche dans les logs event de windows:\newline
 
-C'est pourquoi nous vous proposons cette solution :
+\begin{adjustbox}{max width=\textwidth}
+\begin{lstlisting}
+public static bool SOtimeChange()
+{
+	bool time = false;
+	string oldTime = "S-1-1-22";	
+
+	EventLog log = new EventLog("Security");
+	var entries = log.Entries.Cast<EventLogEntry>()
+		.Where(x => x.TimeWritten >= DateTime.Now.AddHours(-72))
+		.Select(x => new {x.InstanceId,x.ReplacementStrings}).ToList();
+
+			foreach (var entrie in entries)
+			{
+				if (entrie.InstanceId == 4616)
+				{
+					time = true;
+					if (entrie.ReplacementStrings[0].Contains(oldTime))
+					{
+						time = false;
+					}
+				}
+			}
+
+			return time;
+}
+\end{lstlisting}\newline
+\end{adjustbox}\newline
+\newline
+\newline
+Solution de création de fichier réference:\newline
+
+\begin{adjustbox}{max width=\textwidth}
+\begin{lstlisting}
+	public static bool EssentialFileDateCheck()
+	{
+			var me = Assembly.GetExecutingAssembly().Location + ".config";
+			if (File.Exists(me))
+			{
+					var createdOn = File.GetCreationTime(me);
+					if (createdOn < DateTime.Now)
+					{
+							File.SetCreationTime(me, DateTime.Now);
+							return true;
+					}
+			}
+			return false;
+	}
+\end{lstlisting}\newline
+\end{adjustbox}\newline
+\newline
+\newline
+Solution de vérification internet :\newline
+
+\begin{adjustbox}{max width=\textwidth}
+\begin{lstlisting}
+	networkTime = NTP.GetNetworkTime(100);
+	gotNetworkTime = true;
+	
+	if ((DateTime.Now - networkTime).Duration().TotalHours > 1)
+	{
+			 try
+			 {
+					 // set and verify system time clock:
+					 if (SystemClock.SetTime(networkTime) && 
+					 (DateTime.Now - networkTime).Duration().TotalHours < 1)
+					 {
+							 // clock is now correct:
+							 return;
+					 }
+					 throw new SecurityException(
+						 "System Clock is incorrect");
+					 throw new SecurityException();
+			 }
+			 catch
+			 {
+						throw new SecurityException("System Clock is incorrect");
+						throw new SecurityException();
+						#endif
+			 }
+	}
+\end{lstlisting}\newline
+\end{adjustbox}\newline
 
 \chapter{Injection de code}
 
