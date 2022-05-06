@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "dhLdeG9TyF1SmZT2Og2TSzU2XkJ55uSwjIVkJcejGjpcD+HTFPywy60PSMUZM/bmjbDfO1kKItg5z3eN0MqGew==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Louka.PC-LOUKA\\source\\repos\\WinFormsApp1\\WinFormsApp1\\ActivationSoftware.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Louka.PC-LOUKA\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
+    "C:\\Users\\Louka.PC-LOUKA\\.nuget\\packages\\system.management\\6.0.0\\system.management.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
