@@ -14,6 +14,7 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -29,36 +30,52 @@ public class LicenceGenerator {
 	private static final String SIGN_ALGORITHM	= "SHA256withECDSA";
 	// private static final String USED_CURVE		= "secp521r1";
 	
-	// Couple de clés temporaires (pour test, à remplacer plus tard)
-	private static final String PUBLIC_KEY_FILE		= "/home/louka/temp_key/public.pem";
-	private static final String PRIVATE_KEY_FILE 	= "/home/louka/temp_key/pkcs8-private.pem";
-    // (bien utilisé la clé au format PKCS8)
+	private static final String PUBLIC_KEY_FILE	 = "/etc/licence/public.pem";
+	private static final String PRIVATE_KEY_FILE = "/etc/licence/pkcs8-private.pem";
 	
-	// Séparateur entre les champs de la licence
-	private static final String SEP = ":";
+	private static final String PUBKEY_HEADER  = "-----BEGIN PUBLIC KEY-----";
+	private static final String PUBKEY_FOOTER  = "-----END PUBLIC KEY-----";
+	private static final String PRIVKEY_HEADER = "-----BEGIN PRIVATE KEY-----";
+	private static final String PRIVKEY_FOOTER = "-----END PRIVATE KEY-----";
+	
+	// Séparateurs entre les champs de la licence
+	private static final String LICENCE_HEADER   = "###licence#";
+	private static final String SIGNATURE_HEADER = "###signature#";
+	private static final String END_OF_FILE      = "###eof#";
 	
 	/*
 	 * generate: genère le fichier de licence avec la licence passée
 	 * en paramètre et le hash des données hardware du client.
 	 */
 	public static String generate(Licence licence) {
-		String toSign = licence.getHardwareId()
-				+ SEP + licence.getSoftwareId()
-				+ SEP + licence.getValidity();
+		String body = buildBody(licence);
 		
 		PrivateKey sk = getPrivateKey(PRIVATE_KEY_FILE);
-		String signature = sign(sk, toSign);
+		String signature = sign(sk, body);
 		
 		String signatureFile = String.join(System.lineSeparator(),
-				"--- Signature file ---",
+				LICENCE_HEADER,
+				body,
+				SIGNATURE_HEADER,
 				signature,
-				"Until: " + licence.getValidity(),
-				"--- End Signature file ---"
+				END_OF_FILE
 		);
 		return signatureFile;
 	}
 	
 	// Méthodes outils
+	
+	private static String buildBody(Licence licence) {
+		String hwid = licence.getHardwareId();
+		String date = new SimpleDateFormat("dd/MM/yyyy").format(licence.getValidity());
+		String r = String.join(System.lineSeparator(),
+				"{",
+				"\t\"hardwareid\":\"" + hwid + "\",",
+                "\t\"validity\":\""   + date + "\"",
+                "}"
+        );
+		return Base64.getEncoder().encodeToString(r.getBytes());
+	}
 	
 	/*
 	 * Signe la chaîne de caractères toSign avec la clé privée sk.
@@ -116,9 +133,9 @@ public class LicenceGenerator {
 			// Lecture du fichier
 			String keyFile = Files.readString(Paths.get(pathToKeyFile), Charset.defaultCharset());
 			// Récupération de la clé
-			String key = keyFile.replace("-----BEGIN PUBLIC KEY-----", "")
+			String key = keyFile.replace(PUBKEY_HEADER, "")
 				      .replaceAll(System.lineSeparator(), "")
-				      .replace("-----END PUBLIC KEY-----", "");
+				      .replace(PUBKEY_FOOTER, "");
 			
 			// Décode depuis base64
 			byte[] keyBytes = Base64.getDecoder().decode(key);
@@ -146,9 +163,9 @@ public class LicenceGenerator {
 			// Lecture du fichier
 			String keyFile = Files.readString(Paths.get(pathToKeyFile), Charset.defaultCharset());
 			// Récupération de la clé
-			String key = keyFile.replace("-----BEGIN PRIVATE KEY-----", "")
+			String key = keyFile.replace(PRIVKEY_HEADER, "")
 				    .replaceAll(System.lineSeparator(), "")
-				    .replace("-----END PRIVATE KEY-----", "");
+				    .replace(PRIVKEY_FOOTER, "");
 			
 			// Décode depuis base64
 			byte[] keyBytes = Base64.getDecoder().decode(key);
@@ -211,7 +228,7 @@ public class LicenceGenerator {
 			if (verify) {
 				System.out.println("Correct signature !");
 			} else {
-				System.out.println("Inorrect signature !");
+				System.out.println("Incorrect signature !");
 			}
 		}
 		

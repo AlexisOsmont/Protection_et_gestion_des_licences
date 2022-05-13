@@ -47,7 +47,6 @@ import model.Licence;
  *              request to CAS server for authentication, or idk.
  */
 
-
 public class APILicenceController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -85,6 +84,7 @@ public class APILicenceController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	// nothing
     }
 
 
@@ -138,7 +138,7 @@ public class APILicenceController extends HttpServlet {
         }
 
         // check the status code
-        // redirection to home due to invalid credentails
+        // redirection to home due to invalid credentials
         if (resp != null && resp.statusCode() == HttpServletResponse.SC_OK) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         }
@@ -152,7 +152,7 @@ public class APILicenceController extends HttpServlet {
                 Client clt = ClientDAO.get(email);
                 if (clt != null) {
                     Licence license = LicenceDAO.get(clt.getId(), (int) softId);
-
+                    // check if the user owns a licence
                     if (license == null) {
                         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                     } else {
