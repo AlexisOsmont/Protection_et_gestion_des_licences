@@ -10,6 +10,7 @@ public class ErrorMsg {
 	private static final String ERROR_ATTRIBUTE = "error-msg";
 	private static final String MSG_TIMER 		= "4000";
 	
+	public static final String ERROR_AUTHENTIFICATION_FAILURE    = "Impossible de vous authentifier.";
 	public static final String MSG_AUTHENTIFICATED 				 = "Authentification reussie";
 	
 	/* Software Messages */

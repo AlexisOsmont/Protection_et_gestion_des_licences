@@ -39,15 +39,12 @@
 		</header>
 
 		<main class="w-75" role="main">
-			<h1>BlaBla</h1>
-			<p class="lead">Plus de blabla, notre projet il est trop beau,
-				lalalalala Quasi sit laborum nemo et. Rerum doloribus odio
-				repudiandae omnis nobis. Voluptas ut assumenda nihil aut dolorum.
-				Unde molestiae quo pariatur iure temporibus. Consequatur ipsa eos
-				dolorem nulla doloribus reiciendis.</p>
+			<h1>Bienvenue sur le site de Gestion de Licence</h1>
+			<p class="lead">Ce site vous permet de vous créer un compte et d'acheter des 
+				logiciels parmis une liste variés de produits, vous pourrez ensuite les 
+				installer sur votre ordinateur ! Pour commencer, cliquez sur Inscription</p>
 			<p>
-				<!-- tmp -->
-				<a href="product-list" class="btn btn-lg btn-secondary"> C'est parti ! </a>
+				<a href="<%=request.getContextPath()%>/register" class="btn btn-lg btn-secondary"> C'est parti ! </a>
 			</p>
 		</main>
 

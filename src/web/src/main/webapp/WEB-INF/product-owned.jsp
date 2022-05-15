@@ -12,7 +12,7 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/common/dark-mode.css"
 	rel="stylesheet">
-
+<script src="<%=request.getContextPath()%>/common/search-bar.js"></script>
 </head>
 
 <body class="bg-light d-flex h-100">

@@ -12,6 +12,8 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/common/dark-mode.css"
 	rel="stylesheet">
+	
+<script src="<%=request.getContextPath()%>/common/search-bar.js"></script>
 
 </head>
 
@@ -52,8 +54,7 @@
 				<p class="lead text-muted">Voici tous les logiciels disponibles
 					à l'achat</p>
 				<div>
-					<a href="#" class="btn btn-primary my-2">bouton inutile n°1</a> <a
-						href="#" class="btn btn-secondary my-2">bouton inutile n°2</a> <input
+					 <input
 						class="form-control" id="input" type="text"
 						placeholder="Recherchez..">
 				</div>
