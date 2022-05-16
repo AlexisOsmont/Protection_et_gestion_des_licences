@@ -21,6 +21,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+import DAO.SoftwareDAO;
 import model.Licence;
 
 public class LicenceGenerator {
@@ -28,7 +29,7 @@ public class LicenceGenerator {
 	// Algorithmes utilisés
 	private static final String KEY_ALGORITHM	= "EC";
 	private static final String SIGN_ALGORITHM	= "SHA256withECDSA";
-	// private static final String USED_CURVE		= "secp521r1";
+	// private static final String USED_CURVE   = "secp521r1";
 	
 	private static final String PUBLIC_KEY_FILE	 = "/etc/licence/public.pem";
 	private static final String PRIVATE_KEY_FILE = "/etc/licence/pkcs8-private.pem";
@@ -68,10 +69,12 @@ public class LicenceGenerator {
 	private static String buildBody(Licence licence) {
 		String hwid = licence.getHardwareId();
 		String date = new SimpleDateFormat("dd/MM/yyyy").format(licence.getValidity());
+		String name = SoftwareDAO.get(licence.getSoftwareId()).getName();
 		String r = String.join(System.lineSeparator(),
 				"{",
-				"\t\"hardwareid\":\"" + hwid + "\",",
-                "\t\"validity\":\""   + date + "\"",
+				"\t\"hardwareid\":\""   + hwid + "\",",
+				"\t\"softwarename\":\"" + name + "\",",
+                "\t\"validity\":\""     + date + "\"",
                 "}"
         );
 		return Base64.getEncoder().encodeToString(r.getBytes());
