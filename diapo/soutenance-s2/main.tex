@@ -15,20 +15,18 @@
 \maketitle
 
 \cutoc
-
-%   Exemple de plan de présentation (mail de Karim)
 %
-%   Présentation du sujet et compréhension du besoin client
-%   Périmètre fonctionnel à couvrir, appuyé par le diagramme global des cas d’utilisation
-%   Solution technique argumentée avec diagramme d’architecture logicielle
-%   Stratégie qualité pour la validation des livrables
-%   Organisation du projet (i.e. affectation des rôles + découpage des tâches + stratégie de réalisation + organisation agile)
-%   Planning du projet (i.e. focus sur les itérations > zoom sur le Gantt)
-%   Principaux risques du projet et crédibilité de l'organisation mise en oeuvre
+%   Exemple de Plan (mail de Karim)
 %
-%   + POC si on a réussi
+%   Présentation rapide du projet (ie. en une phrase/schéma) Revenir sur les engagements pris initialement auprès du client, 
+%   détailler le budget projet (adéquation charge/délais) et le périmètre adressé
+%   Ces engagements ont-ils été tenus ? Sinon pourquoi ? Quelles ont été les difficultés rencontrées ?
+%   Comment avez-vous surmonté ces difficultés ? Quelles solutions ont été mises en œuvre ?
+%   Si le projet était à refaire, quels points d’attention garderiez-vous désormais sous contrôle et comment ?
+%   Quels acquis faites-vous suite au projet et gestion de votre projet (ie. vos points forts/points de progression) ?
+%   Réussite du projet (ie. retours du client) / ouverture / conclusion
 
-\section{Présentation du sujet}
+\section{Présentation du projet}
 
 \begin{frame}{Intitulé}
     \centerline{\textbf{Protection et gestion des licences}}
@@ -45,151 +43,61 @@
     \end{itemize}
 \end{frame}
 
-\section{Analyse fonctionnel}
+\section{Respect des engagements \& Difficultés rencontrées}
 
-\begin{frame}{Besoin du client}
-    Comment distribuer les logiciels que le client a développé ?
+\begin{frame}{Respect des engagements}
     \begin{itemize}
-        \item Créer une licence unique pour une machine et un logiciel donné
-        \item Une plateforme commune au client et aux utilisateurs
-        \item Une libraire lui permettant d'intégrer la vérification à ses logiciels ou
-            un outil permettant de greffer automatiquement
+        \item DLL fonctionnel
+        \item Système de vérification de licence fonctionnel
+        \item Site web fonctionnel
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Cas d'utilisations}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.5]{img/Util.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Exigences}
+\begin{frame}{Difficultés rencontrées}
     \begin{itemize}
-        \item Sécurité
-        \medskip
-        \item Compatibilité Windows
-        \medskip
-        \item Maintenabilité
+        \item Difficultés Techniques 
+              \begin{itemize}
+                \item Injection de code
+                \item Détection de fraude
+                \item Obfuscation
+              \end{itemize}
+        \item Difficultés Humaines
+              \begin{itemize}
+                \item Abandon d'un membre du groupe
+                \item Cerner les attentes du client
+              \end{itemize}
     \end{itemize}
 \end{frame}
 
-\section{Solution technique}
+\section{Solutions proposées}
 
-\begin{frame}{Architecture logicielle - Serveur}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.7]{img/DAT-server.png}
-    \end{figure}
+\begin{frame}{Solutions proposées}
+    faire le projet à quatres
 \end{frame}
 
-\begin{frame}{Architecture logicielle - Client}
-    \begin{figure}
-        \centering
-        \vspace{-0.8cm}
-        \includegraphics[scale=0.72]{img/DAT-client.png}
-    \end{figure}
-\end{frame}
+\section{Améliorations \& Retour d'expérience}
 
-\begin{frame}{Solutions techniques}
-    \textbf{Plateforme sûre :}
+\begin{frame}{Améliorations}
     \begin{itemize}
-        \item Chiffrement (HTTPS)
-        \item Serveur d'authentification (isolement, configuration)
-        \item Hashage des mots de passe (PBKDF)
-        \item Sécurisation des bases de données (configuration, requêtes préparées)
-        \item API Rest (utilisation de tokens d'authentification)
-    \end{itemize}
-    \textbf{Génération et vérification de licence :}
-    \begin{itemize}
-        \item Signature (El Gamal)
-        \item Obfuscation
-    \end{itemize}
-\end{frame}    
-
-\section{Stratégie qualité} % en réponse aux risques
-
-\begin{frame}{Stratégie adoptée}
-    \begin{columns}
-        \begin{column}{0.54\textwidth}
-            \textbf{Actions}
-            \begin{itemize}
-                \item Gestion et journalisation des bugs
-                \item Serveur de tests
-                \item Tests unitaires sur le modèle
-                \item Tests d'intégration
-                \item Tests d'intrusion
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.46\textwidth}
-            \textbf{Outils}
-            \begin{itemize}
-                \item MantisBT
-                \item Docker
-                \item Jupiter
-                \item À définir
-                \item Scripts automatiques
-            \end{itemize}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Vérification des exigences}
-    \begin{itemize}
-        \item Définition d'un ordre de priorité sur les erreurs
-        \item Rapport concernant les problèmes/failles généré régulièrement
-        \item Charte de code et documentation pour un suivi et une maintenabilité du projet
+        \item Améliorer le système de détection de fraude (de la date)
+        \item Injection de Code \& Obfuscation
     \end{itemize}
 \end{frame}
 
-\section{Organisation du projet} % + planning
-
-\begin{frame}{Affectation des rôles}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.18]{img/roles.png}
-    \end{figure}
+\begin{frame}{Retour d'expérience}
+    \begin{itemize}
+        \item Améliorer nos compétences en gestion de projets (notamment sur les outils)
+        \item Apprendre à mieux cerner les besoins client.
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Méthode Agile}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.5]{img/methodeagile.png}
-    \end{figure}
+\section{Conclusion}
+
+\begin{frame}{Conclusion}
+    Première approche de la gestion de projet, bénéfice de celle-ci ?  
 \end{frame}
 
-\begin{frame}{Livrables}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.25]{img/fresque_gantt.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Découpage des tâches}
-    \begin{figure}
-        \centering
-        \vspace{-2mm}
-        \includegraphics[scale=0.15]{img/organi.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Diagramme de Gantt}
-    \begin{figure}
-        %\centering
-        \vspace{5mm}
-        \put(-24,40){\includegraphics[scale=0.22]{img/Gantt.png}}
-    \end{figure}
-\end{frame}
-
-\section{Risques}
-
-\begin{frame}{Risques principaux}
-    \begin{figure}
-        \centering
-        \vspace{-2mm}
-        \includegraphics[scale=0.2]{img/risques.png}
-    \end{figure}
-\end{frame}
+\section{Démonstration}
 
 % Q&A
 \begin{frame}[standout]
