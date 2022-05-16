@@ -3,7 +3,8 @@ using ProLicence;
 
 public class ProLogiciel
 {
-    private const string LICENCE_FILE_PATH = @"..\..\..\licence.txt";
+    private const string SOFTWARE_NAME = "ProLogiciel";
+    private const string LICENCE_FILE_PATH = @"..\..\..\prologiciel.license";
 
     static public void Main()
     {
@@ -11,7 +12,7 @@ public class ProLogiciel
         LicenceChecker licenceChecker;
         try
         {
-            licenceChecker = new LicenceChecker(LICENCE_FILE_PATH);
+            licenceChecker = new LicenceChecker(LICENCE_FILE_PATH, SOFTWARE_NAME);
         }
         catch (Exception ex)
         {
