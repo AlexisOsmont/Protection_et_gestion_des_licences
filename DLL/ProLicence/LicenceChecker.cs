@@ -7,9 +7,14 @@ namespace ProLicence
 {
     public class LicenceChecker
     {
-        private const string PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEzhQXdPP50Dt+IJkAl58diahPnxrAUZta4+SUItloZeeF2efMetsQu3TvnX1KExv5CR8NxYfvL9TYrSSmLdxm+g==\n-----END PUBLIC KEY-----";
+        // "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEzhQXdPP50Dt+IJkAl58diahPnxrAUZta4+SUItloZeeF2efMetsQu3TvnX1KExv5CR8NxYfvL9TYrSSmLdxm+g==\n-----END PUBLIC KEY-----";
+        private const string PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n"
+                + "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEl55dledr0Nl3ecq3l0K/Cep7H926Wm4J\n"
+                + "dU7w/s7j1xcWKWnU1rVY1a8F8SR1E9f/ODmCVluK6HeDQS8JNvPKbQ==\n"
+                + "-----END PUBLIC KEY-----";
 
         private Licence licence;
+        private string softwareName;
 
         private bool[] hardwareHashComposent;
 
@@ -19,14 +24,14 @@ namespace ProLicence
          * </summary>
          * <param name="path">Le chemin vers un fichier de licence de format valide.</param>
          */
-        public LicenceChecker(string path)
+        public LicenceChecker(string path, string name)
         { 
             hardwareHashComposent = new bool[5];
             for (int i = 0; i < hardwareHashComposent.Length; i++)
             {
                 hardwareHashComposent[i] = true;
             }
-
+            softwareName = name;
             licence = new Licence(path);
         }
 
@@ -42,7 +47,10 @@ namespace ProLicence
         public string getHardwareId()
         {
             return MachineHardware.getHardwareId(hardwareHashComposent[0],
-                hardwareHashComposent[1], hardwareHashComposent[2], hardwareHashComposent[3], hardwareHashComposent[4]);
+                hardwareHashComposent[1],
+                hardwareHashComposent[2],
+                hardwareHashComposent[3],
+                hardwareHashComposent[4]);
         }
 
         public bool isValid()
@@ -72,7 +80,7 @@ namespace ProLicence
          */
         public bool checkValidity()
         {
-            return checkHardwareHash() && checkExpirationDate();
+            return checkHardwareHash() && checkExpirationDate() && checkName();
         }
 
         /**
@@ -125,6 +133,15 @@ namespace ProLicence
             bool isChecked = validityDate > nowDate;
             Console.WriteLine("Date Validity : " + isChecked + "\n");
             return isChecked;
+        }
+
+        private bool checkName()
+        {
+            bool sameName = (softwareName == licence.getSoftwareName());
+            Console.WriteLine("Demandé : " + softwareName
+                + " / Logiciel de la licence : " + licence.getSoftwareName());
+            Console.WriteLine("Vérification du logiciel : " + sameName + "\n");
+            return sameName;
         }
 
         // Regarde dans la clé de registre si la dernière date de

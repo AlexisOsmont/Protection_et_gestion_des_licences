@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLicence\\ProLicence.csproj": {}
+    "C:\\Users\\Louka.PC-LOUKA\\Downloads\\Protection_et_gestion_des_licences-main\\DLL\\ProLicence\\ProLicence.csproj": {}
   },
   "projects": {
-    "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLicence\\ProLicence.csproj": {
+    "C:\\Users\\Louka.PC-LOUKA\\Downloads\\Protection_et_gestion_des_licences-main\\DLL\\ProLicence\\ProLicence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLicence\\ProLicence.csproj",
+        "projectUniqueName": "C:\\Users\\Louka.PC-LOUKA\\Downloads\\Protection_et_gestion_des_licences-main\\DLL\\ProLicence\\ProLicence.csproj",
         "projectName": "ProLicence",
-        "projectPath": "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLicence\\ProLicence.csproj",
-        "packagesPath": "C:\\Users\\kacih\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\kacih\\Documents\\GitHub\\Protection_et_gestion_des_licences\\DLL\\ProLicence\\obj\\",
+        "projectPath": "C:\\Users\\Louka.PC-LOUKA\\Downloads\\Protection_et_gestion_des_licences-main\\DLL\\ProLicence\\ProLicence.csproj",
+        "packagesPath": "C:\\Users\\Louka.PC-LOUKA\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Louka.PC-LOUKA\\Downloads\\Protection_et_gestion_des_licences-main\\DLL\\ProLicence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\kacih\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Louka.PC-LOUKA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -23,6 +23,7 @@ namespace ProLicence
         private string licence;
 
         private string hardwareHash;
+        private string softwareName;
 
         private DateTime? validityDate;
         private const string DATE_SEPARATOR = "/";
@@ -34,6 +35,7 @@ namespace ProLicence
             signature = "";
 
             hardwareHash = "";
+            softwareName = "";
             validityDate = null;
 
             parseLicenceFile(path);
@@ -58,6 +60,11 @@ namespace ProLicence
         public string getHardwareHash()
         {
             return hardwareHash;
+        }
+
+        public string getSoftwareName()
+        {
+            return softwareName;
         }
 
         public DateTime? getValidityDate()
@@ -122,6 +129,9 @@ namespace ProLicence
 
             // Récupération du l'identifiant machine.
             hardwareHash = json.RootElement.GetProperty("hardwareid").ToString();
+
+            // Récupération du nom
+            softwareName = json.RootElement.GetProperty("softwarename").ToString();
 
             // Récupération de la date 
             string rawValidityDate = json.RootElement.GetProperty("validity").ToString();
