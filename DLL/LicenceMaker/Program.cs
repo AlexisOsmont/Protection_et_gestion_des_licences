@@ -11,6 +11,11 @@ namespace LicenceMaker
         static void Main(string[] args)
         {
             Console.WriteLine("Génération interactive de licence.\n");
+            Console.WriteLine("Nom du logiciel : ");
+
+            string name;
+            name = Console.ReadLine();
+
             Console.Write("Date de validitée (exemple 31/12/2999) : ");
 
             string date;
@@ -21,7 +26,8 @@ namespace LicenceMaker
             Console.WriteLine(hardwareHash);
 
             string content = "{\n" +
-                                "\t\"hardwareid\":\""     +   hardwareHash  + "\"," +
+                                "\t\"hardwareid\":\""   +   hardwareHash  + "\"," +
+                                "\n\t\"softwarename\":" +   name + "\"," +
                                 "\n\t\"validity\":\""   +   date          + "\""   +
                              "\n}";
 
