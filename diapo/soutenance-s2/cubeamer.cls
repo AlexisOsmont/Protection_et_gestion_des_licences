@@ -329,7 +329,7 @@
         \section*{Sommaire}
     
         \begin{frame}{Sommaire}
-            \tableofcontents[hideallsubsections]
+            \tiny{\tableofcontents[hideallsubsections]}
         \end{frame}
     }
 }
