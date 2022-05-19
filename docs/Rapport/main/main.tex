@@ -22,22 +22,22 @@ L'organisation de ce projet nous a permis de travailler efficacement, nous avion
 chacun. Néanmoins, tous les acteurs de ce projet ont eu les rôles de développeur plus ou moins prononcé ainsi qu'un role de
 rédacteur. Je me permet de vous renvoyer vers l'organigramme présenté dans le plan de développement en post production.\newline
 
-Au cours de ce développement 2 Audits ont eu lieu. Cela nous a permis de comprendre les points forts mais surtout les points faibles de notre
+Au cours de ce développement deux audits ont eu lieu. Cela nous a permis de comprendre les points forts mais surtout les points faibles de notre
 organisation c'est pourquoi certain points ont été ajoutés/améliorés à celle-ci. \newline
 
 Nous avons divisé la charge et la répartition par phase en méthode agile. La première phase était intitulée
-«Préparation». Cette première phase a permis de donner un temps aproximatif de structuration du
+«Préparation». Cette première phase a permis de donner un temps approximatif de structuration du
 projet, de vérification des répartitions des tâches et des phases de tests ce qui a donné des
-évaluations de temps de développement plus précises tel que les tests de greffe de code infuctueux ou ceux
+évaluations de temps de développement plus précises tel que les tests de greffe de code infructueux ou ceux
 d'obfuscation. Cette phase a été suivis d'une phase de structure de projet avec le client qui a attester de la bonne évaluation de temps
-et des ressources nécessaires. Après ca est venu la phase de developpement. Nous avons donc suivis une methode agile avec une période de sprint de 2 semaines, mais
+et des ressources nécessaires. Après ca est venu la phase de développement. Nous avons donc suivis une méthode agile avec une période de sprint de 2 semaines, mais
 celle-ci sera abordée plus en profondeur dans la prochaine section "Déroulement".\newline
 
 \newpage
 
 \section{Déroulement}
 
-Le projet s'etant déroulé au cours de l'année scolaire l'organisation à du s'adapter aux
+Le projet s'étant déroulé au cours de l'année scolaire l'organisation à du s'adapter aux
 contrainte de temps de travail demandé par les autres matières ainsi qu'aux modifications d'emploie
 du temps de chacun. Ce qui a donné ce diagramme de Gantt lors du second audit courant Avril.
 
@@ -48,16 +48,16 @@ du temps de chacun. Ce qui a donné ce diagramme de Gantt lors du second audit c
 
 La phase de développement du projet a donc, si nous nous referons aux anciennes estimations, suivis son cours.\newline
 
-Celle-ci s'est donc découpé en phase de sprint de 2 semaines chacunes. Chaque sprint se décomposé de la maniere suivante :\newline  
+Celle-ci s'est donc découpé en phase de sprint de 2 semaines chacune. Chaque sprint se décomposé de la manière suivante :\newline  
 
 \begin{itemize}
-	\item 1 - Réunion de debut de sprint avec l'equipe pour faire une estimation de temps de taches définies ainsi que pour les attribuer.\newline
-	\item 2 - Réunions journaliere pour faire le point sur les avancés et les bloquages de la veille.\newline
+	\item 1 - Réunion de debut de sprint avec l'équipe pour faire une estimation de temps de taches définies ainsi que pour les attribuer.\newline
+	\item 2 - Réunions journalière pour faire le point sur les avancés et les blocages de la veille.\newline
 	\item 3 - Réalisation des taches définies.(Développement)\newline
 	\item 4 - Réunion de fin de sprint (Sprint Review) avec le client pour nous donner son retour sur l'itération précédente, et démonstration faites au cours de la réunion.\newline
 	\item 5 - Fin de réunion pour confirmer les prochains livrables et les dates.\newline
 	\item 6 - Livraison du livrable au client.\newline
-	\item 7 - Retrospective du sprint sur RetroMetro (outil de retrospective). Cet phase permet de mettre en lumiere les éléments/actions positives qui font avancer le projet ou à l'inverse ceux qui l'entrave. 
+	\item 7 - Retrospective du sprint sur RetroMetro (outil de retrospective). Cette phase permet de mettre en lumière les éléments/actions positives qui font avancer le projet ou à l'inverse ceux qui l'entrave. 
 \end{itemize}
 
 Pour avancer rapidement et efficacement, nous avons
@@ -77,8 +77,8 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 		
 		\item RetroMetro :\\
 		Est un tableau blanc en ligne favorisant l’expression et le travail entre membres d’une même équipe 
-		à distance ou même sur une même machine.Cet outil un excellent moyen de susciter toute l'equipe pour
-		que tous puisse relever les bons comme les mauvais points du sprint au momment du sprint retrospective\\
+		à distance ou même sur une même machine.Cet outil un excellent moyen de susciter toute l'équipe pour
+		que tous puisse relever les bons comme les mauvais points du sprint au moment du sprint retrospective\\
 
     \item GitHub :\\
 	L’université nous a fourni cet outil qui est très pratique pour stocker
@@ -101,7 +101,41 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 
 \chapter{Implémentation}
 
+
+
 \section{Licence}
+
+L'un des éléments les plus important du projet sont les fichiers de licence. \newline
+Ils doivent pouvoir contenir toutes les informations concernant les droits d'un
+utilisateur sur un logiciel, tout en garantissant qu'il ne pourra pas être 
+modifié par l'utilisateur après avoir été distribué par le fournisseur.
+\newline
+
+Le fichier de licence étant utilisé par de nombreux acteurs dans le projet, 
+nous avons décidé d'utiliser le format JSON afin qu'il puisse ête lu peu importe
+la plateforme. JSON étant conçu dans ce but.
+Ainsi le contenu de la licence est formatée sous forme d'un JSON. Nous reviendront
+sur les différentes clés du json par la suite.
+\newline
+
+Ce json est ensuite encodé en base64 afin de pouvoir être signé sans soucis 
+d'interprétation vis à vis des espaces et retours à la ligne dans le cas où nous 
+aurions signé le json directement.
+\newline
+
+Le base64 va donc être signé en utilisant l'algorithme bcrypt avec la clé privée 
+du fournisseur. Le résultat étant un binaire, il sera lui aussi encodé en base64 
+afin d'être copié sans soucis sous format texte dans le fichier de licence. 
+\newline
+
+Puis ces deux éléments seront mis en forme entre des headers permettant de 
+partager le fichier de licence en plusieurs partie. Si ce format n'est pas 
+respecté la DLL ne pourra pas lire le fichier.
+\newline
+
+Ainsi au moment de la vérification, la DLL pourra récupérer le base64 du contenu 
+de la licence et le base64 de la signature. Décoder la signature et la vérifier.
+Si la signature est bonne, décoder le JSON et en exploiter le contenu.
 
 \section{Outils de gestion}
 
@@ -109,16 +143,16 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 
 \chapter{Système}
 
-Nous avons choisi en accord avec monsieur Macadré de créer 2 machines virtuelle qui heberge donc nos serveur. L'une est utilisée en tant que machine de gestion de licence 
-et l'autre en tant que serveur de web qui gere toute cette partie afin d'acheter ces même licences par exemple.\newline
+Nous avons choisi en accord avec monsieur Macadré de créer 2 machines virtuelle qui héberge donc nos serveur. L'une est utilisée en tant que machine de gestion de licence 
+et l'autre en tant que serveur de web qui gère toute cette partie afin d'acheter ces même licences par exemple.\newline
 
 Les machines virtuelles d'authentification et de web se composent donc de quelques éléments :\newline
 
 \begin{itemize}
-	\item Un serveur Tomcat pour heberger notre site
+	\item Un serveur Tomcat pour héberger notre site
 	\item Une architecture au format MVC soutenue par le model DAO (vu au premier semestre)
 	\item Une connexion en ssh pour pouvoir gérer ce périphérique
-	\item Un nom de domaine valide. (Pour etre disponible en acces à l'université ou depuis un poste exeterieur grâce au VPN)\newline
+	\item Un nom de domaine valide. (Pour être disponible en accès à l'université ou depuis un poste extérieur grâce au VPN)\newline
 \end{itemize}
 
 Etant en M1 sécurité des systèmes d'information il était de notre devoir d'administrer ces machines de manière sécurisée.
