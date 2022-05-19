@@ -214,11 +214,45 @@ De plus au moment de la création des comptes les normes données par l'ANSI ont
 
 \chapter{Problèmes rencontrés}
 
-\chapter{Amélioration possible}
+\section{Gestion de projet}
 
-\section{Injection de code}
+Durant ce projet nous avons rencontrés plusieurs problèmes en termes de gestion de projet comme évoqué précédemment.
+Nos points de progression, ou les choses à faire autrement si l'on devait refaire le projet sont les suivants :
+\begin{description}
+    \item[Amélioration de la communication]
+        Aussi bien entre nous, qu'avec le client, nous avons eu des soucis de communication et par conséquent cela
+        a créer des incompréhensions sur la répartition des tâches, les priorités du client ou encore la compréhension
+        du projet par chacun. Des réunions plus régulières (style daily-meeting) nous auraient permis de nous assurer
+        que chacun possède une tâche, comprends ce qu'il doit faire etc...
+    \item[Modification des priorités]
+        Une meilleur communication nous aurez permis de mieux cerner les besoins du client et ainsi de pouvoir ordonner
+        les tâches autrement. Notamment, le développement de la plateforme Web nous a pris beaucoup de temps (pour qu'elle
+        soit fonctionnel, ergonomique et sécurisé) et donc forcément, nous avons eu moins de temps pour la partie vérification
+        de la licence : la bibliothèque et l'injection de code, alors que c'était ce que le client souhaitait en priorité.
+    \item[Revoir l'estimation]
+        Nous avons été très optimiste quant à l'estimation du temps nécéssaire à la réalisation du projet. Si nous devions
+        revoir l'estimation, il faudrait prévoir plus de temps pour chaque tâche et en particulier pour les parties qui 
+        nous étaient inconnues. Par exemple pour l'injection de code et l'obfuscation nous aurions dû prévoir du temps
+        pour comprendre le mécanisme avant d'essayer de le faire.
+\end{description}
 
-\section{Invalidation de date}
+\section{Partie technique}
+
+\begin{description}
+    \item[Utilisation de framework]
+        Étant donné que la partie développement n'était pas censé être au centre du projet si nous avions utilisé un/des
+        framework(s) pour cela, nous aurions pu faire ça plus rapidement et passer aux tâches suivantes.
+    \item[Poursuivre la greffe de code]
+        Si l'on avait fait tous les améliorations précédentes nous aurions donc pu au final passer plus de temps sur 
+        l'injection de la vérification de licence dans les exécutables des logiciels du client. Cela nous aurait aussi
+        permis d'essayer quelques techniques d'obfuscation, afin d'apporter plus de sécurité à notre solution.
+    \item[Améliorer le système de détection de fraude]
+        Le système de détection de fraude concernant la validité de la licence est fonctionnel et permet de corriger
+        potentiels failles qu'un utilisateur lambda pourrait utiliser pour outre-passer la vérification de la licence
+        (par exemple modifier le fichier de licence ou l'heure). Cependant le système n'est pas assez robuste pour
+        empêcher un utilisateur expérimenté et motivé d'obtenir une licence pour un temps plus long que celui défini
+        dans la licence. Cette détection pourrait être améliorer (voir POC sur la détéction de fraude avec la date).
+\end{description}
 
 \chapter{Conclusion}
 \label{chapter:bilan}
