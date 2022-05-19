@@ -105,7 +105,8 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 
 \section{Licence}
 
-L'un des éléments les plus important du projet sont les fichiers de licence. \newline
+L'un des éléments les plus important du projet sont les fichiers de licence.
+\newline
 Ils doivent pouvoir contenir toutes les informations concernant les droits d'un
 utilisateur sur un logiciel, tout en garantissant qu'il ne pourra pas être 
 modifié par l'utilisateur après avoir été distribué par le fournisseur.
@@ -141,6 +142,54 @@ Si la signature est bonne, décoder le JSON et en exploiter le contenu.
 
 \section{DLL}
 
+La DLL est composée de 3 éléments principaux. LicenceChecker, Licence(Wrapper) 
+et MachineHardware.\newline
+
+MachineHardware contient les fonctions de génération d'identifiants machine 
+uniques. Ces derniers sont générés à partir des composants materiels de la 
+machine et il est possible de ne sélectionner que certains composants et pas 
+d'autres. La liste des composants pris en charge sont : Le processeur, 
+la carte mère, le bios, le disque dur et les cartes réseaux. Ce sont les numéros
+de série et adresses mac qui sont pris en compte.\\ 
+Cet identifiant sera par la suite ajouté au fichier de licence permettant de 
+cibler une machine précise et de faire en sorte que la licence ne puisse pas 
+être utilisé autre part.\\
+De plus, le module prend en compte une clé anti fraude qui est générée 
+aléatoirement et qui est stockée dans la base de registre. Dans le cas où cette 
+clé existe, le module l'utilisera afin de l'intégrer dans les identifiants 
+Machine. Si elle n'existe pas, le module la génère la stock et l'utilise. Cela 
+donnera ainsi un identifiant machine différent et invalidera les fichiers de 
+licences précédemment générés.
+\newline
+
+Licence dans les fichiers sources ou LicenceWrapper est une classe permettant 
+d'englober au niveau objet un fichier de licence. Celui ci se charge de lire le 
+fichier et d'en extraire le contenu tout en y vérifiant le formatage. 
+Un formatage particulier est attendu. Ensuite l'objet de classe Licence est mis
+à disposition dans LicenceChecker afin d'être utilisé. Les attributs disponibles
+sont par exemple la date de validité, l'identifiant de la machine ciblée, le nom
+du logiciel protégé etc, ces clés sont bien sûr modulables et peuvent évoluer au 
+fil du temps afin d'ajouter de nouvelles conditions.
+\newline
+
+Une fois le fichier de licence parsé, nous pouvons verifier si toutes les 
+conditions sont réunies afin de pouvoir lancer le logiciel. Cela est donc fait 
+dans LicenceChecker qui va se charger d'effectuer tous ces tests et de fournir 
+une api au développeur afin qu'il puisse facilement verifier les différents 
+aspects de la licence.
+\newline
+
+Nous pouvons vérifier l'intégrité de la licence en vérifiant la signature, 
+permettant de détecter si le contenu de la licence a été modifiée. Il est 
+possible d'accéder aux différents attributs de la licence, et de vérifier 
+point par point au bon vouloir du développeur la validité de la licence.\\
+Ce module inclut aussi les fonctions de détection de fraude. En effet ce 
+dernier enregistre la date de dernier lancement du logiciel, afin de pouvoir 
+tester au prochain lancement que la date et l'heure de la machine n'ai pas été
+modifiée. Si c'est le cas, le module se chargera de supprimer la clé de registre
+servant à générer l'identifiant machine, faisant que la licence devient 
+à présent inutilisable.
+
 \chapter{Système}
 
 Nous avons choisi en accord avec monsieur Macadré de créer 2 machines virtuelle qui héberge donc nos serveur. L'une est utilisée en tant que machine de gestion de licence 
@@ -155,7 +204,7 @@ Les machines virtuelles d'authentification et de web se composent donc de quelqu
 	\item Un nom de domaine valide. (Pour être disponible en accès à l'université ou depuis un poste extérieur grâce au VPN)\newline
 \end{itemize}
 
-Etant en M1 sécurité des systèmes d'information il était de notre devoir d'administrer ces machines de manière sécurisée.
+Étant en M1 sécurité des systèmes d'information il était de notre devoir d'administrer ces machines de manière sécurisée.
 C'est pourquoi nous avons donc défini des comptes ayant des droits restreint pour limiter les accès en contenant les développer au strict nécessaire.
 De plus au moment de la création des comptes les normes données par l'ANSI ont été respectées.
 
