@@ -13,4 +13,4 @@ debug:
 	pdflatex $(TARGET).tex
 
 clean:
-	@echo "Cleaning..."; rm -rf $(TARGET).{aux,nav,vrb,log,out,snm,toc} _minted-$(TARGET)
+	@echo "Cleaning..."; rm -rf $(TARGET).{aux,nav,vrb,log,out,snm,toc,lof} _minted-$(TARGET)
