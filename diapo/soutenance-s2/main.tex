@@ -1,6 +1,23 @@
 \documentclass{cubeamer}
 
 \usepackage[french]{babel}
+\usepackage{minted}
+
+\usepackage{tcolorbox}
+\tcbuselibrary{most,listingsutf8,minted}
+\newtcblisting{code}[1]
+{
+    title=#1,
+    hbox,
+    sharp corners,
+    listing only,
+    size=small,
+    listing engine=minted,
+    minted language=csharp,
+    minted options={fontsize=\tiny},
+    colback=gray!10
+}
+
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 
@@ -86,40 +103,200 @@
     \end{itemize}
 \end{frame}
 
-\section{Engagements tenus}
+\section*{Engagements tenus}
 
 \subsection{Présentation - Front}
 
 \begin{frame}{Front - Plateforme web}
-    \begin{figure}
-        \includegraphics[scale=0.2]{img/web1.png}
-    \end{figure}       
-    \begin{figure}
-        \includegraphics[scale=0.2]{img/web2.png}
-    \end{figure}
-    \begin{figure}
-        \includegraphics[scale=0.2]{img/web3.png}
-    \end{figure}
+    \begin{columns}
+
+        \begin{column}{.25\textwidth}
+            Une interface web            
+            \begin{itemize}
+                \item Sécurisé \\{\scriptsize{(webfilter, \verb:Bcrypt:)}} 
+                \item Ergonomique {\scriptsize({utilisation de \verb:Bootstrap:)}}
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{.75\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.27]{img/web1.png}
+            \end{figure}  
+        \end{column} 
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{Front - Plateforme web}
+    \begin{columns}
+        \begin{column}{.70\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.27]{img/web3.png}
+            \end{figure}  
+        \end{column}
+ 
+        \begin{column}{.3\textwidth}
+            permet à un client:            
+            \begin{itemize}
+                \item Acheter une licence pour un logiciel  
+                \item Consulter la liste de ces logiciels 
+            \end{itemize}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Front - Plateforme web}
+        \begin{columns}
+
+        \begin{column}{.25\textwidth}
+            permet à l'administrateur:
+            \begin{itemize}
+                \item De valider ou d'invalider une licence
+                \item Ajouter et de lister les logiciels
+            \end{itemize} 
+        \end{column}
+
+        \begin{column}{.75\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.27]{img/web2.png}
+            \end{figure}  
+        \end{column} 
+
+    \end{columns}       
 \end{frame}
 
 \begin{frame}{Front - Logiciel d'activation}
-    
+    \begin{columns}
+
+        \begin{column}{.5\textwidth}
+            Permet à un client de:
+            \begin{itemize}
+                \item Envoyer l'identifiant hardware au serveur 
+                \item Récuperer une licence pour un logiciel (via API)
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{.5\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.5]{img/activation-soft.png}
+            \end{figure}  
+        \end{column} 
+
+    \end{columns}
 \end{frame}
 
 \subsection{Présentation - Back}
 
 \begin{frame}{Back - Génération Licence}
     \begin{figure}
-        \includegraphics[scale=0.4]{img/licence.png}
+        \includegraphics[scale=0.5]{img/licence.png}
     \end{figure}    
 \end{frame}
 
-\begin{frame}{Back - DLL}
-    
+\begin{frame}[fragile]{Back - DLL}
+    \begin{columns}
+
+        \begin{column}{.28\textwidth}
+            \begin{figure}
+                \includegraphics[scale=2.5]{img/Prologiciel.png}
+            \end{figure}
+        \end{column}
+
+        \begin{column}{.72\textwidth}
+\begin{code}{}
+private const string SOFTWARE_NAME = <Nom du logiciel>;
+private const string LICENCE_FILE_PATH = <Chemin vers le fichier de licence>;
+
+static public void Main()
+{
+    // Création d'une instance de LicenceChecker.
+    LicenceChecker licenceChecker = new LicenceChecker(LICENCE_FILE_PATH, SOFTWARE_NAME);
+    // Ajout des paramètres de l'identifiant hardware.
+    licenceChecker.setHardwareHashComposent(true, true, true, true, true);
+    // Test de la licence.
+    if (!licenceChecker.isValid())
+    {
+        Console.WriteLine("Integrité ou Validité de la licence non valide.\n"
+            + "Refus de lancer le logiciel.\n");
+        return;
+    }
+    // La licence est valide. Le logiciel peut se lancer.
+    Console.WriteLine("ProLogiciel peut se lancer à présent.\n"
+        + "Hello World !\n");
+    return;
+}
+\end{code}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Back - DLL}
+    \begin{columns}
+
+        \begin{column}{.28\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.5]{img/dllschemamini.png}
+            \end{figure}
+            La \verb:DLL: permet de:
+            \begin{itemize}
+                \item Vérifier la validité 
+                \item Vérifier l'integrité
+                \item Invalider la licence
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{.72\textwidth}
+\begin{code}{}
+public bool isValid()
+{
+    return checkIntegrity() && checkValidity() && antiCheatTest();
+}
+
+public bool checkIntegrity()
+{
+    return checkSignature();
+}
+
+public bool checkValidity()
+{
+    return checkHardwareHash() && checkExpirationDate() && checkName();
+}
+
+public void invalidateLicence()
+{
+    RegistryKey key;
+    key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+    key.DeleteValue("anticheating_CODE");
+    Console.WriteLine("\nLa licence a été invalidée.\n");
+}
+\end{code}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Back - Detection de fraude}
-    
+    \begin{columns}
+
+        \begin{column}{.5\textwidth}
+            \begin{itemize}
+                \item Signature de licence
+                \item Détection de modification de date
+                \item Machine HardwareId
+            \end{itemize}
+        \end{column}
+
+        \begin{column}{.5\textwidth}
+            \begin{figure}
+                \includegraphics[scale=0.2]{img/logs.png}
+            \end{figure}
+            \begin{figure}
+                \includegraphics[scale=0.15]{img/detec.png}
+            \end{figure}
+        \end{column}
+
+    \end{columns}
 \end{frame}
 
 \section{Difficultés rencontrées \& Solutions proposées}
@@ -155,11 +332,24 @@
 \section{Améliorations}
 
 \begin{frame}{Améliorations}
-    \begin{itemize}
-        \item Revoir les priorités et l'estimation
-        \item Mieux écouter les besoins clients
-        \item Anticiper les risques
-    \end{itemize}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            En gestion de projet :
+            \begin{itemize}
+                \item Revoir les priorités et l'estimation
+                \item Plus communiquer (entre nous, avec le client)
+                \item Anticiper les risques
+            \end{itemize}
+        \end{column}
+        
+        \begin{column}{0.5\textwidth}
+            Techniques :
+            \begin{itemize}
+                \item Poursuivre la greffe de code
+                \item Utilisation de framework pour la partie développement
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Retour d'expérience}
@@ -193,7 +383,7 @@
     \end{itemize}
 \end{frame}
 
-\section{Démonstration}
+\section*{Démonstration}
 
 % Q&A
 \begin{frame}[standout]

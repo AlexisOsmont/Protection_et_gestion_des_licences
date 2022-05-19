@@ -62,7 +62,7 @@
 \setlength{\TPVertModule}{\paperheight}
 
 % Custom blocks
-\RequirePackage{tcolorbox}
+\RequirePackage[minted]{tcolorbox}
 \tcbuselibrary{skins}
 \newtcolorbox{cublock}[1][Title]{
     enhanced,
@@ -329,7 +329,7 @@
         \section*{Sommaire}
     
         \begin{frame}{Sommaire}
-            \tiny{\tableofcontents[hideallsubsections]}
+            \tableofcontents[hideallsubsections]
         \end{frame}
     }
 }

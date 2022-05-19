@@ -1,0 +1,22 @@
+public bool isValid()
+{
+    return checkIntegrity() && checkValidity() && antiCheatTest();
+}
+
+public bool checkIntegrity()
+{
+    return checkSignature();
+}
+
+public bool checkValidity()
+{
+    return checkHardwareHash() && checkExpirationDate() && checkName();
+}
+
+public void invalidateLicence()
+{
+    RegistryKey key;
+    key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+    key.DeleteValue("anticheating_CODE");
+    Console.WriteLine("\nLa licence a été invalidée.\n");
+}
