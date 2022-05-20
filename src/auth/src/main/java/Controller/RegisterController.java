@@ -86,6 +86,7 @@ public class RegisterController extends HttpServlet {
 		
 		// setting success code to the view
 		request.setAttribute("errorMessage", "Inscription Réussie !");
+	
 		// calling the view
 		render(request, response);
 	}
