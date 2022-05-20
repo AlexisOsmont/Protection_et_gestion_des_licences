@@ -1,22 +1,19 @@
-public bool isValid()
+public static bool SOtimeChange()
 {
-    return checkIntegrity() && checkValidity() && antiCheatTest();
-}
+    bool time = false;
+    string oldTime = "S-1-1-22";
 
-public bool checkIntegrity()
-{
-    return checkSignature();
-}
+    EventLog log = new EventLog("Security");
+    var entries = log.Entries.Cast<EventLogEntry>()
+        .Where(x => x.TimeWritten >= DateTime.Now.AddHours(-72))
+        .Select(x => new {x.InstanceId,x.ReplacementStrings}).ToList();
 
-public bool checkValidity()
-{
-    return checkHardwareHash() && checkExpirationDate() && checkName();
-}
-
-public void invalidateLicence()
-{
-    RegistryKey key;
-    key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
-    key.DeleteValue("anticheating_CODE");
-    Console.WriteLine("\nLa licence a été invalidée.\n");
+            foreach (var entrie in entries)
+            {
+                if (entrie.InstanceId == 4616)
+                {
+                    time = !entrie.ReplacementStrings[0].Contains(oldTime);
+                }
+            }
+    return time;
 }

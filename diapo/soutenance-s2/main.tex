@@ -276,24 +276,64 @@ public void invalidateLicence()
     \end{columns}
 \end{frame}
 
-\begin{frame}{Back - Detection de fraude}
+\begin{frame}[fragile]{Back - Detection de fraude}
     \begin{columns}
+        \hspace{-1cm} 
+        \begin{column}{.4\textwidth}
 
-        \begin{column}{.5\textwidth}
-            \begin{itemize}
-                \item Signature de licence
-                \item Détection de modification de date
-                \item Machine HardwareId
-            \end{itemize}
+\begin{code}{}
+private static string assureAntiCheating()
+{
+    RegistryKey key;
+    key = Registry.CurrentUser.CreateSubKey("ProLicenceMachineHardware");
+    String? anticheatcode = key.GetValue("anticheating_CODE")?.ToString();
+    if (anticheatcode == null)
+    {
+        // Génération d'une clé aléatoire
+        Random random = new Random();
+        string newcode = "";
+        for (var i = 0; i < ANTICHEAT_CODE_LEN; i++)
+        {
+            int r = random.Next(ALPHABET.Length);
+            newcode += ALPHABET[r];
+        }
+        key.SetValue("anticheating_CODE", newcode);
+        key.Close();
+        return newcode;
+    }
+    key.Close();
+    return anticheatcode;
+}
+\end{code}            
         \end{column}
 
         \begin{column}{.5\textwidth}
-            \begin{figure}
-                \includegraphics[scale=0.2]{img/logs.png}
-            \end{figure}
-            \begin{figure}
-                \includegraphics[scale=0.15]{img/detec.png}
-            \end{figure}
+            \begin{itemize}\raggedleft
+                \item Signature de licence
+                \item Détection de date
+                \item Machine HardwareId
+            \end{itemize}
+\begin{code}{}
+public static bool SOtimeChange()
+{
+    bool time = false;
+    string oldTime = "S-1-1-22";    
+
+    EventLog log = new EventLog("Security");
+    var entries = log.Entries.Cast<EventLogEntry>()
+        .Where(x => x.TimeWritten >= DateTime.Now.AddHours(-72))
+        .Select(x => new {x.InstanceId,x.ReplacementStrings}).ToList();
+
+            foreach (var entrie in entries)
+            {
+                if (entrie.InstanceId == 4616)
+                {
+                    time = !entrie.ReplacementStrings[0].Contains(oldTime);
+                }
+            }
+    return time;
+}
+\end{code}                    
         \end{column}
 
     \end{columns}
