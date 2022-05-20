@@ -74,11 +74,11 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
     \item Trello :\\
 	Cet outil nous permet de répartir et de savoir sur quelle tâche
     travaillent les membres de l’équipe et de connaître leur avancement.\\
-		
-		\item RetroMetro :\\
-		Est un tableau blanc en ligne favorisant l’expression et le travail entre membres d’une même équipe 
-		à distance ou même sur une même machine.Cet outil un excellent moyen de susciter toute l'équipe pour
-		que tous puisse relever les bons comme les mauvais points du sprint au moment du sprint retrospective\\
+    
+    \item RetroMetro :\\
+    Est un tableau blanc en ligne favorisant l’expression et le travail entre membres d’une même équipe 
+    à distance ou même sur une même machine.Cet outil un excellent moyen de susciter toute l'équipe pour
+    que tous puisse relever les bons comme les mauvais points du sprint au moment du sprint retrospective\\
 
     \item GitHub :\\
 	L’université nous a fourni cet outil qui est très pratique pour stocker
@@ -100,8 +100,6 @@ continué d’utiliser diverses plateformes en en avons ajouté de nouvelles:\ne
 \end{itemize}
 
 \chapter{Implémentation}
-
-
 
 \section{Licence}
 
@@ -137,8 +135,6 @@ respecté la DLL ne pourra pas lire le fichier.
 Ainsi au moment de la vérification, la DLL pourra récupérer le base64 du contenu 
 de la licence et le base64 de la signature. Décoder la signature et la vérifier.
 Si la signature est bonne, décoder le JSON et en exploiter le contenu.
-
-\section{Outils de gestion}
 
 \section{DLL}
 
@@ -254,6 +250,56 @@ Nos points de progression, ou les choses à faire autrement si l'on devait refai
         dans la licence. Cette détection pourrait être améliorer (voir POC sur la détéction de fraude avec la date).
 \end{description}
 
+\chapter{Retour d'expérience}
+
+\section{Partie technique}
+    Programmation :\\
+    \newline
+    En effet au cours de ce projet nous avons apris à coder en C\#, partant de zéro pour la plupart des membres du groupe, 
+    cela a été une expérience de plus à ajouter à nos compétences acquises. Nous avons par ailleurs confirmer des sujets abordés 
+    au premier semestre, tel que le développement sous le modèle DAO.
+    \newline
+
+     Connaissances sur les techniques d'injection de code :\\
+    \newline
+    Malgré le fait que nous n'avons pas réussi à implémenter l'injection de code définie dans la phase de préparation, 
+    néanmoins nous avons passé un temps non négligeable sur ce sujet. Tout le système de recherche et toutes les tentatives pour 
+    tenter de le faire fonctionner nous aurons tout de même servient à en apprendre plus sur l'injection de code et ce qui l'entoure.
+    \newline
+
+     Mise en place d'un système composé de plusieurs élements :\\
+     \newline
+     Le coeur du projet étant de réaliser un gestionnaire de licence il a donc été nécessaire de diviser les parties. 
+     Cette division a donné lieu à des connexions afin d'échanger des informations et des données entre ces parties. 
+     Nous en avons apris beaucoup sur la connectivité et les échanges de données, c'est pourquoi nous plaçons cette partie en tant  qu'expérience.
+     \newline
+    
+     Mise en pratique d'outils cryptographiques :\\
+     \newline
+     Au cours du premier semestre nous avons suivi les enseignements de cryptographie, ces enseignements ont été mis en pratique ce semestre avec le système de signature de la licence ou celui de 
+     El gamal que nous avons voulu implémenter nous-mêmes sans réaliser l'ampleur de la tâche et ses difficultés.
+     \newline
+     \newpage
+\section{Partie Gestion de projet}
+    Compétences en gestion de projets : \\
+    \newline
+    Pour certain d'entre nous le parti gestion de projets n'était pas essentiel pour mener à bien notre projet. Réaliser le projet en 
+    mettant en place des outils de gestion tel que Trello / Git / RetroMetro nous aura été d'une utilité inespérée. 
+    À la fin de ce projet nous ressortirons donc avec des compétences quant à l'utilisation de ces outils et leurs compréhensions.
+    \newline
+
+    Communication \& Organisation : \\
+    \newline
+    L'audit et la partie sprint rétrospective nous ont permis de réaliser certains problèmes et d'y trouver des solutions. Le fait de communiquer 
+    n'était pas acquis pour certain, c'est pourquoi grâce aux méthodes de gestion et aux outils disponible, nous avons permis à tous de communiquer 
+    ce qui est l'atout principal de l'organisation et du bon déroulement du projet.
+    \newline
+
+    Gestion d'un client :\\
+    \newline
+    Avoir un client à des points négatifs et positifs. Le retour d'expérience sur le fait d'avoir un client est complexe mais nécessaire. En effet nous avons apris au fur et 
+    à mesure, à comprendre et anticiper les demandes et les attentes de notre client. Quant à la partie gestion nous avons mis en place des systèmes de compte rendu de réunion et de rapport post-réunions pour indiquer au client les sujets abordés lors 
+    de la prochaine réunion. De plus cela nous aura appris à réaliser un projet sous contrainte constante contrairement à l'université.
 \chapter{Conclusion}
 \label{chapter:bilan}
 
