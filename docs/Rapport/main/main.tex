@@ -10,6 +10,39 @@
 
 \chapter{Présentation}
 
+Le but de ce projet est de fournir une solution permettant de protéger les applications
+du client sur Windows en évitant leur copie ou leur utilisation illégale. 
+Il devra également permettre au client de générer et gérer des licences d'utilisations 
+via une interface graphique. Il pourra ainsi définir des contraintes sur les licences 
+comme par exemple leur durée de validité.\\
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=12cm, scale=0.7]{general.png}
+    {\small{\emph{\caption{fonctionnement général du projet}}}}
+\end{figure}
+Lors de ce projet nous avons mis en place un système de vérification de 
+licence comprenant:
+\begin{description}
+    \item[\verb:DLL:] 
+        Cette bibliothèque de fonctions permet de générer les informations
+        lié au matériel d'un utilisateur, de l'envoyer au serveur puis de 
+        vérifier un système de licence.
+    \item[\verb:Plateforme web:] 
+        Ce site permet aux clients de se créer un compte, 
+        d'acheter des licences pour des logiciels et permet également à 
+        l'administrateur de lister les demandes, de les accepter ou de 
+        les refuser.
+    \item[\verb:Logiciel d'activation:] 
+        Ce logiciel permet de récuperer depuis la machine
+        d'un client une licence pour un logiciel donné.
+    \item[\verb:Algorithme de Détection de fraude:]
+        Cette algorithme vérifie qu'un utilisateur nécessaie pas de modifier 
+        le fichier de licence afin de s'accorder une plus grande durée d'utilisation. 
+    \item[\verb:Documentation:]
+        Nous avons également fournis une documentation complète de tous le code
+        afin que celui-ci puisse être eventuellement repris dans les années à venir.
+\end{description}
+
 \chapter{Gestion de projet}
 
 \section{Organisation}
