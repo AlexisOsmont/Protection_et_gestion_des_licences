@@ -33,14 +33,14 @@ licence comprenant:
         l'administrateur de lister les demandes, de les accepter ou de 
         les refuser.
     \item[\verb:Logiciel d'activation:] 
-        Ce logiciel permet de récuperer depuis la machine
+        Ce logiciel permet de récupérer depuis la machine
         d'un client une licence pour un logiciel donné.
     \item[\verb:Algorithme de Détection de fraude:]
-        Cette algorithme vérifie qu'un utilisateur nécessaie pas de modifier 
+        Cette algorithme vérifie qu'un utilisateur nécessaire pas de modifier 
         le fichier de licence afin de s'accorder une plus grande durée d'utilisation. 
     \item[\verb:Documentation:]
         Nous avons également fournis une documentation complète de tous le code
-        afin que celui-ci puisse être eventuellement repris dans les années à venir.
+        afin que celui-ci puisse être éventuellement repris dans les années à venir.
 \end{description}
 
 \chapter{Gestion de projet}
@@ -237,11 +237,56 @@ Les machines virtuelles d'authentification et de web se composent donc de quelqu
 C'est pourquoi nous avons donc défini des comptes ayant des droits restreint pour limiter les accès en contenant les développer au strict nécessaire.
 De plus au moment de la création des comptes les normes données par l'ANSI ont été respectées.
 
-\section{Machine virtuelle d'authentification}
-
-\section{Machine virtuelle web}
-
 \chapter{Problèmes rencontrés}
+
+\section{Humaines}
+
+\subsection{Abandon d'un membre du groupe}
+
+Une des principales difficultés que nous avons du surmonter est l'abandon d'un des membres de notre groupe. La répartition des tâches et le périmètre du projet avez été défini
+pour 5 personnes, nous avons dû donc revoir cette répartition et réduire le périmètre du projet.
+
+\subsection{Communication}
+
+La communication a été un de nos points faibles lors de ce projet, il y a eu quelques incompréhensions, entre nous ou avec le client. Cependant nous nous sommes rendu compte
+de cette faiblesse assez rapidement et nous avons organisé plus de séances de travail et de réunion pour pallier à ce problème.
+
+\subsection{Comprendre les attentes du client}
+
+Durant la première partie du projet, lors de l'établissement des différents documents qui allaient nous guider dans notre gestion de projet, nous avons eu du mal à comprendre
+les besoins principaux du client. Nous avons compris dans la globalité ce qu'il souhaitait, cependant nous avons priorisé le développement de la plateforme de gestion des licences
+alors que cela était au final la dernière chose que l'on aurait dû faire. Cependant cela nous aura appris que répondre aux attentes d'un client n'est pas simple et c'est pour cela
+qu'il est important d'effectuer le travail de documentation que nous avons fait en amont.
+
+\section{Techniques}
+
+\subsection{Injection de code}
+
+Lorsque nous avons essayé d'effectuer la greffe de code sur un exécutable donné, nous avons rencontré beaucoup de problèmes, dont les suivants :
+\begin{itemize}
+    \item Cette technique est très mal documentée,
+    \item Nous avons rien appris à la fac concernant cette méthode et peu de professeurs sont spécialisés,
+    \item Les rares tutoriels disponibles sur Internet ne sont plus à jour, ou ne fonctionnent plus,
+    \item En règle général c'est une technique assez compliqué.
+\end{itemize}
+
+\subsection{Obfuscation}
+
+Nous voulions faire de l'obfuscation de code afin de complexifier la tâche à ceux qui veulent outrepasser la vérification de licence. Cependant nous n'avons pas eu le temps
+de se concentrer sur ce problème, et comme celui-ci était lié avec l'injection de code nous avons mis de coté cette aspect du projet.
+
+\subsection{Détection de fraude}
+
+La détection de fraude était une partie assez compliqué du projet. Il nous as fallu plusieurs réunions avec notre référent technique (qui est aussi notre client) pour établir
+un algorithme qui permet d'éviter aux utilisateurs d'obtenir une licence infinie. Cependant nous avons réussi à mettre en place une sécurité en utilisant les clés de registre
+de Windows.
+
+\subsection{Problème de réseau}
+
+Un des problèmes que nous avons rencontrés et un problème de connexion aux VMs qui hébergent notre site ainsi que le serveur d'authentification. Cela était dû au serveur DHCP
+de la fac qui attribuaient des adresses aléatoires aux VMs de projet de notre promotion. Pour pallier au problème nous avons mis en place une adresse IP statique sur nos
+machines virtuelles avec \verb:Netplan:.
+
 
 \section{Gestion de projet}
 
@@ -305,7 +350,7 @@ Nos points de progression, ou les choses à faire autrement si l'on devait refai
      Le coeur du projet étant de réaliser un gestionnaire de licence il a donc été nécessaire de diviser les parties. 
      Cette division a donné lieu à des connexions afin d'échanger des informations et des données entre ces parties. 
      Nous en avons appris beaucoup sur la connectivité et les échanges de données, c'est pourquoi nous plaçons cette partie en tant  qu'expérience.
-     \new line
+     \newline
     
      Mise en pratique d'outils cryptographiques :\\
      \newline
